@@ -1,0 +1,4930 @@
+<!-- 
+================================================================================
+FALLOU STORE (FS) - CODE HTML / CSS / JS COMPLET POUR BLOC ODOO
+Copiez l'intégralité de ce code et collez-le directement dans un bloc HTML Odoo.
+Tout est inclus : Styles Luxe, Masquage navbar Odoo, Produits, Panier, WhatsApp.
+================================================================================
+-->
+
+<!-- POLICES GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- STYLES CSS COMPLET FALLOU STORE ET OVERRIDE ODOO -->
+<style>
+
+/* Masquage de l'en-tête et du pied de page par défaut de Odoo */
+#top, header#top, header.o_header_standard, header.o_affix_enabled, .o_header_affixed, footer#bottom, footer.o_footer {
+    display: none !important;
+}
+.o_layout, #wrapwrap, main {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #f8f9fc !important;
+}
+
+/* ==========================================================================
+   FALLOU STORE (FS) - DESIGN SYSTEM & STYLESHEET HAUTE COUTURE
+   Inspiré par NovaTrend & TechHub - Dark Luxe Gold & Modern Minimalist
+   Optimisé Mobile First, Desktop & Compatibilité Odoo
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Palette de couleurs Luxe */
+  --fs-gold: #d4af37;
+  --fs-gold-light: #f5d77f;
+  --fs-gold-dark: #aa820a;
+  --fs-gold-glow: rgba(212, 175, 55, 0.25);
+  --fs-gold-gradient: linear-gradient(135deg, #d4af37 0%, #f3d068 50%, #aa820a 100%);
+  --fs-gold-gradient-hover: linear-gradient(135deg, #f5d77f 0%, #d4af37 50%, #c1951c 100%);
+  
+  --fs-bg-dark: #0a0b0e;
+  --fs-bg-card-dark: #12141a;
+  --fs-bg-elevated: #1a1e28;
+  --fs-border-dark: rgba(255, 255, 255, 0.08);
+  --fs-border-gold: rgba(212, 175, 55, 0.35);
+
+  --fs-bg-light: #f8f9fc;
+  --fs-bg-card-white: #ffffff;
+  --fs-text-main: #0f172a;
+  --fs-text-muted: #64748b;
+  --fs-text-white: #ffffff;
+  --fs-text-gold: #c59b27;
+
+  --fs-whatsapp: #25d366;
+  --fs-whatsapp-dark: #128c7e;
+  --fs-wave: #1ba0e2;
+  --fs-om: #ff6600;
+  --fs-danger: #ef4444;
+  --fs-success: #10b981;
+
+  /* Typographie */
+  --fs-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --fs-font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Ombres & Effets */
+  --fs-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --fs-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.07);
+  --fs-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+  --fs-shadow-gold: 0 10px 30px rgba(212, 175, 55, 0.22);
+  --fs-radius-sm: 8px;
+  --fs-radius-md: 14px;
+  --fs-radius-lg: 22px;
+  --fs-radius-xl: 32px;
+  --fs-radius-full: 9999px;
+
+  --fs-transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --fs-nav-height: 72px;
+  --fs-mobile-bar-height: 68px;
+}
+
+/* Reset de base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--fs-font-sans);
+  background-color: var(--fs-bg-light);
+  color: var(--fs-text-main);
+  line-height: 1.5;
+  overflow-x: hidden;
+  padding-bottom: var(--fs-mobile-bar-height);
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
+/* Utilitaires & Liens */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--fs-transition);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ==========================================================================
+   1. TOP ANNOUNCEMENT BAR (NovaTrend Inspired)
+   ========================================================================== */
+.fs-top-bar {
+  background: var(--fs-bg-dark);
+  color: #d1d5db;
+  font-size: 0.82rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.fs-top-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.fs-top-ticker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+}
+
+.fs-top-ticker .badge-pulse {
+  background: var(--fs-gold-gradient);
+  color: #000;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--fs-radius-full);
+  text-transform: uppercase;
+}
+
+.fs-top-links {
+  display: none;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .fs-top-links {
+    display: flex;
+  }
+}
+
+.fs-top-links a:hover {
+  color: var(--fs-gold-light);
+}
+
+/* ==========================================================================
+   2. MAIN HEADER & NAVIGATION
+   ========================================================================== */
+.fs-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  transition: var(--fs-transition);
+}
+
+.fs-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--fs-nav-height);
+  gap: 1rem;
+}
+
+/* Brand Logo */
+.fs-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.fs-logo-img {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+}
+
+.fs-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.fs-brand-title {
+  font-family: var(--fs-font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0b0c10;
+  line-height: 1.1;
+}
+
+.fs-brand-title span {
+  background: var(--fs-gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fs-brand-subtitle {
+  font-size: 0.68rem;
+  color: var(--fs-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+/* Desktop Search Bar */
+.fs-search-wrapper {
+  flex: 1;
+  max-width: 440px;
+  position: relative;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .fs-search-wrapper {
+    display: block;
+  }
+}
+
+.fs-search-input {
+  width: 100%;
+  padding: 0.7rem 1.25rem 0.7rem 2.75rem;
+  border-radius: var(--fs-radius-full);
+  border: 1px solid #e2e8f0;
+  background: #f1f5f9;
+  font-size: 0.9rem;
+  color: var(--fs-text-main);
+  transition: var(--fs-transition);
+}
+
+.fs-search-input:focus {
+  background: #ffffff;
+  border-color: var(--fs-gold);
+  box-shadow: 0 0 0 3px var(--fs-gold-glow);
+  outline: none;
+}
+
+.fs-search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+/* Header Actions */
+.fs-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.fs-btn-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  color: #334155;
+  transition: var(--fs-transition);
+  position: relative;
+}
+
+.fs-btn-icon:hover {
+  background: #e2e8f0;
+  color: #0b0c10;
+  transform: translateY(-2px);
+}
+
+.fs-badge-count {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background: var(--fs-gold-gradient);
+  color: #000;
+  font-size: 0.7rem;
+  font-weight: 800;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  animation: pulseBadge 2s infinite;
+}
+
+@keyframes pulseBadge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.fs-header-whatsapp-btn {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  background: #25d366;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--fs-radius-full);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  transition: var(--fs-transition);
+}
+
+@media (min-width: 992px) {
+  .fs-header-whatsapp-btn {
+    display: flex;
+  }
+}
+
+.fs-header-whatsapp-btn:hover {
+  background: #1eb956;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
+}
+
+/* ==========================================================================
+   3. HERO SECTION (TechHub & NovaTrend Fusion)
+   ========================================================================== */
+.fs-hero {
+  padding: 1.5rem 0 2rem;
+  background: linear-gradient(180deg, #f8f9fc 0%, #ffffff 100%);
+}
+
+.fs-hero-card {
+  background: #0d0f17;
+  border-radius: var(--fs-radius-lg);
+  padding: 2.25rem 1.75rem;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+/* Carrousel d'ambiance en arrière-plan du Hero (Électronique + Parfum) */
+.fs-hero-bg-carousel {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.fs-hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.0);
+  animation: heroCrossfade 14s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fs-slide-tech {
+  animation-delay: 0s;
+}
+
+.fs-slide-perfume {
+  animation-delay: 7s;
+}
+
+@keyframes heroCrossfade {
+  0% {
+    opacity: 0;
+    transform: scale(1.0);
+  }
+  12% {
+    opacity: 0.40;
+  }
+  42% {
+    opacity: 0.40;
+    transform: scale(1.07);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.0);
+  }
+}
+
+.fs-hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(10, 11, 15, 0.94) 0%, rgba(18, 20, 28, 0.88) 55%, rgba(10, 11, 15, 0.96) 100%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 2;
+}
+
+.fs-hero-card::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.fs-hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 640px;
+}
+
+.fs-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--fs-gold-light);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--fs-radius-full);
+  margin-bottom: 1.25rem;
+}
+
+.fs-hero-title {
+  font-family: var(--fs-font-display);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+
+.fs-hero-title .gold-gradient {
+  background: var(--fs-gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fs-hero-desc {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: #94a3b8;
+  margin-bottom: 1.75rem;
+  line-height: 1.6;
+}
+
+.fs-hero-cta-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.fs-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--fs-gold-gradient);
+  color: #0b0c10;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--fs-radius-full);
+  box-shadow: var(--fs-shadow-gold);
+  transition: var(--fs-transition);
+}
+
+.fs-btn-primary:hover {
+  background: var(--fs-gold-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.35);
+}
+
+.fs-btn-video {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: var(--fs-radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: var(--fs-transition);
+}
+
+.fs-btn-video:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--fs-gold);
+  color: var(--fs-gold-light);
+}
+
+.fs-hero-badges {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fs-hero-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: #cbd5e1;
+}
+
+.fs-hero-badge-item svg {
+  color: var(--fs-gold);
+}
+
+/* ==========================================================================
+   4. CATEGORY PILLS (TechHub Style)
+   ========================================================================== */
+.fs-categories-bar {
+  padding: 1.5rem 0 1rem;
+}
+
+.fs-categories-scroll {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.fs-categories-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.fs-cat-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.1rem;
+  background: #ffffff;
+  border-radius: var(--fs-radius-full);
+  border: 1px solid #e2e8f0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #475569;
+  white-space: nowrap;
+  box-shadow: var(--fs-shadow-sm);
+  transition: var(--fs-transition);
+}
+
+.fs-cat-chip .chip-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  transition: var(--fs-transition);
+}
+
+.fs-cat-chip:hover,
+.fs-cat-chip.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.fs-cat-chip:hover .chip-icon,
+.fs-cat-chip.active .chip-icon {
+  background: var(--fs-gold-gradient);
+  color: #000000;
+}
+
+/* ==========================================================================
+   5. FLASH SALE BANNER & COUNTDOWN (NovaTrend Style)
+   ========================================================================== */
+.fs-flash-section {
+  padding: 1.5rem 0 2rem;
+}
+
+.fs-flash-card {
+  background: linear-gradient(135deg, #181920 0%, #222533 100%);
+  border-radius: var(--fs-radius-lg);
+  padding: 1.5rem 1.75rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.fs-flash-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fs-flash-badge {
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--fs-radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-block;
+}
+
+.fs-flash-title {
+  font-family: var(--fs-font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-top: 0.25rem;
+}
+
+.fs-flash-timer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timer-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: var(--fs-radius-sm);
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+  min-width: 52px;
+}
+
+.timer-num {
+  font-family: var(--fs-font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--fs-gold-light);
+  line-height: 1;
+}
+
+.timer-label {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.timer-colon {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--fs-gold);
+}
+
+/* ==========================================================================
+   6. SECTION HEADERS & TABS
+   ========================================================================== */
+.fs-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.fs-section-title-wrap h2 {
+  font-family: var(--fs-font-display);
+  font-size: clamp(1.4rem, 3vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+}
+
+.fs-section-subtitle {
+  font-size: 0.88rem;
+  color: var(--fs-text-muted);
+  margin-top: 0.25rem;
+}
+
+.fs-filter-tabs {
+  display: flex;
+  gap: 0.5rem;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: var(--fs-radius-full);
+}
+
+.fs-tab-btn {
+  padding: 0.45rem 0.95rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748b;
+  border-radius: var(--fs-radius-full);
+  transition: var(--fs-transition);
+}
+
+.fs-tab-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: var(--fs-shadow-sm);
+}
+
+/* ==========================================================================
+   7. PRODUCT GRID & CARDS
+   ========================================================================== */
+.fs-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 480px) {
+  .fs-product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+.fs-card {
+  background: var(--fs-bg-card-white);
+  border-radius: var(--fs-radius-md);
+  border: 1px solid #edf2f7;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--fs-shadow-sm);
+  transition: var(--fs-transition);
+  position: relative;
+}
+
+.fs-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--fs-shadow-md);
+  border-color: #cbd5e1;
+}
+
+.fs-card-thumb-wrap {
+  position: relative;
+  background: #f8fafc;
+  padding-top: 100%; /* Ratio 1:1 */
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.fs-card-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.fs-card:hover .fs-card-img {
+  transform: scale(1.05);
+}
+
+.fs-card-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--fs-radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  z-index: 2;
+}
+
+.fs-card-badge.gold {
+  background: var(--fs-gold-gradient);
+  color: #000000;
+}
+
+.fs-card-badge.out-of-stock {
+  background: #ef4444;
+}
+
+.fs-card-quickview {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(6px);
+  border: 1px solid #e2e8f0;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--fs-radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #0f172a;
+  opacity: 0;
+  transition: var(--fs-transition);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: var(--fs-shadow-sm);
+  white-space: nowrap;
+}
+
+.fs-card:hover .fs-card-quickview {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.fs-card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+@media (max-width: 480px) {
+  .fs-card-body {
+    padding: 0.75rem;
+  }
+}
+
+.fs-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+  font-size: 0.72rem;
+  color: var(--fs-text-muted);
+}
+
+.fs-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: #eab308;
+  font-weight: 700;
+}
+
+.fs-card-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.7em;
+}
+
+@media (max-width: 480px) {
+  .fs-card-title {
+    font-size: 0.82rem;
+  }
+}
+
+.fs-card-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: auto;
+  margin-bottom: 0.75rem;
+}
+
+.fs-price-current {
+  font-family: var(--fs-font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.fs-price-currency {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fs-gold-dark);
+}
+
+.fs-price-old {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.fs-card-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.4rem;
+}
+
+.fs-btn-add-cart {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-radius: var(--fs-radius-sm);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: var(--fs-transition);
+}
+
+.fs-btn-add-cart:hover {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.fs-btn-direct-wa {
+  background: #25d366;
+  color: #ffffff;
+  border-radius: var(--fs-radius-sm);
+  padding: 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--fs-transition);
+}
+
+.fs-btn-direct-wa:hover {
+  background: #1eb956;
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   8. TRUST & ASSURANCE SECTION (4 Icons NovaTrend)
+   ========================================================================== */
+.fs-trust-section {
+  padding: 2.5rem 0;
+  background: #ffffff;
+  border-top: 1px solid #edf2f7;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.fs-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.fs-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fs-trust-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(212, 175, 55, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fs-gold-dark);
+  flex-shrink: 0;
+}
+
+.fs-trust-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.fs-trust-desc {
+  font-size: 0.8rem;
+  color: var(--fs-text-muted);
+}
+
+/* ==========================================================================
+   9. REVIEWS & TESTIMONIALS
+   ========================================================================== */
+.fs-reviews-section {
+  padding: 3rem 0;
+}
+
+.fs-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.fs-review-card {
+  background: #ffffff;
+  border-radius: var(--fs-radius-md);
+  padding: 1.5rem;
+  border: 1px solid #edf2f7;
+  box-shadow: var(--fs-shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.fs-review-stars {
+  color: #eab308;
+  display: flex;
+  gap: 3px;
+  margin-bottom: 0.75rem;
+}
+
+.fs-review-text {
+  font-size: 0.9rem;
+  color: #334155;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  font-style: italic;
+  flex: 1;
+}
+
+.fs-review-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.fs-author-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--fs-gold-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #000;
+  font-size: 0.85rem;
+}
+
+.fs-author-name {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #0f172a;
+}
+
+.fs-author-loc {
+  font-size: 0.75rem;
+  color: var(--fs-text-muted);
+}
+
+/* ==========================================================================
+   10. FAQ ACCORDION SECTION
+   ========================================================================== */
+.fs-faq-section {
+  padding: 3rem 0;
+  background: #f8fafc;
+}
+
+.fs-faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.fs-faq-item {
+  background: #ffffff;
+  border-radius: var(--fs-radius-md);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  transition: var(--fs-transition);
+}
+
+.fs-faq-trigger {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: #0f172a;
+  text-align: left;
+}
+
+.fs-faq-trigger:hover {
+  color: var(--fs-gold-dark);
+}
+
+.fs-faq-icon {
+  transition: transform 0.3s ease;
+  color: var(--fs-gold);
+}
+
+.fs-faq-item.open .fs-faq-icon {
+  transform: rotate(180deg);
+}
+
+.fs-faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 1.5rem;
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.fs-faq-item.open .fs-faq-content {
+  max-height: 250px;
+  padding-bottom: 1.25rem;
+}
+
+/* ==========================================================================
+   11. FOOTER
+   ========================================================================== */
+.fs-footer {
+  background: #090a0f;
+  color: #94a3b8;
+  padding: 3.5rem 0 2rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.fs-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 900px) {
+  .fs-footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 550px) {
+  .fs-footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fs-footer-brand p {
+  font-size: 0.88rem;
+  margin: 1rem 0 1.25rem;
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+.fs-footer-col h4 {
+  color: #ffffff;
+  font-family: var(--fs-font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.fs-footer-col h4::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 24px;
+  height: 2px;
+  background: var(--fs-gold);
+}
+
+.fs-footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+}
+
+.fs-footer-links a:hover {
+  color: var(--fs-gold-light);
+  transform: translateX(3px);
+}
+
+.fs-footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.82rem;
+}
+
+.fs-agency-credit {
+  color: #cbd5e1;
+}
+
+.fs-agency-credit a {
+  color: var(--fs-gold-light);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   12. STICKY MOBILE BOTTOM BAR (TechHub Style)
+   ========================================================================== */
+.fs-mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--fs-mobile-bar-height);
+  background: rgba(15, 23, 42, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 999;
+  padding: 0 0.5rem;
+}
+
+@media (min-width: 992px) {
+  .fs-mobile-nav {
+    display: none;
+  }
+}
+
+.fs-mobile-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: #94a3b8;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 6px;
+  position: relative;
+  transition: var(--fs-transition);
+}
+
+.fs-mobile-item.active,
+.fs-mobile-item:hover {
+  color: var(--fs-gold-light);
+}
+
+.fs-mobile-item svg {
+  width: 22px;
+  height: 22px;
+}
+
+.fs-mobile-item-center {
+  position: relative;
+  top: -14px;
+}
+
+.fs-center-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--fs-gold-gradient);
+  color: #0b0c10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
+  border: 3px solid #0f172a;
+}
+
+/* ==========================================================================
+   13. CART DRAWER (SIDEBAR)
+   ========================================================================== */
+.fs-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--fs-transition);
+}
+
+.fs-drawer-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fs-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  z-index: 2001;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.fs-drawer.active {
+  transform: translateX(0);
+}
+
+.fs-drawer-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fs-drawer-title {
+  font-family: var(--fs-font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fs-drawer-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.fs-cart-item {
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.fs-cart-item-img {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--fs-radius-sm);
+  object-fit: cover;
+  background: #f8fafc;
+}
+
+.fs-cart-item-info {
+  flex: 1;
+}
+
+.fs-cart-item-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.fs-cart-item-variant {
+  font-size: 0.75rem;
+  color: var(--fs-gold-dark);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.fs-cart-item-price {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 4px;
+}
+
+.fs-qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.fs-qty-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.fs-qty-val {
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+}
+
+.fs-drawer-footer {
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.fs-subtotal-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+}
+
+.fs-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.fs-btn-checkout-wa {
+  width: 100%;
+  background: #25d366;
+  color: #ffffff;
+  padding: 0.9rem;
+  border-radius: var(--fs-radius-md);
+  font-weight: 800;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  transition: var(--fs-transition);
+}
+
+.fs-btn-checkout-wa:hover {
+  background: #1eb956;
+}
+
+/* ==========================================================================
+   14. MODAL DETAILED PRODUCT & WHATSAPP CHECKOUT MODAL
+   ========================================================================== */
+.fs-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--fs-transition);
+}
+
+.fs-modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fs-modal-window {
+  background: #ffffff;
+  border-radius: var(--fs-radius-lg);
+  max-width: 850px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--fs-shadow-lg);
+  transform: scale(0.95);
+  transition: var(--fs-transition);
+}
+
+.fs-modal-backdrop.active .fs-modal-window {
+  transform: scale(1);
+}
+
+.fs-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #64748b;
+  z-index: 10;
+  transition: var(--fs-transition);
+}
+
+.fs-modal-close:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* Modal Product Grid */
+.fs-modal-pdp {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .fs-modal-pdp {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+}
+
+.fs-pdp-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.fs-pdp-main-img-wrap {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+  background: #f8fafc;
+  border-radius: var(--fs-radius-md);
+  overflow: hidden;
+  border: 1px solid #edf2f7;
+}
+
+.fs-pdp-main-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fs-pdp-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+}
+
+.fs-pdp-thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  object-fit: cover;
+  background: #f8fafc;
+}
+
+.fs-pdp-thumb.active {
+  border-color: var(--fs-gold);
+}
+
+/* Modal Product Details */
+.fs-pdp-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.fs-pdp-title {
+  font-family: var(--fs-font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.fs-pdp-tagline {
+  font-size: 0.88rem;
+  color: var(--fs-gold-dark);
+  font-weight: 600;
+  margin: 0.35rem 0 1rem;
+}
+
+.fs-pdp-price-box {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.fs-pdp-variants-wrap {
+  margin-bottom: 1.25rem;
+}
+
+.fs-variants-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.fs-variants-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.fs-variant-btn {
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--fs-radius-full);
+  border: 1px solid #cbd5e1;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+  transition: var(--fs-transition);
+}
+
+.fs-variant-btn.active {
+  background: var(--fs-gold-gradient);
+  border-color: var(--fs-gold);
+  color: #000;
+  font-weight: 700;
+}
+
+.fs-pdp-desc {
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.fs-pdp-specs {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: #334155;
+  margin-bottom: 1.5rem;
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: var(--fs-radius-md);
+}
+
+.fs-pdp-specs li::before {
+  content: '✓';
+  color: var(--fs-gold-dark);
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+/* ==========================================================================
+   15. FORMULAIRE COMMANDE WHATSAPP & SÉLECTION COMMERCIAL
+   ========================================================================== */
+.fs-checkout-form {
+  padding: 2rem;
+}
+
+.fs-form-title {
+  font-family: var(--fs-font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.fs-form-group {
+  margin-bottom: 1.2rem;
+}
+
+.fs-form-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.35rem;
+}
+
+.fs-form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--fs-radius-sm);
+  border: 1px solid #cbd5e1;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: var(--fs-transition);
+}
+
+.fs-form-control:focus {
+  border-color: var(--fs-gold);
+  box-shadow: 0 0 0 3px var(--fs-gold-glow);
+  outline: none;
+}
+
+.fs-radio-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+@media (max-width: 480px) {
+  .fs-radio-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fs-radio-card {
+  border: 1px solid #cbd5e1;
+  border-radius: var(--fs-radius-md);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: var(--fs-transition);
+}
+
+.fs-radio-card.active {
+  border-color: var(--fs-gold);
+  background: rgba(212, 175, 55, 0.08);
+}
+
+/* Video Boutique Modal */
+.fs-video-modal-inner {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.fs-video-player {
+  width: 100%;
+  max-height: 520px;
+  border-radius: var(--fs-radius-md);
+  background: #000;
+}
+
+/* Notification Toast */
+.fs-toast {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--fs-radius-md);
+  border-left: 4px solid var(--fs-gold);
+  box-shadow: var(--fs-shadow-lg);
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 9999;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: var(--fs-transition);
+}
+
+.fs-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ================================================================
+   ADMIN PANEL (INCLUS DANS LE SNIPPET ODOO)
+   ================================================================ */
+.fs-admin-overlay {
+  position: fixed; inset: 0; background: #0b0c10;
+  z-index: 999999; display: none; flex-direction: column;
+  overflow-y: auto;
+}
+.fs-admin-overlay.active { display: flex; }
+
+.fs-admin-inner { max-width: 1400px; margin: 0 auto; padding: 1.5rem 1rem; width: 100%; }
+
+.admin-top-nav {
+  background: #141721; border: 1px solid rgba(212,175,55,0.25);
+  border-radius: 14px; padding: 1rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.75rem; flex-wrap: wrap; gap: 1rem;
+}
+.admin-logo-wrap { display: flex; align-items: center; gap: 0.75rem; }
+.admin-nav-tabs {
+  display: flex; gap: 0.5rem; background: #0b0c10;
+  padding: 4px; border-radius: 9999px; flex-wrap: wrap;
+}
+.admin-nav-tab {
+  padding: 0.5rem 1rem; font-size: 0.82rem; font-weight: 700;
+  color: #94a3b8; border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.16,1,0.3,1); border: none; cursor: pointer; background: none;
+}
+.admin-nav-tab.active { background: var(--fs-gold-gradient); color: #0b0c10; }
+.admin-kpi-grid {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 1.25rem; margin-bottom: 2rem;
+}
+.admin-kpi-card {
+  background: #141721; border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px; padding: 1.5rem; position: relative; overflow: hidden;
+}
+.admin-kpi-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--fs-gold-gradient);
+}
+.kpi-title { font-size: 0.78rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; }
+.kpi-val { font-family: var(--fs-font-display); font-size: 1.75rem; font-weight: 800; color: #fff; margin: 0.4rem 0 0.2rem; }
+.kpi-sub { font-size: 0.76rem; color: #10b981; font-weight: 600; }
+.admin-table-card {
+  background: #141721; border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px; padding: 1.5rem; margin-bottom: 2rem;
+}
+.admin-table-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;
+}
+.admin-table-head h3 { font-family: var(--fs-font-display); font-size: 1.15rem; font-weight: 800; color: #fff; }
+.admin-table-wrap { overflow-x: auto; }
+table.admin-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.86rem; color: #fff; }
+table.admin-table th {
+  background: #0f121a; color: #94a3b8; padding: 0.85rem 1rem;
+  font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+table.admin-table td { padding: 0.9rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #cbd5e1; }
+table.admin-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+.badge-status { padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.73rem; font-weight: 700; display: inline-block; }
+.badge-in-stock { background: rgba(16,185,129,0.15); color: #34d399; }
+.badge-out-stock { background: rgba(239,68,68,0.15); color: #f87171; }
+.badge-order-status { padding: 0.3rem 0.75rem; border-radius: 9999px; font-size: 0.73rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; }
+.status-prep { background: rgba(245,158,11,0.18); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+.status-delivery { background: rgba(56,189,248,0.18); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); }
+.status-done { background: rgba(16,185,129,0.18); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+.status-cancelled { background: rgba(239,68,68,0.18); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+
+.switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .3s; border-radius: 24px; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+input:checked + .slider { background-color: #10b981; }
+input:checked + .slider:before { transform: translateX(20px); }
+
+/* Admin Login Overlay (inside panel) */
+.admin-login-wrap {
+  flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem;
+}
+.admin-login-card {
+  background: #141721; border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 22px; padding: 2.5rem 2rem; max-width: 420px; width: 100%;
+  text-align: center; box-shadow: 0 10px 30px rgba(212,175,55,0.22);
+}
+
+/* Live Visitors Badge */
+.live-visitors-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.35);
+  color: #34d399; padding: 0.35rem 0.85rem; border-radius: 9999px;
+  font-size: 0.8rem; font-weight: 700;
+}
+.live-pulse-dot {
+  width: 9px; height: 9px; border-radius: 50%; background: #10b981;
+  box-shadow: 0 0 10px #10b981; animation: live-pulse-anim 1.5s infinite;
+}
+@keyframes live-pulse-anim {
+  0% { transform: scale(.95); box-shadow: 0 0 0 0 rgba(16,185,129,.7); }
+  70% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(16,185,129,0); }
+  100% { transform: scale(.95); box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+
+/* Stat Bars */
+.fs-stat-bar-track { width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; display: flex; }
+.fs-stat-bar-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
+
+/* Custom Confirm Dialog */
+.fs-confirm-dialog-backdrop {
+  position: fixed; inset: 0; background: rgba(10,11,14,0.88);
+  backdrop-filter: blur(8px); z-index: 9999999;
+  display: flex; align-items: center; justify-content: center; padding: 1.25rem;
+  opacity: 0; pointer-events: none; transition: opacity 0.25s cubic-bezier(0.16,1,0.3,1);
+}
+.fs-confirm-dialog-backdrop.active { opacity: 1; pointer-events: auto; }
+.fs-confirm-dialog-card {
+  background: #141721; border: 1px solid rgba(239,68,68,0.35);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.7), 0 0 35px rgba(239,68,68,.2);
+  border-radius: 20px; max-width: 440px; width: 100%;
+  padding: 2rem 1.75rem; text-align: center; color: #fff;
+  transform: scale(0.92) translateY(16px);
+  transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
+}
+.fs-confirm-dialog-backdrop.active .fs-confirm-dialog-card { transform: scale(1) translateY(0); }
+.fs-confirm-dialog-icon {
+  width: 64px; height: 64px; margin: 0 auto 1.25rem;
+  border-radius: 50%; background: rgba(239,68,68,0.12);
+  border: 1.5px solid rgba(239,68,68,0.4);
+  display: flex; align-items: center; justify-content: center;
+  color: #ef4444; animation: pulse-danger-ring 2s infinite;
+}
+@keyframes pulse-danger-ring {
+  0% { box-shadow: 0 0 0 0 rgba(239,68,68,.4); }
+  70% { box-shadow: 0 0 0 12px rgba(239,68,68,0); }
+  100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+}
+.fs-confirm-dialog-title { font-family: var(--fs-font-display); font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+.fs-confirm-dialog-desc { font-size: 0.86rem; color: #94a3b8; line-height: 1.5; margin-bottom: 1.25rem; }
+.fs-confirm-dialog-item-tag {
+  display: inline-block; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12); color: #f8fafc;
+  padding: 0.4rem 0.9rem; border-radius: 8px; font-weight: 700;
+  font-size: 0.85rem; margin-bottom: 1.5rem;
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.fs-confirm-dialog-actions { display: flex; gap: 0.75rem; justify-content: center; }
+.fs-confirm-btn-cancel {
+  flex: 1; padding: 0.8rem 1rem; border-radius: 12px;
+  background: #1e2433; color: #cbd5e1; font-weight: 700; font-size: 0.88rem;
+  border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.2s ease;
+}
+.fs-confirm-btn-cancel:hover { background: #283044; color: #fff; }
+.fs-confirm-btn-danger {
+  flex: 1.3; padding: 0.8rem 1rem; border-radius: 12px;
+  background: linear-gradient(135deg,#ef4444 0%,#b91c1c 100%); color: #fff;
+  font-weight: 700; font-size: 0.88rem; border: none; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(239,68,68,.4); transition: all 0.2s ease;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.fs-confirm-btn-danger:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(239,68,68,.6); }
+
+/* Admin form controls (dark theme) */
+.admin-form-ctrl {
+  width: 100%; padding: 0.6rem 0.8rem; background: #0b0c10;
+  border: 1px solid #334155; color: #fff; border-radius: 8px;
+  font-size: 0.85rem; font-family: inherit; outline: none;
+  transition: border-color 0.2s;
+}
+.admin-form-ctrl:focus { border-color: var(--fs-gold); }
+
+</style>
+
+<!-- STRUCTURE HTML DE LA BOUTIQUE -->
+<div id="fallou-store-root">
+<!-- 1. TOP ANNOUNCEMENT BAR (NovaTrend Inspired) -->
+  <aside class="fs-top-bar" aria-label="Bannière d'informations">
+    <div class="container">
+      <div class="fs-top-bar-inner">
+        <div class="fs-top-ticker">
+          <span class="badge-pulse">Flash</span>
+          <span>⚡ Livraison Express en moins de 4h à Dakar • Paiements Wave, Orange Money & Cash</span>
+        </div>
+        <div class="fs-top-links">
+          <span>📞 Service Client : <b>+221 77 894 40 41</b></span>
+          <a href="#faqSection">FAQ</a>
+          <a href="#" onclick="event.preventDefault(); openAdminPanel();" style="display: inline-flex; align-items: center; gap: 4px; cursor: pointer;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <span>Connexion Admin</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 2. MAIN HEADER -->
+  <header class="fs-header" id="mainHeader">
+    <div class="container">
+      <div class="fs-header-inner">
+        
+        <!-- Logo de la Marque FS -->
+        <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0, behavior:'smooth'});" class="fs-brand" aria-label="Accueil Fallou Store">
+          <img src="https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161836/photo_10_2026-09-23_10-36-58_ufgwp6.jpg" alt="Logo officiel Fallou Store" class="fs-logo-img">
+          <div class="fs-brand-text">
+            <span class="fs-brand-title">FALLOU <span>STORE</span></span>
+            <span class="fs-brand-subtitle">Électronique • Parfums • Gadgets</span>
+          </div>
+        </a>
+
+        <!-- Barre de Recherche Instantanée Desktop -->
+        <div class="fs-search-wrapper">
+          <svg class="fs-search-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input type="text" id="fsSearchInput" class="fs-search-input" placeholder="Rechercher un parfum, AirPods, caméra, montre..." autocomplete="off">
+        </div>
+
+        <!-- Actions d'En-tête -->
+        <div class="fs-header-actions">
+          <!-- Bouton Direct WhatsApp Commercial -->
+          <a href="https://wa.me/221778944041?text=Bonjour%20Fallou%20Store%2C%20je%20souhaite%20des%20renseignements%20sur%20vos%20produits" target="_blank" class="fs-header-whatsapp-btn" title="Discuter directement sur WhatsApp">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+            </svg>
+            <span>Commander WhatsApp</span>
+          </a>
+
+          <!-- Bouton Ouvrir Panier -->
+          <button class="fs-btn-icon" onclick="window.fsApp.openCartDrawer()" title="Voir mon panier">
+            <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+            <span class="fs-badge-count cart-count-badge" style="display: none;">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. HERO SECTION (TechHub & NovaTrend Fusion avec Animation de Fond Électronique & Parfums) -->
+  <section class="fs-hero" id="homeHero">
+    <div class="container">
+      <div class="fs-hero-card">
+        <!-- Arrière-plan animé en boucle avec transition fluide -->
+        <div class="fs-hero-bg-carousel">
+          <div class="fs-hero-slide fs-slide-tech" style="background-image: url('https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161782/bento_1_airpod_max_midnight__4jy1tkqh9qay_xlarge_acdicd.jpg');"></div>
+          <div class="fs-hero-slide fs-slide-perfume" style="background-image: url('https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180202/madawi-gold-edition___240829_1_dwx7au.webp');"></div>
+          <div class="fs-hero-bg-overlay"></div>
+        </div>
+
+        <div class="fs-hero-content">
+          <div class="fs-hero-tag">
+            <span>✨ Nouvelle Collection 2026</span>
+          </div>
+          <h1 class="fs-hero-title">
+            SMART TECH. <br>
+            <span class="gold-gradient">LUXE ORIENTAL.</span>
+          </h1>
+          <p class="fs-hero-desc">
+            Le carrefour de l'excellence à Dakar : découvrez nos casques haute fidélité, micros professionnels DJI, montres connectées et les plus somptueuses fragrances de haute parfumerie arabe.
+          </p>
+
+          <div class="fs-hero-cta-group">
+            <a href="#catalogSection" class="fs-btn-primary">
+              <span>Explorer le Catalogue</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </a>
+            <button type="button" class="fs-btn-video" onclick="window.fsApp.openVideoModal()">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <span>Voir la Vidéo Boutique</span>
+            </button>
+          </div>
+
+          <!-- Badges Réassurance Directe -->
+          <div class="fs-hero-badges">
+            <div class="fs-hero-badge-item">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.5L19.5 19h-15L12 5.5z"/></svg>
+              <span>100% Produits Authentiques</span>
+            </div>
+            <div class="fs-hero-badge-item">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg>
+              <span>Paiement à la Livraison ou Wave</span>
+            </div>
+            <div class="fs-hero-badge-item">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg>
+              <span>Livraison Express Dakar 4h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CATEGORIES SELECTOR (TechHub Circular Chips) -->
+  <section class="fs-categories-bar" aria-label="Catégories">
+    <div class="container">
+      <div class="fs-categories-scroll">
+        <button class="fs-cat-chip active" data-category="all">
+          <span class="chip-icon">★</span>
+          <span>Tous les Produits</span>
+        </button>
+        <button class="fs-cat-chip" data-category="electronique">
+          <span class="chip-icon">⚡</span>
+          <span>Électronique & Son</span>
+        </button>
+        <button class="fs-cat-chip" data-category="parfums">
+          <span class="chip-icon">💎</span>
+          <span>Parfums d'Exception</span>
+        </button>
+        <button class="fs-cat-chip" data-category="accessoires">
+          <span class="chip-icon">⌚</span>
+          <span>Accessoires & Montres</span>
+        </button>
+        <button class="fs-cat-chip" data-category="gadgets">
+          <span class="chip-icon">📷</span>
+          <span>Gadgets & Studio</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. FLASH SALE BANNER & COUNTDOWN (NovaTrend Style) -->
+  <section class="fs-flash-section">
+    <div class="container">
+      <div class="fs-flash-card">
+        <div class="fs-flash-info">
+          <span class="fs-flash-badge">Offre Flash</span>
+          <div>
+            <h3 class="fs-flash-title">Ventes Privées & Promotions Exclusives</h3>
+            <p style="font-size: 0.82rem; color: #cbd5e1;">Profitez de réductions immédiates sur une sélection d'articles avant expiration.</p>
+          </div>
+        </div>
+        <div class="fs-flash-timer">
+          <div class="timer-box">
+            <div class="timer-num" id="timerDays">02</div>
+            <div class="timer-label">Jours</div>
+          </div>
+          <span class="timer-colon">:</span>
+          <div class="timer-box">
+            <div class="timer-num" id="timerHours">14</div>
+            <div class="timer-label">Heures</div>
+          </div>
+          <span class="timer-colon">:</span>
+          <div class="timer-box">
+            <div class="timer-num" id="timerMinutes">45</div>
+            <div class="timer-label">Min</div>
+          </div>
+          <span class="timer-colon">:</span>
+          <div class="timer-box">
+            <div class="timer-num" id="timerSeconds">30</div>
+            <div class="timer-label">Sec</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. PRODUCT CATALOG SECTION -->
+  <section class="fs-catalog-section" id="catalogSection">
+    <div class="container">
+      <!-- Section Header avec Onglets -->
+      <div class="fs-section-header">
+        <div class="fs-section-title-wrap">
+          <h2>Découvrez Notre Collection</h2>
+          <p class="fs-section-subtitle">Commandez en 1 clic et recevez votre colis à domicile à Dakar et partout au Sénégal</p>
+        </div>
+
+        <div class="fs-filter-tabs">
+          <button class="fs-tab-btn active" data-tab="all">Tous</button>
+          <button class="fs-tab-btn" data-tab="bestseller">Bestsellers</button>
+          <button class="fs-tab-btn" data-tab="promo">Promotions</button>
+          <button class="fs-tab-btn" data-tab="nouveau">Nouveautés</button>
+        </div>
+      </div>
+
+      <!-- Grille Produits Dynamique -->
+      <div class="fs-product-grid" id="fsProductGrid">
+        <!-- Rempli automatiquement via js/app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. SECTION RÉASSURANCE ET MOYENS DE PAIEMENT (NovaTrend) -->
+  <section class="fs-trust-section">
+    <div class="container">
+      <div class="fs-trust-grid">
+        <div class="fs-trust-item">
+          <div class="fs-trust-icon-box">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div>
+            <div class="fs-trust-title">Livraison Ultra Rapide</div>
+            <div class="fs-trust-desc">Moins de 4h à Dakar, 24-48h en région</div>
+          </div>
+        </div>
+
+        <div class="fs-trust-item">
+          <div class="fs-trust-icon-box">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <div class="fs-trust-title">100% Qualité Certifiée</div>
+            <div class="fs-trust-desc">Produits neufs sous blister d'origine</div>
+          </div>
+        </div>
+
+        <div class="fs-trust-item">
+          <div class="fs-trust-icon-box">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          </div>
+          <div>
+            <div class="fs-trust-title">Paiements Simples & Flexibles</div>
+            <div class="fs-trust-desc">Wave, Orange Money, Cash & Carte</div>
+          </div>
+        </div>
+
+        <div class="fs-trust-item">
+          <div class="fs-trust-icon-box">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </div>
+          <div>
+            <div class="fs-trust-title">Assistance WhatsApp 7j/7</div>
+            <div class="fs-trust-desc">Nos commerciaux vous répondent en direct</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. AVIS CLIENTS & TÉMOIGNAGES -->
+  <section class="fs-reviews-section">
+    <div class="container">
+      <div class="fs-section-header" style="text-align: center; justify-content: center;">
+        <div class="fs-section-title-wrap">
+          <h2>Ce Que Disent Nos Clients</h2>
+          <p class="fs-section-subtitle">Plus de 2 500 clients satisfaits à Dakar et à travers le Sénégal</p>
+        </div>
+      </div>
+
+      <div class="fs-reviews-grid">
+        <div class="fs-review-card">
+          <div class="fs-review-stars">★★★★★</div>
+          <p class="fs-review-text">"J'ai commandé les AirPods Max 2 en matinée et je les ai reçus avant 14h à mon bureau au Plateau ! Le son est juste spectaculaire, produit 100% conforme."</p>
+          <div class="fs-review-author">
+            <div class="fs-author-avatar">MD</div>
+            <div>
+              <div class="fs-author-name">Mamadou Diallo</div>
+              <div class="fs-author-loc">Dakar Plateau • Client Vérifié</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fs-review-card">
+          <div class="fs-review-stars">★★★★★</div>
+          <p class="fs-review-text">"Le parfum Taraf d'Arabian Oud est d'une élégance rare. La tenue dure plus de 24 heures sur mes boubous. Service client WhatsApp très courtois et rapide."</p>
+          <div class="fs-review-author">
+            <div class="fs-author-avatar">FS</div>
+            <div>
+              <div class="fs-author-name">Fatou Sow</div>
+              <div class="fs-author-loc">Almadies • Cliente Vérifiée</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fs-review-card">
+          <div class="fs-review-stars">★★★★★</div>
+          <p class="fs-review-text">"Créateur de contenu sur TikTok, le micro DJI Mic Mini a métamorphosé la clarté de mes vidéos. Paiement sécurisé par Wave dès réception. Merci Fallou Store !"</p>
+          <div class="fs-review-author">
+            <div class="fs-author-avatar">BT</div>
+            <div>
+              <div class="fs-author-name">Babacar Thiam</div>
+              <div class="fs-author-loc">Mermoz • Client Vérifié</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. SECTION FAQ INTERACTIVE -->
+  <section class="fs-faq-section" id="faqSection">
+    <div class="container">
+      <div class="fs-section-header" style="justify-content: center; text-align: center;">
+        <div class="fs-section-title-wrap">
+          <h2>Foire Aux Questions (FAQ)</h2>
+          <p class="fs-section-subtitle">Toutes les réponses à vos questions concernant les commandes et livraisons</p>
+        </div>
+      </div>
+
+      <div class="fs-faq-list">
+        <div class="fs-faq-item open">
+          <button class="fs-faq-trigger">
+            <span>Comment passer commande sur Fallou Store ?</span>
+            <span class="fs-faq-icon">▼</span>
+          </button>
+          <div class="fs-faq-content">
+            C'est extrêmement simple ! Ajoutez les articles souhaités dans votre panier, puis cliquez sur <b>Commander sur WhatsApp</b>. Vos coordonnées et le récapitulatif complet de vos articles seront automatiquement transmis à l'un de nos commerciaux disponibles sur WhatsApp.
+          </div>
+        </div>
+
+        <div class="fs-faq-item">
+          <button class="fs-faq-trigger">
+            <span>Quels sont les délais et zones de livraison ?</span>
+            <span class="fs-faq-icon">▼</span>
+          </button>
+          <div class="fs-faq-content">
+            Nous livrons dans tout Dakar (Plateau, Almadies, Ouakam, Mermoz, Guédiawaye, Pikine, Rufisque) en <b>moins de 4 heures</b>. Pour les régions de l'intérieur (Thiès, Mbour, Saint-Louis, Touba...), la livraison s'effectue sous 24 à 48 heures via colis sécurisé.
+          </div>
+        </div>
+
+        <div class="fs-faq-item">
+          <button class="fs-faq-trigger">
+            <span>Quels sont les modes de paiement acceptés ?</span>
+            <span class="fs-faq-icon">▼</span>
+          </button>
+          <div class="fs-faq-content">
+            Nous acceptons <b>Wave</b> (0% de frais), <b>Orange Money</b>, les règlements par carte bancaire Visa/Mastercard ainsi que le <b>paiement en espèces à la livraison</b> directement au coursier à Dakar.
+          </div>
+        </div>
+
+        <div class="fs-faq-item">
+          <button class="fs-faq-trigger">
+            <span>Les produits sont-ils authentiques et garantis ?</span>
+            <span class="fs-faq-icon">▼</span>
+          </button>
+          <div class="fs-faq-content">
+            Oui, absolument ! Tous nos appareils électroniques et parfums sont 100% authentiques, importés dans leurs boîtes scellées d'origine et bénéficient de la garantie commerciale Fallou Store.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FOOTER -->
+  <footer class="fs-footer">
+    <div class="container">
+      <div class="fs-footer-grid">
+        <!-- Marque & Description -->
+        <div class="fs-footer-brand">
+          <div class="fs-brand">
+            <img src="photo_10_2026-09-23_10-36-58.jpg" alt="Logo FS" class="fs-logo-img">
+            <div class="fs-brand-text">
+              <span class="fs-brand-title" style="color:#fff;">FALLOU <span style="color:var(--fs-gold);">STORE</span></span>
+              <span class="fs-brand-subtitle">Dakar • Sénégal</span>
+            </div>
+          </div>
+          <p>
+            Votre boutique de référence pour l'électronique de pointe, la haute parfumerie orientale et les accessoires d'exception à Dakar.
+          </p>
+          <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+            <a href="https://wa.me/221778944041" target="_blank" class="fs-btn-direct-wa" style="padding: 0.5rem 0.9rem; font-size: 0.8rem;">
+              WhatsApp : 77 894 40 41
+            </a>
+            <a href="https://wa.me/221710544141" target="_blank" class="fs-btn-direct-wa" style="padding: 0.5rem 0.9rem; font-size: 0.8rem; background: #128c7e;">
+              WhatsApp : 71 054 41 41
+            </a>
+          </div>
+        </div>
+
+        <!-- Liens Rapides -->
+        <div class="fs-footer-col">
+          <h4>Catégories</h4>
+          <ul class="fs-footer-links">
+            <li><a href="javascript:void(0)" onclick="window.fsApp.filterCategory('electronique')">Électronique & Son</a></li>
+            <li><a href="javascript:void(0)" onclick="window.fsApp.filterCategory('parfums')">Parfums Orientaux</a></li>
+            <li><a href="javascript:void(0)" onclick="window.fsApp.filterCategory('accessoires')">Accessoires Connectés</a></li>
+            <li><a href="javascript:void(0)" onclick="window.fsApp.filterCategory('gadgets')">Gadgets & Studio</a></li>
+          </ul>
+        </div>
+
+        <!-- Informations -->
+        <div class="fs-footer-col">
+          <h4>Informations</h4>
+          <ul class="fs-footer-links">
+            <li><a href="#faqSection">Livraison & Frais</a></li>
+            <li><a href="#faqSection">Moyens de Paiement</a></li>
+            <li><a href="#faqSection">Conditions Générales</a></li>
+            <li><a href="#" onclick="event.preventDefault(); openAdminPanel();" style="cursor: pointer;">Espace Membre (Admin)</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact & Localisation -->
+        <div class="fs-footer-col">
+          <h4>Contact & Boutique</h4>
+          <ul class="fs-footer-links">
+            <li>📍 Dakar, Sénégal</li>
+            <li>✉️ contact@falloustore.com</li>
+            <li>🌐 www.falloustore.com</li>
+            <li>⏰ Lun - Sam : 09h00 - 21h00</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bas de page & Copyright -->
+      <div class="fs-footer-bottom">
+        <div>
+          © 2026 <b>Fallou Store (FS)</b>. Tous droits réservés.
+        </div>
+        <div class="fs-agency-credit">
+          Développé avec excellence par <a href="https://bambatechnologies.com" target="_blank" rel="noopener">Bambatechnologies.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 11. STICKY MOBILE BOTTOM BAR (TechHub Style) -->
+  <nav class="fs-mobile-nav" aria-label="Navigation mobile">
+    <a href="#homeHero" class="fs-mobile-item active">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      <span>Accueil</span>
+    </a>
+    <a href="#catalogSection" class="fs-mobile-item">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+      <span>Rayons</span>
+    </a>
+    <!-- Bouton Central Rond Panier -->
+    <button class="fs-mobile-item fs-mobile-item-center" onclick="window.fsApp.openCartDrawer()">
+      <div class="fs-center-circle">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+        <span class="fs-badge-count cart-count-badge" style="display: none; top: -4px; right: -4px;">0</span>
+      </div>
+      <span style="font-weight: 700; color: var(--fs-gold-light); margin-top: 4px;">Panier</span>
+    </button>
+    <a href="https://wa.me/221778944041" target="_blank" class="fs-mobile-item">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+    <button type="button" onclick="openAdminPanel()" class="fs-mobile-item" style="background: none; border: none; font-family: inherit; color: inherit; cursor: pointer;">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+      <span>Connexion</span>
+    </button>
+  </nav>
+
+  <!-- 12. TIROIR LATÉRAL DU PANIER (CART DRAWER) -->
+  <div class="fs-drawer-overlay" id="fsCartOverlay" onclick="window.fsApp.closeCartDrawer()"></div>
+  <aside class="fs-drawer" id="fsCartDrawer" aria-label="Panier">
+    <div class="fs-drawer-header">
+      <div class="fs-drawer-title">
+        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+        <span>Mon Panier</span>
+      </div>
+      <button onclick="window.fsApp.closeCartDrawer()" style="font-size: 1.5rem; color: #64748b;">✕</button>
+    </div>
+
+    <!-- Articles -->
+    <div class="fs-drawer-items" id="fsCartItems">
+      <!-- Rempli par js/app.js -->
+    </div>
+
+    <!-- Pied du Panier -->
+    <div class="fs-drawer-footer">
+      <div class="fs-subtotal-row">
+        <span>Sous-total articles :</span>
+        <b id="fsCartSubtotal">0 FCFA</b>
+      </div>
+      <div class="fs-total-row">
+        <span>Total :</span>
+        <b id="fsCartTotal" style="color: var(--fs-gold-dark);">0 FCFA</b>
+      </div>
+      <button class="fs-btn-checkout-wa" onclick="window.fsApp.openWhatsAppCheckout()">
+        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span>Commander sur WhatsApp</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- 13. MODALE PRODUIT DÉTAILLÉ (PDP) -->
+  <div class="fs-modal-backdrop" id="fsPdpModal">
+    <div class="fs-modal-window">
+      <button class="fs-modal-close" onclick="window.fsApp.closePdp()">✕</button>
+      <div id="fsPdpModalBody">
+        <!-- Rempli par js/app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. MODALE TUNNEL DE COMMANDE WHATSAPP -->
+  <div class="fs-modal-backdrop" id="fsWaModal">
+    <div class="fs-modal-window" style="max-width: 580px;">
+      <button class="fs-modal-close" onclick="window.fsApp.closeWhatsAppCheckout()">✕</button>
+      <div class="fs-checkout-form">
+        <h3 class="fs-form-title">Finaliser ma Commande sur WhatsApp</h3>
+        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1.25rem;">
+          Renseignez vos coordonnées de livraison, nous générons instantanément votre commande prête à envoyer sur WhatsApp.
+        </p>
+
+        <!-- Récapitulatif Articles -->
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--fs-radius-sm); padding: 1rem; margin-bottom: 1.25rem;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 0.5rem;">Articles sélectionnés :</div>
+          <div id="fsWaItemsSummary"></div>
+        </div>
+
+        <form id="fsWaOrderForm">
+          <div class="fs-form-group">
+            <label class="fs-form-label">Votre Nom & Prénom *</label>
+            <input type="text" id="fsWaName" class="fs-form-control" placeholder="ex: Mamadou Ndiaye" required>
+          </div>
+
+          <div class="fs-form-group">
+            <label class="fs-form-label">Numéro de Téléphone (WhatsApp) *</label>
+            <input type="tel" id="fsWaPhone" class="fs-form-control" placeholder="ex: 77 123 45 67" required>
+          </div>
+
+          <div class="fs-form-group">
+            <label class="fs-form-label">Zone de Livraison *</label>
+            <select id="fsWaDeliveryZone" class="fs-form-control" required>
+              <option value="dakar-centre">Dakar Centre (Plateau, Médina, Fann, Point E) - 2.000 FCFA</option>
+              <option value="dakar-almadies">Almadies / Ngor / Ouakam / Yoff / Mermoz - 2.000 FCFA</option>
+              <option value="banlieue">Banlieue (Guédiawaye, Pikine, Parcelles, Keur Massar) - 2.500 FCFA</option>
+              <option value="rufisque">Rufisque / Diamniadio / Bargny - 3.000 FCFA</option>
+              <option value="regions">Régions du Sénégal (Thiès, Mbour, Touba, Saint-Louis...) - 4.000 FCFA</option>
+              <option value="boutique">Retrait Gratuit en Boutique Dakar - 0 FCFA</option>
+            </select>
+          </div>
+
+          <div class="fs-form-group">
+            <label class="fs-form-label">Adresse Précise de Livraison *</label>
+            <input type="text" id="fsWaAddress" class="fs-form-control" placeholder="ex: Cité Keur Gorgui, Immeuble A, Appartement 3" required>
+          </div>
+
+          <!-- Choix du Commercial WhatsApp -->
+          <div class="fs-form-group">
+            <label class="fs-form-label">Choisir le Numéro WhatsApp du Commercial :</label>
+            <div class="fs-radio-cards">
+              <label class="fs-radio-card active">
+                <input type="radio" name="waNumber" value="221778944041" checked>
+                <div>
+                  <div style="font-weight: 700; font-size: 0.88rem;">Commercial 1</div>
+                  <div style="font-size: 0.75rem; color: #16a34a;">+221 77 894 40 41</div>
+                </div>
+              </label>
+              <label class="fs-radio-card">
+                <input type="radio" name="waNumber" value="221710544141">
+                <div>
+                  <div style="font-weight: 700; font-size: 0.88rem;">Commercial 2</div>
+                  <div style="font-size: 0.75rem; color: #16a34a;">+221 71 054 41 41</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Choix du Moyen de Paiement Souhaité -->
+          <div class="fs-form-group">
+            <label class="fs-form-label">Moyen de Paiement Prévu :</label>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
+              <label class="fs-radio-card active" style="padding: 0.5rem 0.75rem;">
+                <input type="radio" name="waPayment" value="Wave" checked>
+                <span style="font-size: 0.82rem; font-weight: 700; color: #0284c7;">Wave (0% frais)</span>
+              </label>
+              <label class="fs-radio-card" style="padding: 0.5rem 0.75rem;">
+                <input type="radio" name="waPayment" value="Orange Money">
+                <span style="font-size: 0.82rem; font-weight: 700; color: #ea580c;">Orange Money</span>
+              </label>
+              <label class="fs-radio-card" style="padding: 0.5rem 0.75rem;">
+                <input type="radio" name="waPayment" value="Paiement à la Livraison">
+                <span style="font-size: 0.82rem; font-weight: 700; color: #16a34a;">Espèces à la livraison</span>
+              </label>
+              <label class="fs-radio-card" style="padding: 0.5rem 0.75rem;">
+                <input type="radio" name="waPayment" value="Carte Visa/Mastercard">
+                <span style="font-size: 0.82rem; font-weight: 700; color: #4338ca;">Carte Bancaire</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Total Final -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin: 1.5rem 0; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+            <span style="font-weight: 700; font-size: 1rem;">Total avec livraison :</span>
+            <b id="fsWaTotalAmount" style="font-size: 1.35rem; color: #0f172a; font-family: var(--fs-font-display);">0 FCFA</b>
+          </div>
+
+          <button type="submit" class="fs-btn-checkout-wa" style="width: 100%;">
+            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            <span>Envoyer la Commande sur WhatsApp</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. MODALE VIDÉO PROMOTIONNELLE DE LA BOUTIQUE -->
+  <div class="fs-modal-backdrop" id="fsVideoModal">
+    <div class="fs-modal-window" style="max-width: 640px; background: #0b0c10;">
+      <button class="fs-modal-close" onclick="window.fsApp.closeVideoModal()" style="background: rgba(255,255,255,0.2); color: #fff;">✕</button>
+      <div class="fs-video-modal-inner">
+        <h3 style="font-family: var(--fs-font-display); font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 1rem;">
+          Bienvenue chez Fallou Store Dakar 🇸🇳
+        </h3>
+        <video id="fsStoreVideoPlayer" class="fs-video-player" controls preload="metadata">
+          <source src="https://res.cloudinary.com/dpw81ymi6/video/upload/v1790179358/video_2026-09-23_10-36-58_abtuya.mp4" type="video/mp4">
+          Votre navigateur ne supporte pas la lecture de vidéo.
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16. MODALE CONFIRMATION DE COMMANDE & REMERCIEMENT -->
+  <div class="fs-modal-backdrop" id="fsConfirmModal">
+    <div class="fs-modal-window" style="max-width: 480px; text-align: center;">
+      <button class="fs-modal-close" onclick="window.fsApp.closeConfirmModal()">✕</button>
+      <div style="padding: 2.5rem 1.5rem;">
+        <div style="width: 68px; height: 68px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; font-size: 2rem;">
+          ✓
+        </div>
+        <h3 style="font-family: var(--fs-font-display); font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">
+          Merci pour votre Commande !
+        </h3>
+        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 1.25rem;">
+          Votre commande n° <b id="confirmOrderId" style="color: #0f172a;">FS-CMD</b> a été transmise. Si WhatsApp ne s'est pas ouvert automatiquement, cliquez sur le bouton ci-dessous :
+        </p>
+        <a id="confirmWaBtn" href="#" target="_blank" class="fs-btn-checkout-wa" style="width: 100%; justify-content: center; margin-bottom: 0.75rem;">
+          Ouvrir ma Discussion WhatsApp
+        </a>
+        <button type="button" onclick="window.fsApp.closeConfirmModal()" style="color: #64748b; font-size: 0.85rem; font-weight: 600;">
+          Continuer mes achats sur la boutique
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="fs-toast" id="fsToast">
+    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+    <span id="fsToastMsg">Article ajouté au panier</span>
+  </div>
+</div>
+
+<!-- ================================================================
+     ADMIN PANEL OVERLAY (INLINE DANS ODOO)
+     ================================================================ -->
+<div id="fsAdminOverlay" class="fs-admin-overlay">
+  <!-- LOGIN FORM -->
+  <div id="fsAdminLoginWrap" class="admin-login-wrap">
+    <div class="admin-login-card">
+      <img src="https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161836/photo_10_2026-09-23_10-36-58_ufgwp6.jpg" alt="Fallou Store" style="width:70px;height:70px;border-radius:16px;margin:0 auto 1.25rem;border:1px solid #d4af37;display:block;">
+      <h2 style="font-family:var(--fs-font-display);font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:.25rem;">Espace Connexion</h2>
+      <p style="font-size:.82rem;color:#94a3b8;margin-bottom:1.5rem;">Accès Réservé • Fallou Store Admin</p>
+      <form id="fsAdminLoginForm">
+        <div style="margin-bottom:1rem;text-align:left;">
+          <label style="display:block;font-size:.78rem;font-weight:700;color:#cbd5e1;margin-bottom:.35rem;">Email / Identifiant</label>
+          <input type="email" id="fsAdminEmail" class="admin-form-ctrl" placeholder="contact@falloustore.com" required>
+        </div>
+        <div style="margin-bottom:1.5rem;text-align:left;">
+          <label style="display:block;font-size:.78rem;font-weight:700;color:#cbd5e1;margin-bottom:.35rem;">Mot de passe</label>
+          <input type="password" id="fsAdminPass" class="admin-form-ctrl" placeholder="••••••••••" required>
+        </div>
+        <button type="submit" class="fs-btn-primary" style="width:100%;justify-content:center;">Se Connecter</button>
+      </form>
+      <button onclick="closeAdminPanel()" style="color:#64748b;font-size:.82rem;font-weight:600;margin-top:1rem;display:block;width:100%;text-align:center;border:none;background:none;cursor:pointer;">← Retour à la Boutique</button>
+    </div>
+  </div>
+
+  <!-- DASHBOARD (hidden until authenticated) -->
+  <div id="fsAdminDashboard" style="display:none;width:100%;">
+    <div class="fs-admin-inner">
+      <!-- Top Nav -->
+      <header class="admin-top-nav">
+        <div class="admin-logo-wrap">
+          <img src="https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161836/photo_10_2026-09-23_10-36-58_ufgwp6.jpg" alt="FS" style="width:42px;height:42px;border-radius:10px;border:1px solid #d4af37;">
+          <div>
+            <h1 style="font-family:var(--fs-font-display);font-size:1.2rem;font-weight:800;color:#fff;">Fallou Store <span style="color:#d4af37;">Admin</span></h1>
+            <span style="font-size:.72rem;color:#94a3b8;">Électronique • Parfums • Accessoires • Gadgets</span>
+          </div>
+        </div>
+
+        <nav class="admin-nav-tabs">
+          <button class="admin-nav-tab active" data-tab="fsTabOverview" onclick="switchFsAdminTab('fsTabOverview')">Vue Globale</button>
+          <button class="admin-nav-tab" data-tab="fsTabOrders" onclick="switchFsAdminTab('fsTabOrders')">Commandes & Livraisons</button>
+          <button class="admin-nav-tab" data-tab="fsTabTraffic" onclick="switchFsAdminTab('fsTabTraffic')">Fréquentation</button>
+          <button class="admin-nav-tab" data-tab="fsTabProducts" onclick="switchFsAdminTab('fsTabProducts')">Produits & Stock</button>
+          <button class="admin-nav-tab" data-tab="fsTabAbandoned" onclick="switchFsAdminTab('fsTabAbandoned')">Paniers Abandonnés</button>
+        </nav>
+
+        <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;">
+          <div class="live-visitors-badge">
+            <span class="live-pulse-dot"></span>
+            <span><b id="fsAdminLiveCount">18</b> en direct</span>
+          </div>
+          <button onclick="closeAdminPanel()" class="fs-btn-video" style="padding:.5rem .9rem;font-size:.8rem;">← Boutique</button>
+          <button onclick="fsAdminLogout()" style="color:#ef4444;font-size:.8rem;font-weight:700;padding:.5rem;background:rgba(239,68,68,.1);border-radius:8px;border:none;cursor:pointer;">Déconnexion</button>
+        </div>
+      </header>
+
+      <!-- TAB: VUE GLOBALE -->
+      <div id="fsTabOverview" class="fs-admin-tab-pane">
+        <div class="admin-kpi-grid">
+          <div class="admin-kpi-card" style="border-top:3px solid #10b981;">
+            <div class="kpi-title">CA Encaissé (Livrées)</div>
+            <div class="kpi-val" id="fsKpiRevenue" style="color:#34d399;">0 FCFA</div>
+            <div class="kpi-sub" id="fsKpiDeliveredCount">0 commandes livrées</div>
+          </div>
+          <div class="admin-kpi-card" style="border-top:3px solid #f59e0b;">
+            <div class="kpi-title">Commandes à Venir (à livrer)</div>
+            <div class="kpi-val" id="fsKpiUpcomingRev" style="color:#fbbf24;">0 FCFA</div>
+            <div class="kpi-sub" id="fsKpiUpcomingCount" style="color:#fbbf24;">0 commandes en attente</div>
+          </div>
+          <div class="admin-kpi-card" style="border-top:3px solid #38bdf8;">
+            <div class="kpi-title">Fréquentation du Site</div>
+            <div class="kpi-val" id="fsKpiVisitsToday" style="color:#38bdf8;">0 visites</div>
+            <div class="kpi-sub" id="fsKpiVisitsTotal">Total : 0 visites</div>
+          </div>
+          <div class="admin-kpi-card" style="border-top:3px solid var(--fs-gold);">
+            <div class="kpi-title">Taux de Conversion</div>
+            <div class="kpi-val" id="fsKpiConversion" style="color:var(--fs-gold-light);">0%</div>
+            <div class="kpi-sub" id="fsKpiOrdersTotSub">Commandes / Visiteurs</div>
+          </div>
+          <div class="admin-kpi-card">
+            <div class="kpi-title">Catalogue & Stocks</div>
+            <div class="kpi-val" id="fsKpiStock">0 / 0</div>
+            <div class="kpi-sub" id="fsKpiOutStock">0 en rupture</div>
+          </div>
+          <div class="admin-kpi-card">
+            <div class="kpi-title">Paniers Abandonnés</div>
+            <div class="kpi-val" id="fsKpiAbandoned" style="color:#f59e0b;">0</div>
+            <div class="kpi-sub" style="color:#f59e0b;">Clients à relancer</div>
+          </div>
+        </div>
+
+        <!-- Commandes prioritaires à préparer -->
+        <div class="admin-table-card" style="border:1px solid rgba(245,158,11,.25);">
+          <div class="admin-table-head">
+            <div>
+              <h3 style="color:#fbbf24;">⚡ Commandes à Préparer & Livrer</h3>
+              <p style="font-size:.8rem;color:#94a3b8;margin-top:3px;">Commandes en attente de préparation ou de livraison.</p>
+            </div>
+            <button class="fs-btn-primary" style="padding:.45rem 1rem;font-size:.82rem;" onclick="switchFsAdminTab('fsTabOrders')">Gérer Tout</button>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table"><thead><tr>
+              <th>Réf</th><th>Client & WhatsApp</th><th>Articles</th><th>Zone / Créneau</th><th>Montant</th><th>Statut</th><th>Changer</th>
+            </tr></thead>
+            <tbody id="fsUpcomingOrdersTable"></tbody></table>
+          </div>
+        </div>
+
+        <!-- Toutes commandes récentes -->
+        <div class="admin-table-card">
+          <div class="admin-table-head">
+            <h3>Toutes les Commandes Récentes</h3>
+            <button class="fs-btn-primary" style="padding:.45rem 1rem;font-size:.82rem;" onclick="switchFsAdminTab('fsTabOrders')">Voir Historique</button>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table"><thead><tr>
+              <th>Réf</th><th>Date</th><th>Client</th><th>Tél</th><th>Zone</th><th>Montant</th><th>Paiement</th><th>Statut</th>
+            </tr></thead>
+            <tbody id="fsOverviewOrdersTable"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: COMMANDES & LIVRAISONS -->
+      <div id="fsTabOrders" class="fs-admin-tab-pane" style="display:none;">
+        <div class="admin-table-card">
+          <div class="admin-table-head">
+            <div>
+              <h3>Gestion des Commandes & Livraisons</h3>
+              <p style="font-size:.82rem;color:#94a3b8;">Mettez à jour le statut pour synchroniser le CA encaissé.</p>
+            </div>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+              <button class="fs-btn-video" style="font-size:.8rem;padding:.45rem .85rem;" onclick="filterFsOrders('all')">Toutes</button>
+              <button class="fs-btn-video" style="font-size:.8rem;padding:.45rem .85rem;" onclick="filterFsOrders('pending')">À Livrer</button>
+              <button class="fs-btn-video" style="font-size:.8rem;padding:.45rem .85rem;" onclick="filterFsOrders('done')">Livrées</button>
+            </div>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table"><thead><tr>
+              <th>Réf</th><th>Date</th><th>Client & WhatsApp</th><th>Articles</th><th>Zone & Créneau</th><th>Total</th><th>Statut</th><th>Mise à jour</th><th>Supprimer</th>
+            </tr></thead>
+            <tbody id="fsAllOrdersTable"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: FRÉQUENTATION -->
+      <div id="fsTabTraffic" class="fs-admin-tab-pane" style="display:none;">
+        <div class="admin-kpi-grid">
+          <div class="admin-kpi-card"><div class="kpi-title">Visiteurs en Direct</div><div class="kpi-val" id="fsTrafficLive" style="color:#10b981;">18</div><div class="kpi-sub">Navigation active</div></div>
+          <div class="admin-kpi-card"><div class="kpi-title">Visites Aujourd'hui</div><div class="kpi-val" id="fsTrafficToday" style="color:#38bdf8;">192</div><div class="kpi-sub">+18% vs. moyenne</div></div>
+          <div class="admin-kpi-card"><div class="kpi-title">Visites Totales</div><div class="kpi-val" id="fsTrafficTotal">1 480</div><div class="kpi-sub">Sessions cumulées</div></div>
+          <div class="admin-kpi-card"><div class="kpi-title">Temps Moyen</div><div class="kpi-val" style="color:var(--fs-gold-light);">3m 42s</div><div class="kpi-sub">Fort engagement fiches produits</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;">
+          <div class="admin-table-card" style="margin-bottom:0;">
+            <h3 style="margin-bottom:1rem;font-size:1.1rem;">📱 Appareils des Visiteurs</h3>
+            <div style="margin-bottom:1rem;"><div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:.4rem;"><span>Smartphones</span><b style="color:var(--fs-gold);">84%</b></div><div class="fs-stat-bar-track"><div class="fs-stat-bar-fill" style="width:84%;background:var(--fs-gold-gradient);"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:.4rem;"><span>Ordinateurs</span><b style="color:#38bdf8;">16%</b></div><div class="fs-stat-bar-track"><div class="fs-stat-bar-fill" style="width:16%;background:#38bdf8;"></div></div></div>
+          </div>
+          <div class="admin-table-card" style="margin-bottom:0;">
+            <h3 style="margin-bottom:1rem;font-size:1.1rem;">📍 Provenance Géographique</h3>
+            <div style="margin-bottom:.75rem;"><div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;"><span>Dakar Ville</span><b>68%</b></div><div class="fs-stat-bar-track"><div class="fs-stat-bar-fill" style="width:68%;background:#10b981;"></div></div></div>
+            <div style="margin-bottom:.75rem;"><div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;"><span>Banlieue (Pikine, Guédiawaye)</span><b>22%</b></div><div class="fs-stat-bar-track"><div class="fs-stat-bar-fill" style="width:22%;background:#f59e0b;"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;"><span>Régions (Thiès, Touba, Saint-Louis)</span><b>10%</b></div><div class="fs-stat-bar-track"><div class="fs-stat-bar-fill" style="width:10%;background:#ec4899;"></div></div></div>
+          </div>
+          <div class="admin-table-card" style="margin-bottom:0;">
+            <h3 style="margin-bottom:1rem;font-size:1.1rem;">⏰ Pics d'Affluence</h3>
+            <div style="display:flex;flex-direction:column;gap:.75rem;">
+              <div><div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;"><span>Soirée 18h–23h (Pic Majeur)</span><b style="color:#34d399;">42%</b></div><div class="fs-stat-bar-track"><div class="fs-stat-bar-fill" style="width:42%;background:#10b981;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;"><span>Après-Midi 13h–17h</span><b style="color:#38bdf8;">32%</b></div><div class="fs-stat-bar-track"><div class="fs-stat-bar-fill" style="width:32%;background:#38bdf8;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;"><span>Matinée 09h–12h</span><b style="color:#94a3b8;">26%</b></div><div class="fs-stat-bar-track"><div class="fs-stat-bar-fill" style="width:26%;background:#64748b;"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: PRODUITS & STOCK -->
+      <div id="fsTabProducts" class="fs-admin-tab-pane" style="display:none;">
+        <div class="admin-table-card">
+          <div class="admin-table-head">
+            <div>
+              <h3>Catalogue des Produits & Stocks</h3>
+              <p style="font-size:.8rem;color:#94a3b8;margin-top:3px;">Basculez un produit en rupture pour désactiver l'achat en ligne.</p>
+            </div>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table"><thead><tr>
+              <th>Visuel</th><th>Nom du Produit</th><th>Catégorie</th><th>Prix</th><th>État</th><th>Action</th><th>Supprimer</th>
+            </tr></thead>
+            <tbody id="fsAdminProductsTable"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: PANIERS ABANDONNÉS -->
+      <div id="fsTabAbandoned" class="fs-admin-tab-pane" style="display:none;">
+        <div class="admin-table-card">
+          <div class="admin-table-head">
+            <div>
+              <h3>Paniers Abandonnés Détectés</h3>
+              <p style="font-size:.8rem;color:#94a3b8;">Relancez ces prospects sur WhatsApp pour convertir leur panier en vente !</p>
+            </div>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table"><thead><tr>
+              <th>Date</th><th>Contact</th><th>Articles</th><th>Valeur Estimée</th><th>Relance WhatsApp</th>
+            </tr></thead>
+            <tbody id="fsAbandonedTable"></tbody></table>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.fs-admin-inner -->
+  </div><!-- /#fsAdminDashboard -->
+</div><!-- /#fsAdminOverlay -->
+
+<!-- BOÎTE DE DIALOGUE PERSONNALISÉE -->
+<div id="fsConfirmDialogOdoo" class="fs-confirm-dialog-backdrop">
+  <div class="fs-confirm-dialog-card">
+    <div class="fs-confirm-dialog-icon">
+      <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+    </div>
+    <h3 class="fs-confirm-dialog-title" id="fsOdooConfirmTitle">Confirmer l'action</h3>
+    <p class="fs-confirm-dialog-desc" id="fsOdooConfirmMsg">Êtes-vous sûr de vouloir effectuer cette action ?</p>
+    <div id="fsOdooConfirmItemWrap"></div>
+    <div class="fs-confirm-dialog-actions">
+      <button type="button" class="fs-confirm-btn-cancel" id="fsOdooConfirmCancel">Annuler</button>
+      <button type="button" class="fs-confirm-btn-danger" id="fsOdooConfirmOk">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7"/></svg>
+        <span id="fsOdooConfirmOkText">Supprimer</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIQUE JAVASCRIPT COMPLETE (PRODUITS, SUPABASE, PANIER, WHATSAPP) -->
+
+<script>
+/**
+ * Fallou Store (FS) - Données Initiales du Catalogue Produits
+ * Électronique, Parfums, Accessoires, Gadgets
+ * Prix en FCFA (XOF)
+ */
+
+const INITIAL_PRODUCTS = [
+  {
+    id: "fs-prod-01",
+    name: "AirPods Max 2",
+    category: "electronique",
+    categoryLabel: "Électronique",
+    subCategory: "Audio & Écouteurs",
+    price: 80000,
+    oldPrice: 110000,
+    badge: "Bestseller",
+    rating: 4.9,
+    reviewCount: 48,
+    inStock: true,
+    featured: true,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161813/airpods-max-2-2_zv0del.webp",
+    localImage: "photo_1_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161813/airpods-max-2-2_zv0del.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161810/photo_1_2026-09-23_10-36-58_qcwdqe.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161782/bento_1_airpod_max_midnight__4jy1tkqh9qay_xlarge_acdicd.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161778/bento_2_airpod_max_midnight__c4h88dvygxkm_xlarge_ndxbxg.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161774/photo_2026-09-23_10-15-44_ggkoxb.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161770/bento_4_airpod_max_midnight__d38igje6phm6_xlarge_v82vc1.jpg"
+    ],
+    tagline: "Un son précis. Une science exacte.",
+    description: "Boostés par la puce H2, les AirPods Max 2 livrent un son haute-fidélité impressionnant, encore plus détaillé. Grâce au nouvel amplificateur à gamme dynamique élevée, le transducteur conçu sur mesure dispose d’une marge dynamique encore plus grande pour offrir des basses plus riches, des voix plus naturelles et une localisation précise des instruments sur une scène sonore plus vaste.",
+    specs: [
+      "Puce Apple H2 haute fidélité",
+      "Réduction active du bruit avancée",
+      "Audio spatial personnalisé avec suivi dynamique de la tête",
+      "Autonomie jusqu'à 20 heures d'écoute",
+      "Coussinets en maille respirante ultra confort"
+    ]
+  },
+  {
+    id: "fs-prod-02",
+    name: "DJI Mic Mini (2 TX + 1 RX)",
+    category: "electronique",
+    categoryLabel: "Électronique",
+    subCategory: "Vlogging & Audio Pro",
+    price: 90000,
+    oldPrice: 120000,
+    badge: "Tendance",
+    rating: 5.0,
+    reviewCount: 36,
+    inStock: true,
+    featured: true,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790167860/DJI-Mic-Mini-2-TX-1-RX-Boitier-de-Recharge-Adaptateur-pour-Iphone-Lightning-Ultra-leger-Audio-de-HQ-48-h-dUtilisation-Annulation-du-Bruit-Limite-Auto--800x800_y3xvdw.jpg",
+    localImage: "photo_3_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790167860/DJI-Mic-Mini-2-TX-1-RX-Boitier-de-Recharge-Adaptateur-pour-Iphone-Lightning-Ultra-leger-Audio-de-HQ-48-h-dUtilisation-Annulation-du-Bruit-Limite-Auto--800x800_y3xvdw.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790167865/dji-mic-mini--2-tx---1-rx--p-image-269543-grande_jpg_hs2nje.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790167857/dji-mic-mini--2-tx---1-rx--p-image-268974-grande_jpg_tjmifd.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790167852/dji-mic-mini--2-tx---1-rx--p-image-268967-grande_jpg_z3pyan.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790167848/dji-mic-mini--2-tx---1-rx--p-image-268973-grande_jpg_mkxtnz.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790167785/photo_3_2026-09-23_10-36-58_bun8lg.jpg"
+    ],
+    tagline: "Le microphone sans fil ultra-léger pour créateurs de contenu.",
+    description: "Découvrez le DJI Mic Mini (2 TX + 1 RX) de DJI, le microphone sans fil ultra-léger qui révolutionne vos enregistrements audio avec une qualité exceptionnelle. Seulement 10g par émetteur, portée de 400m, autonomie globale de 48h avec le boîtier de recharge. Deux niveaux d'annulation de bruit et limiteur automatique anti-écrêtage.",
+    specs: [
+      "2 émetteurs (TX) + 1 récepteur (RX) + Boîtier",
+      "Poids plume : 10g seulement par micro",
+      "Portée record de transmission jusqu'à 400m",
+      "Annulation de bruit 2 niveaux & limiteur audio auto",
+      "Autonomie 11.5h (système) / jusqu'à 48h avec boîtier",
+      "Compatibilité smartphones (Lightning / Type-C) et boîtiers DSLR"
+    ]
+  },
+  {
+    id: "fs-prod-03",
+    name: "Lumière d'appoint LED portable U40 40W",
+    category: "gadgets",
+    categoryLabel: "Gadgets",
+    subCategory: "Éclairage Studio & TikTok",
+    price: 25000,
+    oldPrice: 35000,
+    badge: "Promo",
+    rating: 4.8,
+    reviewCount: 29,
+    inStock: true,
+    featured: false,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790168948/619d5Hbs04L._AC_SL1500__hzuax7.jpg",
+    localImage: "photo_3_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790168948/619d5Hbs04L._AC_SL1500__hzuax7.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790168961/Hdb601c5593784d30bda75ea53865c1deg_nh7waz.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790168955/H8abf5da7fa1d47a2928cc61cab79e57d8_zkz44l.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790168941/H5c3fdb163d87401e8a16ee1d1643a2c73_xvcleb.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790169047/photo_3_2026-09-23_10-36-58_oilbne.jpg"
+    ],
+    tagline: "Éclairage professionnel portable 40W bicolore 2500~9000K.",
+    description: "Lampe LED compacte 40W haute puissance avec ventilateur de refroidissement intégré. Batterie 4000mAh longue durée, température de couleur réglable de 2500K à 9000K, indice de rendu des couleurs CRI/TLCI ≥ 95. Idéal pour YouTube, TikTok, vlogging et studio photo à domicile.",
+    specs: [
+      "Puissance 40W avec ventilateur silencieux",
+      "Température bicolore ajustable 2500K - 9000K",
+      "Batterie intégrée 4000mAh rechargeable Type-C",
+      "Poids ultra-léger 215g pour montage caméra/smartphone",
+      "CRI/TLCI ≥ 95 pour des couleurs éclatantes et fidèles"
+    ]
+  },
+  {
+    id: "fs-prod-04",
+    name: "SONGZEN S4 PRO Wireless Gaming Headset",
+    category: "electronique",
+    categoryLabel: "Électronique",
+    subCategory: "Gaming & Audio",
+    price: 35000,
+    oldPrice: 48000,
+    badge: "Populaire",
+    rating: 4.7,
+    reviewCount: 42,
+    inStock: true,
+    featured: false,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790170580/s-pdpxl_3_2_7e3a149b-0826-4c76-ba09-b0cad56f8926_vfe8vo.webp",
+    localImage: "photo_12_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790170580/s-pdpxl_3_2_7e3a149b-0826-4c76-ba09-b0cad56f8926_vfe8vo.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790170602/s-pdpxl_1_2_e48a2a69-4ba1-42d0-abf4-351cb5a301ae_yjlzcp.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790170597/s-pdpxl_2_3_5bd5866b-cbf5-4d77-aa33-4212ca8b4407_rbsked.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790170592/s-pdpxl_4_2_ee90e204-bc84-4482-830e-8a339bee72a0_xx56z3.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790170586/s-pdpxl_5_19c9d094-e364-43e6-a181-ee163d327805_ehcx6o.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790170574/s-pdpxl3_638ecb34-ab3f-4995-b353-e5c81039f75f_xke7ee.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790170557/photo_12_2026-09-23_10-36-58_pbo7k0.jpg"
+    ],
+    tagline: "Casque gamer sans fil 2.4GHz avec son surround 7.1 et RGB.",
+    description: "Casque de jeu sans fil SONGZEN S4 PRO avec son surround immersif, éclairage d'ambiance RGB dynamique, microphone antibruit amovible et autonomie record de 36 heures. Connexion sans fil ultra-rapide 2.4GHz à latence zéro pour PC, PS4, PS5 et smartphones.",
+    specs: [
+      "Connexion sans fil 2.4GHz ultra-faible latence + Bluetooth",
+      "Son Surround 3D immersif pour repérer les pas d'ennemis",
+      "Microphone antibruit détachable haute sensibilité",
+      "Batterie longue durée 36 heures d'autonomie",
+      "Éclairage RGB stylé et arceau rembourré ergonomique"
+    ]
+  },
+  {
+    id: "fs-prod-05",
+    name: "Tablette AirTab i17 Pro Max 24 Go RAM / 1 To Stockage 5G",
+    category: "electronique",
+    categoryLabel: "Électronique",
+    subCategory: "Tablettes & Ordinateurs",
+    price: 60000,
+    oldPrice: 85000,
+    badge: "Pack Complet",
+    rating: 4.8,
+    reviewCount: 31,
+    inStock: true,
+    featured: true,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790171163/WhatsApp-Image-2026-07-02-at-13.21.24_y3d8js.jpg",
+    localImage: "photo_7_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790171163/WhatsApp-Image-2026-07-02-at-13.21.24_y3d8js.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790171169/1_4_xtuqam.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790171175/H26c4b0237703426aa39a651f685e7a30O_hqumx6.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790171181/photo_7_2026-09-23_10-36-58_w61rqv.jpg"
+    ],
+    tagline: "Le Mini-PC portable ultime avec kit clavier & souris.",
+    description: "Dans un monde où la mobilité et la performance sont devenues essentielles, la Tablette AirTab i17 Pro Max s’impose comme une véritable révolution technologique. Elle combine une mémoire vive de 24 Go RAM, un stockage colossal de 1 To, connectivité cellulaire 5G et le système Android 15. Livrée avec son pack complet : clavier Bluetooth, souris et housse de protection.",
+    specs: [
+      "Écran HD immersif 10.1 pouces éclatant",
+      "24 Go de RAM ultra fluide + 1 To de stockage",
+      "Connectivité Double SIM 5G / 4G LTE + Wi-Fi",
+      "Système d'exploitation Android 15 dernière génération",
+      "Pack complet inclus : Clavier sans fil, souris et stylet"
+    ]
+  },
+  {
+    id: "fs-prod-06",
+    name: "DJI Osmo Pocket 4 Caméra Vlog de Poche",
+    category: "electronique",
+    categoryLabel: "Électronique",
+    subCategory: "Caméras & Stabilisateurs",
+    price: 350000,
+    oldPrice: 420000,
+    badge: "Haut de Gamme",
+    rating: 5.0,
+    reviewCount: 22,
+    inStock: true,
+    featured: true,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790172046/photo_4_2026-09-23_10-36-58_c3uxvb.jpg",
+    localImage: "photo_4_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790172046/photo_4_2026-09-23_10-36-58_c3uxvb.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790172062/61OQ8oC7nmL._AC_SL1500__r7ywdk.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790172147/71-Rlo_uTFL._AC_SL1500__hhgojb.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790172151/51qsbb6U0yL._AC_SL1500__yivtaq.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790172157/719nvoD_nbL._AC_SL1500__mwunzr.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790172163/71leCF4g2VL._AC_SL1500__cvhpli.jpg"
+    ],
+    tagline: "Système révolutionnaire à double caméra & stabilisation 3 axes.",
+    description: "La caméra de poche qui voit plus loin grâce à son système révolutionnaire à double capteur : capteur principal 1 pouce + téléobjectif avec zoom optique 3x. Vidéo cinématique 4K jusqu'à 240 i/s, photos 37 MP, suivi intelligent Smart Follow 8.0 et 103 Go de stockage interne.",
+    specs: [
+      "Capteur principal 1 pouce + Téléobjectif zoom optique 3x",
+      "Enregistrement vidéo 4K cinématique jusqu'à 240 images/s",
+      "Photographies haute résolution 37 Mégapixels",
+      "Stabilisation mécanique professionnelle sur 3 axes",
+      "Suivi intelligent de sujet Smart Follow 8.0",
+      "103 Go de mémoire interne + slot microSD",
+      "Combo Vlog complet prêt pour la création nomade"
+    ]
+  },
+  {
+    id: "fs-prod-07",
+    name: "Smart Watch Série 11",
+    category: "accessoires",
+    categoryLabel: "Accessoires",
+    subCategory: "Montres Connectées",
+    price: 25000,
+    oldPrice: 40000,
+    badge: "Bestseller",
+    rating: 4.8,
+    reviewCount: 54,
+    inStock: true,
+    featured: true,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790176360/D_NQ_NP_944703-MLM111099021995_052026-O_d29yoy.webp",
+    localImage: "photo_5_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790176360/D_NQ_NP_944703-MLM111099021995_052026-O_d29yoy.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790176336/dateoy_h26_pro_smart_watch-600x600_p247gj.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790176342/IMG_3224-600x600_djxwba.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790176348/images_36_zk1e9y.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790176354/H11f0baed663d4427ba515cc0df3f8d70y_zqscno.avif",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790176367/IMG_3225-600x600_hqw1na.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790176373/Sdc4d42757a594856ad89ce854f3b17d12-600x600_arvhvf.png",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790176381/Watch11-600x600_raxpbc.png",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790176555/photo_5_2026-09-23_10-36-58_k20ab2.jpg"
+    ],
+    tagline: "Élégance, santé et connectivité complète à votre poignet.",
+    description: "Montre connectée haut de gamme Série 11 avec grand écran tactile borderless 46mm. Réception et émission d'appels Bluetooth, affichage des notifications SMS et WhatsApp, suivi du rythme cardiaque et sommeil, fonds d'écran personnalisables à volonté.",
+    specs: [
+      "Écran HD bord à bord 46mm ultra lumineux",
+      "Autonomie confortable de 2 à 3 jours en usage continu",
+      "Mémoire interne 4 Go pour musiques et photos",
+      "Haut-parleur & micro HD pour appels téléphoniques directs",
+      "Synchronisation notifications : Appels, SMS, WhatsApp, Facebook",
+      "Capteurs santé complets (Rythme cardiaque, SpO2, Podomètre)"
+    ]
+  },
+  {
+    id: "fs-prod-08",
+    name: "Oud Al Malik Eau de Parfum 50 ml",
+    category: "parfums",
+    categoryLabel: "Parfums",
+    subCategory: "Parfums Orientaux",
+    price: 18000,
+    oldPrice: 25000,
+    badge: "5 Déclinaisons",
+    rating: 4.9,
+    reviewCount: 67,
+    inStock: true,
+    featured: true,
+    hasVariants: true,
+    variantName: "Déclinaison / Senteur",
+    variants: [
+      { name: "Casanova", image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790177488/ef4cb301-6c52-423c-a384-ea1a32a41bc6_njphqw.png" },
+      { name: "Aura", image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790177804/photo_13_2026-09-23_10-36-58_bqnqok.jpg" },
+      { name: "Royal Intence", image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179188/photo_19_2026-09-23_10-36-58_h9lwjw.jpg" },
+      { name: "Pink Baby", image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179131/photo_18_2026-09-23_10-36-58_tyuqgk.jpg" },
+      { name: "Oud Al Malik Original", image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179238/photo_20_2026-09-23_10-36-58_leqjia.jpg" }
+    ],
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790177488/ef4cb301-6c52-423c-a384-ea1a32a41bc6_njphqw.png",
+    localImage: "photo_13_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790177488/ef4cb301-6c52-423c-a384-ea1a32a41bc6_njphqw.png",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790177492/6154f47c-668a-4d79-b879-2400496a1d7c_igilxh.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790177804/photo_13_2026-09-23_10-36-58_bqnqok.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179188/photo_19_2026-09-23_10-36-58_h9lwjw.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179131/photo_18_2026-09-23_10-36-58_tyuqgk.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179238/photo_20_2026-09-23_10-36-58_leqjia.jpg"
+    ],
+    tagline: "Élégance, prestige et caractère oriental raffiné.",
+    description: "Découvrez Oud Al Malik Eau de Parfum 50 ml, une fragrance à l’univers oriental, élégant et sophistiqué. Disponible en 5 déclinaisons uniques (Casanova, Aura, Royal Intence, Pink Baby et Oud Al Malik Original). Son format pratique et son identité raffinée en font un parfum idéal pour les cérémonies, sorties et cadeaux de prestige.",
+    specs: [
+      "Volume : 50 ml Eau de Parfum concentrée",
+      "Disponible en 5 déclinaisons de senteurs exclusives",
+      "Tenue longue durée sur vêtements et peau (jusqu'à 24h)",
+      "Flacon luxueux gravé avec vaporisateur de précision"
+    ]
+  },
+  {
+    id: "fs-prod-09",
+    name: "Passion Oud - Inspired by Oud Maracuja Crivelli",
+    category: "parfums",
+    categoryLabel: "Parfums",
+    subCategory: "Parfums de Niche",
+    price: 15000,
+    oldPrice: 22000,
+    badge: "Coup de Cœur",
+    rating: 5.0,
+    reviewCount: 38,
+    inStock: true,
+    featured: true,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179712/PASSIONOUDEAUDEPARFUM-BuyParfumbySkyCosmetics_zhsb9g.webp",
+    localImage: "photo_17_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179712/PASSIONOUDEAUDEPARFUM-BuyParfumbySkyCosmetics_zhsb9g.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179736/photo_17_2026-09-23_10-36-58_zqajqy.jpg"
+    ],
+    tagline: "Un accord radieux bergamote, fruits exotiques et bois ambré.",
+    description: "Passion OUD est un parfum audacieux et sensuel qui capture l'essence du luxe moderne. Il s'ouvre sur un accord radieux de bergamote, de gingembre et de poire, créant une première impression vibrante et lumineuse. Son cœur révèle un accord riche et ambré de bois de cachemire. Enfin, le parfum s'attarde sur des notes de caramel, musc, patchouli et daim pour un sillage irrésistible.",
+    specs: [
+      "Notes de tête : Bergamote, gingembre pétillant, poire fraîche",
+      "Notes de cœur : Bois de cachemire ambré, touches florales",
+      "Notes de fond : Caramel gourmand, musc velouté, patchouli, daim noble",
+      "Inspiration haute parfumerie de niche"
+    ]
+  },
+  {
+    id: "fs-prod-10",
+    name: "Taraf Arabian Oud Eau de Parfum Unisexe 100 ml",
+    category: "parfums",
+    categoryLabel: "Parfums",
+    subCategory: "Luxe & Prestige",
+    price: 140000,
+    oldPrice: 165000,
+    badge: "Luxe Royal",
+    rating: 5.0,
+    reviewCount: 19,
+    inStock: true,
+    featured: true,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179907/img_2890-666x669_xaqptl.jpg",
+    localImage: "photo_22_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179907/img_2890-666x669_xaqptl.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179902/img_3629_k1eqg0.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790179891/photo_22_2026-09-23_10-36-58_uy6pix.jpg"
+    ],
+    tagline: "Un état de luxe absolu qui sublime votre présence.",
+    description: "Une légende de parfum séduisante racontant l'harmonie florale de romarin et de thym rafraîchissant. Des notes fraîches de bergamote bouillonnent dès le premier instant pour réveiller vos sens. Les couches de cuirs foncés évoquent un mystère noble et confèrent une allure formelle spectaculaire.",
+    specs: [
+      "Contenance : 100 ml flacon signature Arabian Oud",
+      "Notes de tête : Sauge aromatique, bergamote d'Italie",
+      "Notes de cœur : Rose bulgare précieuse, romarin noble",
+      "Notes de fond : Cuir sombre d'exception, ambre chaud, bois de cèdre",
+      "Livraison sécurisée avec emballage haute protection à Dakar"
+    ]
+  },
+  {
+    id: "fs-prod-11",
+    name: "Arabian Oud Madawi Gold Edition",
+    category: "parfums",
+    categoryLabel: "Parfums",
+    subCategory: "Édition Limitée",
+    price: 130000,
+    oldPrice: 155000,
+    badge: "Édition Or",
+    rating: 5.0,
+    reviewCount: 27,
+    inStock: true,
+    featured: true,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180202/madawi-gold-edition___240829_1_dwx7au.webp",
+    localImage: "photo_9_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180202/madawi-gold-edition___240829_1_dwx7au.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180195/madawi-gold-edition___240829_qnz2un.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180186/photo_9_2026-09-23_10-36-58_xwjosz.jpg"
+    ],
+    tagline: "L'éclat de l'or immortalisé dans une fragrance légendaire.",
+    description: "Créé pour célébrer le prestige d'Arabian Oud, Madawi Gold Edition est un parfum oriental et gourmand sans équivalent. Cardamome épicée, ananas juteux apportant fraîcheur, fève tonka suave et vanille sensuelle qui enlace votre peau d'un voile soyeux inoubliable.",
+    specs: [
+      "Parfum oriental gourmand - Unisexe",
+      "Notes de tête : Cardamome aromatique, épices fines",
+      "Notes de cœur : Ananas juteux, fève tonka torréfiée",
+      "Notes de fond : Vanille de Madagascar, musc précieux",
+      "Flacon collector or massif laqué"
+    ]
+  },
+  {
+    id: "fs-prod-12",
+    name: "Just 4 You Eau de Parfum",
+    category: "parfums",
+    categoryLabel: "Parfums",
+    subCategory: "Parfums Homme & Unisexe",
+    price: 15000,
+    oldPrice: 20000,
+    badge: "Tendance",
+    rating: 4.8,
+    reviewCount: 35,
+    inStock: true,
+    featured: false,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180443/Just_4_You_-_Buy_Parfum_by_SkyCosmetics_-_Graphics_b8v4w5.webp",
+    localImage: "photo_14_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180443/Just_4_You_-_Buy_Parfum_by_SkyCosmetics_-_Graphics_b8v4w5.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180448/Just_4_You_-_Buy_Parfum_by_SkyCosmetics_-_Graphics_2_aobdph.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180454/Just4YoubySkyCosmetics-WhiteBackground2_gmiimp.jpg",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180459/Just4YoubySkyCosmetics-WhiteBackground1_vepvri.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180464/Just4YoubySkyCosmetics-WhiteBackground4_zwhzco.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180471/photo_14_2026-09-23_10-36-58_atld5u.jpg"
+    ],
+    tagline: "Fraîcheur vive d'agrumes relevée de gingembre et poivre rose.",
+    description: "Just 4 You est un parfum vibrant et affirmé. Explosion d'énergie mêlant pamplemousse, citron et menthe fraîche, rehaussée de poivre rose. Cœur de gingembre, muscade et jasmin sur fond terreux et noble de vétiver, santal et musc blanc.",
+    specs: [
+      "Volume : 100 ml",
+      "Notes de tête : Pamplemousse, citron jaune, menthe givrée, baies roses",
+      "Notes de cœur : Gingembre chaud, muscade, jasmin pur",
+      "Notes de fond : Vétiver boisé, santal d'Orient, ambre, musc blanc"
+    ]
+  },
+  {
+    id: "fs-prod-13",
+    name: "Memories Noble Eau de Parfum",
+    category: "parfums",
+    categoryLabel: "Parfums",
+    subCategory: "Collection Privée",
+    price: 25000,
+    oldPrice: 35000,
+    badge: "Signature",
+    rating: 4.9,
+    reviewCount: 23,
+    inStock: true,
+    featured: false,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180696/MemmoriesNoblebySkyCosmetics-WhiteBackground4_vs39c3.webp",
+    localImage: "photo_16_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180696/MemmoriesNoblebySkyCosmetics-WhiteBackground4_vs39c3.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180692/MemmoriesNoblebySkyCosmetics-Creative2_mdysm8.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180702/MemmoriesNoblebySkyCosmetics-WhiteBackground3_egl7kr.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180708/MemmoriesNoblebySkyCosmetics-WhiteBackground2_tgqezl.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180735/MemmoriesNoblebySkyCosmetics-WhiteBackground1_c5qufp.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180682/photo_16_2026-09-23_10-36-58_ljuybi.jpg"
+    ],
+    tagline: "Une signature olfactive majestueuse gravée dans les mémoires.",
+    description: "Memories Noble est une création somptueuse aux effluves chaleureuses et ambrées. Conçu pour les hommes et femmes qui recherchent distinction, prestance et un sillage remarquable du matin jusqu'au soir.",
+    specs: [
+      "Volume : 100 ml Eau de Parfum",
+      "Sillage ambré, boisé et délicatement épicé",
+      "Présentation luxe avec packaging coffret noir et doré"
+    ]
+  },
+  {
+    id: "fs-prod-14",
+    name: "Choice Eau de Parfum",
+    category: "parfums",
+    categoryLabel: "Parfums",
+    subCategory: "Parfums Modernes",
+    price: 15000,
+    oldPrice: 22000,
+    badge: "Populaire",
+    rating: 4.8,
+    reviewCount: 40,
+    inStock: true,
+    featured: false,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180940/Choice_-_Buy_Parfum_by_SkyCosmetics_-_Graphics_d83cyj.webp",
+    localImage: "photo_21_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180940/Choice_-_Buy_Parfum_by_SkyCosmetics_-_Graphics_d83cyj.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180945/Choice_-_Buy_Parfum_by_SkyCosmetics_-_White_Bg_nitwof.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180951/ChoicebySkyCosmetics-WhiteBackground1_v4ksay.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180956/ChoicebySkyCosmetics-WhiteBackground4_s78vkl.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180962/ChoicebySkyCosmetics-WhiteBackground2_rmn4ey.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180967/ChoicebySkyCosmetics-WhiteBackground3_rtyyad.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790180985/photo_21_2026-09-23_10-36-58_xmagcg.jpg"
+    ],
+    tagline: "Pomme croquante, bergamote, caramel gourmand et ambre gris.",
+    description: "Choice est un parfum vibrant et moderne qui incarne la confiance et le charme. Il s'ouvre sur une explosion de pomme, bergamote, mandarine et citron, rehaussée de lavande et cardamome. Cœur de caramel, rose et violette qui se fond dans un sillage ambre gris, musc et patchouli.",
+    specs: [
+      "Notes de tête : Pomme verte, bergamote, mandarine, lavande",
+      "Notes de cœur : Caramel onctueux, rose, violette, bois doux",
+      "Notes de fond : Ambre gris précieux, musc blanc, patchouli, fève tonka",
+      "Flacon moderne 100 ml"
+    ]
+  },
+  {
+    id: "fs-prod-15",
+    name: "Memories Royal Eau de Parfum",
+    category: "parfums",
+    categoryLabel: "Parfums",
+    subCategory: "Collection Royale",
+    price: 25000,
+    oldPrice: 35000,
+    badge: "Prestige",
+    rating: 4.9,
+    reviewCount: 33,
+    inStock: true,
+    featured: false,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181226/MemmoriesRoyalbySkyCosmetics-WhiteBackground3_k8tejz.webp",
+    localImage: "photo_8_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181226/MemmoriesRoyalbySkyCosmetics-WhiteBackground3_k8tejz.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181210/MemmoriesRoyalbySkyCosmetics-Creative_rpdiq2.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181219/MemmoriesRoyalbySkyCosmetics-WhiteBackground4_zq1lgf.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181232/MemmoriesRoyalbySkyCosmetics-WhiteBackground1_eqhff8.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181252/MemmoriesRoyalbySkyCosmetics-Creative2_sotwpp.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181272/MemmoriesRoyalbySkyCosmetics-WhiteBackground2_vqnm7e.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181199/photo_8_2026-09-23_10-36-58_f8qwrr.jpg"
+    ],
+    tagline: "L'opulence royale capturée dans un sillage inoubliable.",
+    description: "Une fragrance impériale qui séduit par sa complexité et sa tenue exceptionnelle. Harmonie d'accords floraux et boisés d'une grande rareté, dédiée aux amateurs de parfumerie d'exception.",
+    specs: [
+      "Volume : 100 ml vaporisateur de luxe",
+      "Longue tenue certifiée jusqu'à 24h+",
+      "Flacon aux finitions or noble"
+    ]
+  },
+  {
+    id: "fs-prod-16",
+    name: "Al Fareed Eau de Parfum 50 ml - Arabian Oud",
+    category: "parfums",
+    categoryLabel: "Parfums",
+    subCategory: "Haute Parfumerie",
+    price: 140000,
+    oldPrice: 170000,
+    badge: "Exclusivité",
+    rating: 5.0,
+    reviewCount: 17,
+    inStock: true,
+    featured: true,
+    image: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181519/27c8be22-e805-4da5-b436-d093341049da-1000x1000-lzb5NQCQRGKUT16AKSXaEKSuq33BWrVtUn9LJjG3_acnxbz.webp",
+    localImage: "photo_11_2026-09-23_10-36-58.jpg",
+    gallery: [
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181519/27c8be22-e805-4da5-b436-d093341049da-1000x1000-lzb5NQCQRGKUT16AKSXaEKSuq33BWrVtUn9LJjG3_acnxbz.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181526/5cbd16c6-4f5a-4f37-9357-5aeaa6209194-1000x1000-u1WI69reb9lHm19aJGFoEEIaXMnr07dKMtBYoVHb_shlpz3.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181540/d239c551-28a0-4160-83c9-c4dc6bcec431-1000x1000-ZE460EVnQhYZGdZYQzkczMaM52NsKXeH3WJELCaM_s59rb0.webp",
+      "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790181582/photo_11_2026-09-23_10-36-58_w9xvuh.jpg"
+    ],
+    tagline: "Patchouli exclusif, ambre authentique et oud rare.",
+    description: "Al Fareed incarne le sommet du raffinement oriental. Un parfum unique de patchouli exclusif, avec son sillage boisé luxueux et sa touche épicée chaleureuse, entrelacé avec l'arôme somptueux d'ambre authentique et de oud rare. Une création qui magnifie votre charisme.",
+    specs: [
+      "Flacon haute couture 50 ml",
+      "Ingrédients : Patchouli précieux, ambre brut d'Orient, essence d'oud rare",
+      "Sillage et persistance spectaculaires",
+      "Pièce maîtresse des collections Arabian Oud"
+    ]
+  }
+];
+
+// Données d'information de l'entreprise
+const STORE_CONFIG = {
+  brandName: "Fallou Store",
+  brandInitials: "FS",
+  tagline: "Électronique | Parfums | Accessoires | Gadgets",
+  domain: "www.falloustore.com",
+  logoUrl: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161836/photo_10_2026-09-23_10-36-58_ufgwp6.jpg",
+  localLogoUrl: "photo_10_2026-09-23_10-36-58.jpg",
+  promoVideoUrl: "https://res.cloudinary.com/dpw81ymi6/video/upload/v1790179358/video_2026-09-23_10-36-58_abtuya.mp4",
+  localPromoVideoUrl: "video_2026-09-23_10-36-58.mp4",
+  adminEmail: "contact@falloustore.com",
+  adminDefaultPasswordHash: "FallouAdmin2026!", // Mot de passe sécurisé pour l'accès local
+  whatsappNumbers: [
+    { label: "Commercial 1 (Principal)", number: "221778944041", display: "+221 77 894 40 41" },
+    { label: "Commercial 2 (Service Client)", number: "221710544141", display: "+221 71 054 41 41" }
+  ],
+  deliveryZones: [
+    { id: "dakar-centre", name: "Dakar Centre (Plateau, Médina, Fann, Point E)", price: 2000, time: "Moins de 4h" },
+    { id: "dakar-almadies", name: "Almadies / Ngor / Ouakam / Yoff / Mermoz", price: 2000, time: "Moins de 4h" },
+    { id: "banlieue", name: "Banlieue (Guédiawaye, Pikine, Parcelles, Keur Massar)", price: 2500, time: "Livraison dans la journée" },
+    { id: "rufisque", name: "Rufisque / Diamniadio / Bargny", price: 3000, time: "24h maximum" },
+    { id: "regions", name: "Régions du Sénégal (Thiès, Mbour, Saint-Louis, Touba, etc.)", price: 4000, time: "24h à 48h (Colis Express)" },
+    { id: "boutique", name: "Retrait Gratuit en Boutique Dakar", price: 0, time: "Immédiat" }
+  ],
+  paymentMethods: [
+    { id: "wave", name: "Wave", badge: "Instantané 0% frais", icon: "wave" },
+    { id: "om", name: "Orange Money", badge: "Rapide & Sécurisé", icon: "om" },
+    { id: "cash", name: "Paiement à la Livraison", badge: "Espèces à Dakar", icon: "cash" },
+    { id: "card", name: "Carte Bancaire Visa / Mastercard", badge: "International", icon: "card" }
+  ],
+  developerCredit: {
+    text: "Développé avec excellence par Bambatechnologies.com",
+    url: "https://bambatechnologies.com"
+  }
+};
+
+
+/**
+ * Fallou Store - Client Supabase & Gestionnaire de Synchronisation
+ * Projet : https://domzxqknhburyjmwykkn.supabase.co
+ * Clé Publishable : sb_publishable_cp1YvvJeebVKEGLPYqqxAg_Ktk0h8Qn
+ */
+
+const SUPABASE_CONFIG = {
+  url: "https://domzxqknhburyjmwykkn.supabase.co",
+  anonKey: "sb_publishable_cp1YvvJeebVKEGLPYqqxAg_Ktk0h8Qn"
+};
+
+class FallouStoreDB {
+  constructor() {
+    this.url = SUPABASE_CONFIG.url;
+    this.anonKey = SUPABASE_CONFIG.anonKey;
+    this.localKeyProducts = "fallou_store_products_v2";
+    this.localKeyOrders = "fallou_store_orders_v1";
+    this.localKeyAbandoned = "fallou_store_abandoned_v1";
+    this.localKeyStats = "fallou_store_stats_v1";
+    this.isSupabaseAvailable = false;
+    this.init();
+  }
+
+  init() {
+    // Vérifier et amorcer le stockage local avec les données par défaut si vide
+    if (!localStorage.getItem(this.localKeyProducts)) {
+      localStorage.setItem(this.localKeyProducts, JSON.stringify(INITIAL_PRODUCTS));
+    }
+    
+    // Initialiser les commandes avec des commandes à venir (en attente / à livrer) et terminées
+    let existingOrders = [];
+    try {
+      existingOrders = JSON.parse(localStorage.getItem(this.localKeyOrders) || "[]");
+    } catch(e) { existingOrders = []; }
+
+    if (!existingOrders || existingOrders.length < 3) {
+      const now = Date.now();
+      const demoOrders = [
+        {
+          id: "FS-CMD-90412",
+          date: new Date(now - 1000 * 60 * 35).toISOString(),
+          customerName: "Cheikh Tidiane Diop",
+          customerPhone: "77 821 44 19",
+          deliveryZone: "Almadies / Ngor / Ouakam / Yoff / Mermoz",
+          deliverySlot: "Aujourd'hui - Entre 14h00 et 16h30",
+          deliveryFee: 2000,
+          paymentMethod: "Wave",
+          whatsappNumber: "221778944041",
+          items: [
+            { id: "fs-prod-01", name: "AirPods Max 2", price: 80000, quantity: 1 }
+          ],
+          totalAmount: 82000,
+          status: "À préparer",
+          notes: "Client souhaite tester avant validation finale."
+        },
+        {
+          id: "FS-CMD-89945",
+          date: new Date(now - 1000 * 60 * 95).toISOString(),
+          customerName: "Fatou Bintou Sow",
+          customerPhone: "78 456 78 90",
+          deliveryZone: "Dakar Centre (Plateau, Médina, Fann, Point E)",
+          deliverySlot: "Aujourd'hui - En cours d'acheminement",
+          deliveryFee: 2000,
+          paymentMethod: "Orange Money",
+          whatsappNumber: "221778944041",
+          items: [
+            { id: "fs-prod-08", name: "Oud Al Malik Eau de Parfum", price: 18000, quantity: 2 },
+            { id: "fs-prod-09", name: "Arabian Oud - Madawi Gold Edition", price: 25000, quantity: 1 }
+          ],
+          totalAmount: 63000,
+          status: "En cours de livraison",
+          notes: "Livreur assigné : Mamadou (Moto 04)"
+        },
+        {
+          id: "FS-CMD-89510",
+          date: new Date(now - 1000 * 60 * 240).toISOString(),
+          customerName: "Ibrahima Sarr",
+          customerPhone: "70 987 65 43",
+          deliveryZone: "Banlieue (Guédiawaye, Pikine, Parcelles)",
+          deliverySlot: "Demain matin (09h - 12h)",
+          deliveryFee: 2500,
+          paymentMethod: "Paiement à la Livraison",
+          whatsappNumber: "221778944041",
+          items: [
+            { id: "fs-prod-07", name: "Smart Watch Série 11", price: 25000, quantity: 1 }
+          ],
+          totalAmount: 27500,
+          status: "Confirmée",
+          notes: "Appeler 30 min avant arrivée"
+        },
+        {
+          id: "FS-CMD-88720",
+          date: new Date(now - 1000 * 3600 * 26).toISOString(),
+          customerName: "Moussa Ndiaye",
+          customerPhone: "76 345 12 98",
+          deliveryZone: "Dakar Centre (Plateau, Médina)",
+          deliverySlot: "Hier",
+          deliveryFee: 2000,
+          paymentMethod: "Wave",
+          whatsappNumber: "221778944041",
+          items: [
+            { id: "fs-prod-02", name: "DJI Mic Mini (2 TX + 1 RX)", price: 90000, quantity: 1 }
+          ],
+          totalAmount: 92000,
+          status: "Livrée",
+          notes: "Commande livrée et payée avec succès."
+        }
+      ];
+      localStorage.setItem(this.localKeyOrders, JSON.stringify(demoOrders));
+    }
+
+    if (!localStorage.getItem(this.localKeyAbandoned)) {
+      const demoAbandoned = [
+        {
+          id: "ABN-" + Date.now().toString().slice(-5),
+          date: new Date(Date.now() - 3600000 * 2).toISOString(),
+          items: [{ name: "DJI Mic Mini (2 TX + 1 RX)", price: 90000, quantity: 1 }],
+          estimatedTotal: 90000,
+          customerName: "Amadou Diallo",
+          customerPhone: "77 564 32 10"
+        },
+        {
+          id: "ABN-" + (Date.now() - 36000).toString().slice(-5),
+          date: new Date(Date.now() - 3600000 * 6).toISOString(),
+          items: [{ name: "Memories Gold Eau de Parfum", price: 22000, quantity: 1 }],
+          estimatedTotal: 22000,
+          customerName: "Mariama Ba",
+          customerPhone: "78 123 99 88"
+        }
+      ];
+      localStorage.setItem(this.localKeyAbandoned, JSON.stringify(demoAbandoned));
+    }
+
+    // Incrémenter et initialiser les statistiques de fréquentation
+    this.recordVisit();
+  }
+
+  recordVisit() {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    let stats = JSON.parse(localStorage.getItem(this.localKeyStats) || "{}");
+    
+    if (stats.lastDay !== todayStr) {
+      stats.lastDay = todayStr;
+      stats.visitsToday = (stats.visitsToday ? Math.floor(stats.visitsToday * 0.4) : 185);
+    }
+
+    stats.visits = (stats.visits || 1480) + 1;
+    stats.visitsToday = (stats.visitsToday || 185) + 1;
+    stats.lastVisit = new Date().toISOString();
+    stats.liveVisitors = Math.floor(Math.random() * 11) + 14;
+
+    localStorage.setItem(this.localKeyStats, JSON.stringify(stats));
+  }
+
+  // --- PRODUITS ---
+  async getProducts() {
+    try {
+      const local = JSON.parse(localStorage.getItem(this.localKeyProducts) || "[]");
+      return local;
+    } catch (e) {
+      console.warn("Erreur lecture produits locaux:", e);
+      return INITIAL_PRODUCTS;
+    }
+  }
+
+  async saveProduct(product) {
+    const products = await this.getProducts();
+    const existingIndex = products.findIndex(p => p.id === product.id);
+
+    if (existingIndex >= 0) {
+      products[existingIndex] = { ...products[existingIndex], ...product, updatedAt: new Date().toISOString() };
+    } else {
+      product.id = product.id || "fs-prod-" + Date.now();
+      product.createdAt = new Date().toISOString();
+      products.unshift(product);
+    }
+
+    localStorage.setItem(this.localKeyProducts, JSON.stringify(products));
+    this.syncProductToSupabase(product);
+    return product;
+  }
+
+  async deleteProduct(productId) {
+    let products = await this.getProducts();
+    products = products.filter(p => p.id !== productId);
+    localStorage.setItem(this.localKeyProducts, JSON.stringify(products));
+    return true;
+  }
+
+  async toggleStock(productId) {
+    const products = await this.getProducts();
+    const prod = products.find(p => p.id === productId);
+    if (prod) {
+      prod.inStock = !prod.inStock;
+      localStorage.setItem(this.localKeyProducts, JSON.stringify(products));
+      return prod.inStock;
+    }
+    return false;
+  }
+
+  // --- COMMANDES (LEADS WHATSAPP) ---
+  async getOrders() {
+    return JSON.parse(localStorage.getItem(this.localKeyOrders) || "[]");
+  }
+
+  async recordOrder(orderData) {
+    const orders = await this.getOrders();
+    const newOrder = {
+      id: "FS-CMD-" + Date.now().toString().slice(-6),
+      date: new Date().toISOString(),
+      status: "À préparer",
+      ...orderData
+    };
+    orders.unshift(newOrder);
+    localStorage.setItem(this.localKeyOrders, JSON.stringify(orders));
+
+    this.syncOrderToSupabase(newOrder);
+    return newOrder;
+  }
+
+  // --- PANIERS ABANDONNÉS ---
+  async recordAbandonedCart(cartData) {
+    if (!cartData.items || cartData.items.length === 0) return;
+    const abandonedList = JSON.parse(localStorage.getItem(this.localKeyAbandoned) || "[]");
+    
+    const recent = abandonedList.find(a => 
+      Date.now() - new Date(a.date).getTime() < 15 * 60 * 1000 &&
+      a.customerPhone === cartData.customerPhone
+    );
+    if (recent) return;
+
+    const record = {
+      id: "ABN-" + Date.now().toString().slice(-6),
+      date: new Date().toISOString(),
+      items: cartData.items,
+      estimatedTotal: cartData.total || 0,
+      customerName: cartData.customerName || "Non renseigné",
+      customerPhone: cartData.customerPhone || "Non renseigné",
+      step: cartData.step || "Formulaire WhatsApp"
+    };
+
+    abandonedList.unshift(record);
+    if (abandonedList.length > 50) abandonedList.pop();
+    localStorage.setItem(this.localKeyAbandoned, JSON.stringify(abandonedList));
+  }
+
+  async getAbandonedCarts() {
+    return JSON.parse(localStorage.getItem(this.localKeyAbandoned) || "[]");
+  }
+
+  async updateOrderStatus(orderId, newStatus) {
+    const orders = await this.getOrders();
+    const order = orders.find(o => o.id === orderId);
+    if (order) {
+      order.status = newStatus;
+      order.updatedAt = new Date().toISOString();
+      localStorage.setItem(this.localKeyOrders, JSON.stringify(orders));
+      return true;
+    }
+    return false;
+  }
+
+  async deleteOrder(orderId) {
+    let orders = await this.getOrders();
+    orders = orders.filter(o => o.id !== orderId);
+    localStorage.setItem(this.localKeyOrders, JSON.stringify(orders));
+    return true;
+  }
+
+  // --- STATISTIQUES GLOBALES POUR LE DASHBOARD ---
+  async getAnalytics() {
+    const orders = await this.getOrders();
+    const abandoned = await this.getAbandonedCarts();
+    const products = await this.getProducts();
+    const stats = JSON.parse(localStorage.getItem(this.localKeyStats) || "{}");
+
+    const completedOrders = orders.filter(o => o.status === 'Livrée');
+    const totalRevenue = completedOrders.reduce((sum, o) => sum + (Number(o.totalAmount) || 0), 0);
+
+    const upcomingOrders = orders.filter(o => o.status !== 'Livrée' && o.status !== 'Annulée');
+    const pendingRevenue = upcomingOrders.reduce((sum, o) => sum + (Number(o.totalAmount) || 0), 0);
+    
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const todayOrders = orders.filter(o => (o.date && o.date.startsWith(todayStr)) || (o.deliverySlot && o.deliverySlot.includes("Aujourd'hui")));
+
+    const activeProducts = products.filter(p => p.inStock).length;
+    const outOfStockProducts = products.filter(p => !p.inStock).length;
+
+    const visits = stats.visits || 1485;
+    const visitsToday = stats.visitsToday || 189;
+    const liveVisitors = stats.liveVisitors || Math.floor(Math.random() * 8) + 12;
+    const conversionRate = visits > 0 ? ((orders.length / visits) * 100).toFixed(1) : "3.2";
+
+    return {
+      totalRevenue,
+      pendingRevenue,
+      totalOrders: orders.length,
+      upcomingOrders,
+      upcomingCount: upcomingOrders.length,
+      todayOrdersCount: todayOrders.length,
+      completedCount: completedOrders.length,
+      abandonedCount: abandoned.length,
+      activeProducts,
+      outOfStockProducts,
+      totalProducts: products.length,
+      visits,
+      visitsToday,
+      liveVisitors,
+      conversionRate
+    };
+  }
+
+  // --- SUPABASE DIRECT API SYNC (FETCH REST) ---
+  async syncProductToSupabase(product) {
+    if (!this.url || !this.anonKey) return;
+    try {
+      await fetch(`${this.url}/rest/v1/products`, {
+        method: "POST",
+        headers: {
+          "apikey": this.anonKey,
+          "Authorization": `Bearer ${this.anonKey}`,
+          "Content-Type": "application/json",
+          "Prefer": "resolution=merge-duplicates"
+        },
+        body: JSON.stringify({
+          id: product.id,
+          name: product.name,
+          category: product.category,
+          price: product.price,
+          in_stock: product.inStock,
+          image_url: product.image,
+          description: product.description,
+          updated_at: new Date().toISOString()
+        })
+      });
+    } catch (err) {
+      // Échec silencieux, persistance locale garantie
+    }
+  }
+
+  async syncOrderToSupabase(order) {
+    if (!this.url || !this.anonKey) return;
+    try {
+      await fetch(`${this.url}/rest/v1/orders`, {
+        method: "POST",
+        headers: {
+          "apikey": this.anonKey,
+          "Authorization": `Bearer ${this.anonKey}`,
+          "Content-Type": "application/json",
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+          id: order.id,
+          customer_name: order.customerName,
+          customer_phone: order.customerPhone,
+          delivery_zone: order.deliveryZone,
+          total_amount: order.totalAmount,
+          whatsapp_number: order.whatsappNumber,
+          items: order.items,
+          created_at: order.date,
+          status: order.status
+        })
+      });
+    } catch (err) {
+      // Échec silencieux
+    }
+  }
+}
+
+// Instance globale accessible
+window.fallouDB = new FallouStoreDB();
+
+
+/**
+ * Fallou Store (FS) - Logique Frontend Principale
+ * Panier d'achat, tunnel WhatsApp, Modales, Vente Flash, Recherche
+ */
+
+document.addEventListener('DOMContentLoaded', async () => {
+  // 1. Initialisation de l'état
+  let products = await window.fallouDB.getProducts();
+  let currentCategory = 'all';
+  let searchQuery = '';
+  let activeTab = 'all';
+  let cart = JSON.parse(localStorage.getItem('fs_cart_items') || '[]');
+  let selectedProduct = null;
+  let activeVariant = null;
+
+  // Éléments du DOM
+  const productGrid = document.getElementById('fsProductGrid');
+  const cartDrawer = document.getElementById('fsCartDrawer');
+  const cartOverlay = document.getElementById('fsCartOverlay');
+  const cartItemsContainer = document.getElementById('fsCartItems');
+  const cartSubtotalEl = document.getElementById('fsCartSubtotal');
+  const cartTotalEl = document.getElementById('fsCartTotal');
+  const cartBadgeCountEls = document.querySelectorAll('.cart-count-badge');
+  const searchInput = document.getElementById('fsSearchInput');
+  const toastEl = document.getElementById('fsToast');
+  const toastMsg = document.getElementById('fsToastMsg');
+
+  // Modale Produit
+  const pdpModal = document.getElementById('fsPdpModal');
+  const pdpModalBody = document.getElementById('fsPdpModalBody');
+
+  // Modale WhatsApp Checkout
+  const waModal = document.getElementById('fsWaModal');
+  const waOrderForm = document.getElementById('fsWaOrderForm');
+  const waItemsSummary = document.getElementById('fsWaItemsSummary');
+  const waDeliverySelect = document.getElementById('fsWaDeliveryZone');
+  const waTotalAmountEl = document.getElementById('fsWaTotalAmount');
+
+  // Modale Vidéo Boutique
+  const videoModal = document.getElementById('fsVideoModal');
+  const storeVideoPlayer = document.getElementById('fsStoreVideoPlayer');
+
+  // Modale Confirmation / Remerciement
+  const confirmModal = document.getElementById('fsConfirmModal');
+
+  // Formatage FCFA
+  const formatFCFA = (amount) => {
+    return new Intl.NumberFormat('fr-FR').format(amount) + ' FCFA';
+  };
+
+  // Toast Notification
+  const showToast = (message) => {
+    if (!toastEl) return;
+    toastMsg.textContent = message;
+    toastEl.classList.add('show');
+    setTimeout(() => {
+      toastEl.classList.remove('show');
+    }, 3200);
+  };
+
+  // --- 2. AFFICHAGE DES PRODUITS ---
+  const renderProducts = () => {
+    if (!productGrid) return;
+
+    let filtered = products.filter(p => {
+      const matchCat = currentCategory === 'all' || p.category === currentCategory;
+      const matchSearch = searchQuery === '' || 
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (p.description && p.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (p.categoryLabel && p.categoryLabel.toLowerCase().includes(searchQuery.toLowerCase()));
+      
+      let matchTab = true;
+      if (activeTab === 'bestseller') matchTab = p.badge === 'Bestseller' || p.rating >= 4.9;
+      if (activeTab === 'promo') matchTab = p.oldPrice > p.price;
+      if (activeTab === 'nouveau') matchTab = p.badge === 'Tendance' || p.badge === 'Exclusivité';
+
+      return matchCat && matchSearch && matchTab;
+    });
+
+    if (filtered.length === 0) {
+      productGrid.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: #64748b;">
+          <svg style="width: 48px; height: 48px; margin-bottom: 1rem; opacity: 0.5;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Aucun produit trouvé</h3>
+          <p style="font-size: 0.9rem;">Essayez d'autres mots-clés ou réinitialisez les filtres de catégories.</p>
+        </div>
+      `;
+      return;
+    }
+
+    productGrid.innerHTML = filtered.map(p => {
+      const isOutOfStock = !p.inStock;
+      const badgeHtml = isOutOfStock 
+        ? `<span class="fs-card-badge out-of-stock">Rupture</span>`
+        : (p.badge ? `<span class="fs-card-badge ${p.badge === 'Bestseller' ? 'gold' : ''}">${p.badge}</span>` : '');
+
+      return `
+        <article class="fs-card" data-id="${p.id}">
+          <div class="fs-card-thumb-wrap" onclick="window.fsApp.openPdp('${p.id}')">
+            ${badgeHtml}
+            <img class="fs-card-img" src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='${p.localImage || 'photo_10_2026-09-23_10-36-58.jpg'}'">
+            <div class="fs-card-quickview">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+              </svg>
+              Aperçu rapide
+            </div>
+          </div>
+          <div class="fs-card-body">
+            <div class="fs-card-meta">
+              <span>${p.categoryLabel || 'Produit'}</span>
+              <div class="fs-card-rating">
+                <span>★</span> ${p.rating.toFixed(1)} <span style="color:#94a3b8; font-weight:normal;">(${p.reviewCount || 12})</span>
+              </div>
+            </div>
+            <h3 class="fs-card-title" title="${p.name}">${p.name}</h3>
+            <div class="fs-card-pricing">
+              <span class="fs-price-current">${formatFCFA(p.price)}</span>
+              ${p.oldPrice ? `<span class="fs-price-old">${formatFCFA(p.oldPrice)}</span>` : ''}
+            </div>
+            <div class="fs-card-actions">
+              ${isOutOfStock ? `
+                <button class="fs-btn-add-cart" style="grid-column: 1 / -1; opacity: 0.6; cursor: not-allowed;" disabled>
+                  Rupture temporaire
+                </button>
+              ` : `
+                <button class="fs-btn-add-cart" onclick="window.fsApp.addToCart('${p.id}')">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                  </svg>
+                  Ajouter
+                </button>
+                <button class="fs-btn-direct-wa" onclick="window.fsApp.quickWhatsAppBuy('${p.id}')" title="Commander vite sur WhatsApp">
+                  <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                  </svg>
+                </button>
+              `}
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+  };
+
+  // --- 3. GESTION DU PANIER ---
+  const saveCart = () => {
+    localStorage.setItem('fs_cart_items', JSON.stringify(cart));
+    updateCartUI();
+  };
+
+  const updateCartUI = () => {
+    // Calcul du total d'articles
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartBadgeCountEls.forEach(badge => {
+      badge.textContent = totalCount;
+      badge.style.display = totalCount > 0 ? 'flex' : 'none';
+    });
+
+    // Sous-total
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    if (cartSubtotalEl) cartSubtotalEl.textContent = formatFCFA(subtotal);
+    if (cartTotalEl) cartTotalEl.textContent = formatFCFA(subtotal);
+
+    // Contenu du drawer
+    if (!cartItemsContainer) return;
+
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = `
+        <div style="text-align: center; padding: 3rem 1rem; color: #64748b;">
+          <svg style="width: 54px; height: 54px; margin-bottom: 1rem; opacity: 0.4;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <h4 style="font-weight: 700; color: #0f172a; margin-bottom: 0.35rem;">Votre panier est vide</h4>
+          <p style="font-size: 0.85rem;">Parcourez notre catalogue et profitez de la livraison rapide à Dakar !</p>
+        </div>
+      `;
+      return;
+    }
+
+    cartItemsContainer.innerHTML = cart.map((item, index) => `
+      <div class="fs-cart-item">
+        <img class="fs-cart-item-img" src="${item.image}" alt="${item.name}">
+        <div class="fs-cart-item-info">
+          <div class="fs-cart-item-title">${item.name}</div>
+          ${item.variant ? `<div class="fs-cart-item-variant">Variante : ${item.variant}</div>` : ''}
+          <div class="fs-cart-item-price">${formatFCFA(item.price)}</div>
+          <div class="fs-qty-controls">
+            <button class="fs-qty-btn" onclick="window.fsApp.changeQuantity(${index}, -1)">-</button>
+            <span class="fs-qty-val">${item.quantity}</span>
+            <button class="fs-qty-btn" onclick="window.fsApp.changeQuantity(${index}, 1)">+</button>
+            <button style="margin-left: auto; color: #ef4444; font-size: 0.78rem; font-weight: 600;" onclick="window.fsApp.removeFromCart(${index})">Supprimer</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  };
+
+  const addToCart = (productId, variant = null, quantity = 1) => {
+    const prod = products.find(p => p.id === productId);
+    if (!prod) return;
+
+    if (!prod.inStock) {
+      showToast("Désolé, cet article est actuellement en rupture de stock.");
+      return;
+    }
+
+    const itemKey = variant ? `${prod.id}__${variant}` : prod.id;
+    const existing = cart.find(i => i.key === itemKey);
+
+    if (existing) {
+      existing.quantity += quantity;
+    } else {
+      let itemImage = prod.image;
+      if (variant && prod.variants) {
+        const vObj = prod.variants.find(v => v.name === variant);
+        if (vObj && vObj.image) itemImage = vObj.image;
+      }
+      cart.push({
+        key: itemKey,
+        id: prod.id,
+        name: prod.name,
+        price: prod.price,
+        image: itemImage,
+        variant: variant,
+        quantity: quantity
+      });
+    }
+
+    saveCart();
+    showToast(`"${prod.name}" a été ajouté à votre panier`);
+    openCartDrawer();
+  };
+
+  const openCartDrawer = () => {
+    if (cartDrawer && cartOverlay) {
+      cartDrawer.classList.add('active');
+      cartOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  const closeCartDrawer = () => {
+    if (cartDrawer && cartOverlay) {
+      cartDrawer.classList.remove('active');
+      cartOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  };
+
+  // --- 4. MODALE PRODUIT DÉTAILLÉ (PDP) ---
+  const openPdp = (productId) => {
+    selectedProduct = products.find(p => p.id === productId);
+    if (!selectedProduct || !pdpModal || !pdpModalBody) return;
+
+    activeVariant = (selectedProduct.variants && selectedProduct.variants.length > 0) 
+      ? selectedProduct.variants[0].name 
+      : null;
+
+    const galleryImages = selectedProduct.gallery && selectedProduct.gallery.length > 0 
+      ? selectedProduct.gallery 
+      : [selectedProduct.image];
+
+    pdpModalBody.innerHTML = `
+      <div class="fs-modal-pdp">
+        <div class="fs-pdp-gallery">
+          <div class="fs-pdp-main-img-wrap">
+            <img id="pdpMainImage" class="fs-pdp-main-img" src="${galleryImages[0]}" alt="${selectedProduct.name}">
+          </div>
+          <div class="fs-pdp-thumbs">
+            ${galleryImages.map((img, i) => `
+              <img class="fs-pdp-thumb ${i === 0 ? 'active' : ''}" src="${img}" alt="" onclick="window.fsApp.switchPdpImage(this, '${img}')">
+            `).join('')}
+          </div>
+        </div>
+        <div class="fs-pdp-details">
+          <div style="font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700;">
+            ${selectedProduct.categoryLabel} ${selectedProduct.subCategory ? `• ${selectedProduct.subCategory}` : ''}
+          </div>
+          <h2 class="fs-pdp-title">${selectedProduct.name}</h2>
+          <p class="fs-pdp-tagline">${selectedProduct.tagline || ''}</p>
+          
+          <div class="fs-pdp-price-box">
+            <span style="font-family: var(--fs-font-display); font-size: 1.7rem; font-weight: 800; color: #0f172a;">
+              ${formatFCFA(selectedProduct.price)}
+            </span>
+            ${selectedProduct.oldPrice ? `<span style="font-size: 1.1rem; color: #94a3b8; text-decoration: line-through;">${formatFCFA(selectedProduct.oldPrice)}</span>` : ''}
+            <span style="margin-left: auto; font-size: 0.82rem; font-weight: 700; color: ${selectedProduct.inStock ? '#10b981' : '#ef4444'};">
+              ${selectedProduct.inStock ? '● En Stock Immédiat' : '● Rupture de Stock'}
+            </span>
+          </div>
+
+          ${selectedProduct.variants && selectedProduct.variants.length > 0 ? `
+            <div class="fs-pdp-variants-wrap">
+              <span class="fs-variants-label">Choisissez une déclinaison : <b id="variantSelectedLabel">${activeVariant}</b></span>
+              <div class="fs-variants-chips">
+                ${selectedProduct.variants.map((v, i) => `
+                  <button type="button" class="fs-variant-btn ${i === 0 ? 'active' : ''}" onclick="window.fsApp.selectVariant('${v.name}', '${v.image || ''}')">
+                    ${v.name}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          <p class="fs-pdp-desc">${selectedProduct.description || ''}</p>
+
+          ${selectedProduct.specs && selectedProduct.specs.length > 0 ? `
+            <ul class="fs-pdp-specs">
+              ${selectedProduct.specs.map(spec => `<li>${spec}</li>`).join('')}
+            </ul>
+          ` : ''}
+
+          <div style="display: flex; gap: 0.75rem; margin-top: auto;">
+            ${selectedProduct.inStock ? `
+              <button class="fs-btn-primary" style="flex: 1; justify-content: center;" onclick="window.fsApp.addToCart('${selectedProduct.id}', window.fsApp.getActiveVariant()); window.fsApp.closePdp();">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                </svg>
+                Ajouter au Panier
+              </button>
+              <button class="fs-btn-direct-wa" style="padding: 0 1.25rem; font-weight: 700; font-size: 0.95rem; gap: 0.5rem;" onclick="window.fsApp.quickWhatsAppBuy('${selectedProduct.id}', window.fsApp.getActiveVariant()); window.fsApp.closePdp();">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+                WhatsApp Direct
+              </button>
+            ` : `
+              <button class="fs-btn-primary" style="flex: 1; opacity: 0.5; cursor: not-allowed;" disabled>Rupture Temporaire</button>
+            `}
+          </div>
+        </div>
+      </div>
+    `;
+
+    pdpModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closePdp = () => {
+    if (pdpModal) {
+      pdpModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  };
+
+  // --- 5. COMMANDE SUR WHATSAPP & MODALE CHECKOUT ---
+  const openWhatsAppCheckout = () => {
+    if (cart.length === 0) {
+      showToast("Veuillez d'abord ajouter au moins un produit à votre panier.");
+      return;
+    }
+    closeCartDrawer();
+
+    // Remplir le récapitulatif
+    if (waItemsSummary) {
+      waItemsSummary.innerHTML = cart.map(item => `
+        <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.4rem; padding-bottom: 0.4rem; border-bottom: 1px dashed #e2e8f0;">
+          <span>${item.quantity}x <b>${item.name}</b> ${item.variant ? `(${item.variant})` : ''}</span>
+          <b>${formatFCFA(item.price * item.quantity)}</b>
+        </div>
+      `).join('');
+    }
+
+    // Calcul du total avec frais de livraison sélectionnés
+    updateCheckoutTotal();
+
+    if (waModal) {
+      waModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  const updateCheckoutTotal = () => {
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const selectedZoneId = waDeliverySelect ? waDeliverySelect.value : 'dakar-centre';
+    const zone = STORE_CONFIG.deliveryZones.find(z => z.id === selectedZoneId) || STORE_CONFIG.deliveryZones[0];
+    const total = subtotal + zone.price;
+
+    if (waTotalAmountEl) {
+      waTotalAmountEl.textContent = formatFCFA(total);
+    }
+    return { subtotal, zone, total };
+  };
+
+  const closeWhatsAppCheckout = () => {
+    // Si l'utilisateur quitte sans commander mais avait rempli des infos, traquer le panier abandonné
+    const customerName = document.getElementById('fsWaName')?.value;
+    const customerPhone = document.getElementById('fsWaPhone')?.value;
+    if (cart.length > 0 && customerPhone) {
+      window.fallouDB.recordAbandonedCart({
+        customerName,
+        customerPhone,
+        items: cart,
+        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+        step: "Quitté avant WhatsApp"
+      });
+    }
+
+    if (waModal) {
+      waModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  };
+
+  // Traitement et redirection WhatsApp
+  if (waOrderForm) {
+    waOrderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('fsWaName').value.trim();
+      const phone = document.getElementById('fsWaPhone').value.trim();
+      const address = document.getElementById('fsWaAddress').value.trim();
+      const chosenCommercialNumber = document.querySelector('input[name="waNumber"]:checked')?.value || STORE_CONFIG.whatsappNumbers[0].number;
+      const paymentMethod = document.querySelector('input[name="waPayment"]:checked')?.value || 'Wave';
+
+      const { subtotal, zone, total } = updateCheckoutTotal();
+
+      // Enregistrer la commande dans la base locale et Supabase
+      const savedOrder = await window.fallouDB.recordOrder({
+        customerName: name,
+        customerPhone: phone,
+        deliveryAddress: address,
+        deliveryZone: zone.name,
+        deliveryFee: zone.price,
+        paymentMethod: paymentMethod,
+        whatsappNumber: chosenCommercialNumber,
+        items: cart,
+        subtotal: subtotal,
+        totalAmount: total
+      });
+
+      // Construction du message WhatsApp optimisé avec émojis
+      let message = `*NOUVELLE COMMANDE SUR FALLOU STORE* 🛍️\n`;
+      message += `------------------------------------\n`;
+      message += `*Réf:* ${savedOrder.id}\n`;
+      message += `*Nom du client:* ${name}\n`;
+      message += `*Téléphone:* ${phone}\n`;
+      message += `*Adresse:* ${address}\n`;
+      message += `*Zone de livraison:* ${zone.name}\n`;
+      message += `*Mode de paiement:* ${paymentMethod}\n`;
+      message += `------------------------------------\n`;
+      message += `*ARTICLES COMMANDÉS :*\n`;
+      
+      cart.forEach((item, index) => {
+        message += `${index + 1}. ${item.quantity}x *${item.name}*`;
+        if (item.variant) message += ` (Senteur/Modèle : ${item.variant})`;
+        message += ` - ${formatFCFA(item.price * item.quantity)}\n`;
+      });
+
+      message += `------------------------------------\n`;
+      message += `*Sous-total:* ${formatFCFA(subtotal)}\n`;
+      message += `*Frais de livraison:* ${formatFCFA(zone.price)}\n`;
+      message += `*TOTAL À PAYER:* *${formatFCFA(total)}*\n\n`;
+      message += `_Commande effectuée depuis le site officiel www.falloustore.com_`;
+
+      const encodedMsg = encodeURIComponent(message);
+      const waUrl = `https://wa.me/${chosenCommercialNumber}?text=${encodedMsg}`;
+
+      // Vider le panier
+      cart = [];
+      saveCart();
+      closeWhatsAppCheckout();
+
+      // Afficher modale de confirmation avec redirection
+      if (confirmModal) {
+        document.getElementById('confirmOrderId').textContent = savedOrder.id;
+        document.getElementById('confirmWaBtn').href = waUrl;
+        confirmModal.classList.add('active');
+      }
+
+      // Tenter ouverture automatique
+      window.open(waUrl, '_blank');
+    });
+  }
+
+  // Achat direct WhatsApp pour un seul produit
+  const quickWhatsAppBuy = (productId, variant = null) => {
+    const prod = products.find(p => p.id === productId);
+    if (!prod) return;
+
+    cart = [{
+      key: prod.id,
+      id: prod.id,
+      name: prod.name,
+      price: prod.price,
+      image: prod.image,
+      variant: variant,
+      quantity: 1
+    }];
+    saveCart();
+    openWhatsAppCheckout();
+  };
+
+  // --- 6. VENTE FLASH COUNTDOWN (NovaTrend Style) ---
+  const initCountdown = () => {
+    const daysEl = document.getElementById('timerDays');
+    const hoursEl = document.getElementById('timerHours');
+    const minutesEl = document.getElementById('timerMinutes');
+    const secondsEl = document.getElementById('timerSeconds');
+
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+    // Définir une date cible à minuit
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 2);
+    targetDate.setHours(23, 59, 59, 0);
+
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const diff = targetDate.getTime() - now;
+
+      if (diff <= 0) {
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      daysEl.textContent = d < 10 ? '0' + d : d;
+      hoursEl.textContent = h < 10 ? '0' + h : h;
+      minutesEl.textContent = m < 10 ? '0' + m : m;
+      secondsEl.textContent = s < 10 ? '0' + s : s;
+    };
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  };
+
+  // --- 7. MODALE VIDÉO PROMO ---
+  const openVideoModal = () => {
+    if (videoModal && storeVideoPlayer) {
+      videoModal.classList.add('active');
+      storeVideoPlayer.play().catch(() => {});
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  const closeVideoModal = () => {
+    if (videoModal && storeVideoPlayer) {
+      videoModal.classList.remove('active');
+      storeVideoPlayer.pause();
+      document.body.style.overflow = '';
+    }
+  };
+
+  // --- 8. FAQ ACCORDÉON ---
+  const faqItems = document.querySelectorAll('.fs-faq-item');
+  faqItems.forEach(item => {
+    const trigger = item.querySelector('.fs-faq-trigger');
+    if (trigger) {
+      trigger.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        faqItems.forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    }
+  });
+
+  // --- 9. ÉCOUTEURS D'ÉVÉNEMENTS RECHERCHE ET CATÉGORIES ---
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim();
+      renderProducts();
+    });
+  }
+
+  // Filtrage par catégories (chips)
+  const catChips = document.querySelectorAll('.fs-cat-chip');
+  catChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      catChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentCategory = chip.getAttribute('data-category') || 'all';
+      renderProducts();
+      // Scroll léger vers la grille
+      const grid = document.getElementById('catalogSection');
+      if (grid) grid.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Onglets (Tous, Bestsellers, etc.)
+  const tabBtns = document.querySelectorAll('.fs-tab-btn');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeTab = btn.getAttribute('data-tab') || 'all';
+      renderProducts();
+    });
+  });
+
+  if (waDeliverySelect) {
+    waDeliverySelect.addEventListener('change', updateCheckoutTotal);
+  }
+
+  // Exposition des fonctions globales sous window.fsApp
+  window.fsApp = {
+    addToCart,
+    openCartDrawer,
+    closeCartDrawer,
+    removeFromCart: (index) => {
+      cart.splice(index, 1);
+      saveCart();
+    },
+    changeQuantity: (index, delta) => {
+      if (cart[index]) {
+        cart[index].quantity += delta;
+        if (cart[index].quantity <= 0) {
+          cart.splice(index, 1);
+        }
+        saveCart();
+      }
+    },
+    openPdp,
+    closePdp,
+    switchPdpImage: (thumbEl, imgUrl) => {
+      const main = document.getElementById('pdpMainImage');
+      if (main) main.src = imgUrl;
+      document.querySelectorAll('.fs-pdp-thumb').forEach(t => t.classList.remove('active'));
+      if (thumbEl) thumbEl.classList.add('active');
+    },
+    selectVariant: (variantName, variantImg) => {
+      activeVariant = variantName;
+      const lbl = document.getElementById('variantSelectedLabel');
+      if (lbl) lbl.textContent = variantName;
+      document.querySelectorAll('.fs-variant-btn').forEach(b => {
+        b.classList.toggle('active', b.textContent.trim() === variantName);
+      });
+      if (variantImg) {
+        const main = document.getElementById('pdpMainImage');
+        if (main) main.src = variantImg;
+      }
+    },
+    getActiveVariant: () => activeVariant,
+    quickWhatsAppBuy,
+    openWhatsAppCheckout,
+    closeWhatsAppCheckout,
+    openVideoModal,
+    closeVideoModal,
+    closeConfirmModal: () => {
+      if (confirmModal) confirmModal.classList.remove('active');
+    },
+    filterCategory: (cat) => {
+      const chip = document.querySelector(`.fs-cat-chip[data-category="${cat}"]`);
+      if (chip) chip.click();
+    },
+    refreshCatalog: async () => {
+      products = await window.fallouDB.getProducts();
+      renderProducts();
+    }
+  };
+
+  // Initialisations au chargement
+  renderProducts();
+  updateCartUI();
+  // =========================================================================
+  // BOÎTE DE DIALOGUE PERSONNALISÉE (INLINE DANS LE SNIPPET ODOO)
+  // =========================================================================
+  window.fsConfirm = ({
+    title = "Confirmer la suppression",
+    message = "Êtes-vous sûr de vouloir effectuer cette action ? Cette action est irréversible.",
+    itemName = "",
+    confirmText = "Supprimer définitivement",
+    cancelText = "Annuler"
+  }) => {
+    return new Promise((resolve) => {
+      const modal = document.getElementById('fsConfirmDialogOdoo');
+      if (!modal) {
+        resolve(window.confirm(message));
+        return;
+      }
+
+      const titleEl = document.getElementById('fsOdooConfirmTitle');
+      const msgEl = document.getElementById('fsOdooConfirmMsg');
+      const itemWrap = document.getElementById('fsOdooConfirmItemWrap');
+      const cancelBtn = document.getElementById('fsOdooConfirmCancel');
+      const okBtn = document.getElementById('fsOdooConfirmOk');
+      const okTextSpan = document.getElementById('fsOdooConfirmOkText');
+
+      if (titleEl) titleEl.textContent = title;
+      if (msgEl) msgEl.textContent = message;
+      if (itemWrap) {
+        if (itemName) {
+          itemWrap.innerHTML = `<span class="fs-confirm-dialog-item-tag">📦 ${itemName}</span>`;
+          itemWrap.style.display = 'block';
+        } else {
+          itemWrap.style.display = 'none';
+        }
+      }
+      if (cancelBtn) cancelBtn.textContent = cancelText;
+      if (okTextSpan) okTextSpan.textContent = confirmText;
+
+      const closeDialog = (res) => {
+        modal.classList.remove('active');
+        cancelBtn.onclick = null;
+        okBtn.onclick = null;
+        resolve(res);
+      };
+
+      cancelBtn.onclick = () => closeDialog(false);
+      okBtn.onclick = () => closeDialog(true);
+      modal.onclick = (e) => {
+        if (e.target === modal) closeDialog(false);
+      };
+
+      modal.classList.add('active');
+    });
+  };
+
+  // =========================================================================
+  // GESTION DU DASHBOARD ADMIN EMBARQUÉ
+  // =========================================================================
+  let fsAdminLiveTrafficInterval = null;
+  let fsAdminCachedOrders = [];
+  let fsAdminCurrentOrdersFilter = 'all';
+
+  const getStatusBadgeClass = (status) => {
+    switch (status) {
+      case 'Livrée': return 'status-done';
+      case 'En cours de livraison': return 'status-delivery';
+      case 'Annulée': return 'status-cancelled';
+      default: return 'status-prep';
+    }
+  };
+
+  window.openAdminPanel = () => {
+    const overlay = document.getElementById('fsAdminOverlay');
+    if (!overlay) return;
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    const isAuthed = sessionStorage.getItem('fs_admin_logged') === 'true';
+    const loginWrap = document.getElementById('fsAdminLoginWrap');
+    const dashboard = document.getElementById('fsAdminDashboard');
+
+    if (isAuthed) {
+      if (loginWrap) loginWrap.style.display = 'none';
+      if (dashboard) dashboard.style.display = 'block';
+      loadFsAdminData();
+      startFsAdminLiveTraffic();
+    } else {
+      if (loginWrap) loginWrap.style.display = 'flex';
+      if (dashboard) dashboard.style.display = 'none';
+    }
+  };
+
+  window.closeAdminPanel = () => {
+    const overlay = document.getElementById('fsAdminOverlay');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    if (fsAdminLiveTrafficInterval) clearInterval(fsAdminLiveTrafficInterval);
+  };
+
+  window.fsAdminLogout = () => {
+    sessionStorage.removeItem('fs_admin_logged');
+    const loginWrap = document.getElementById('fsAdminLoginWrap');
+    const dashboard = document.getElementById('fsAdminDashboard');
+    if (loginWrap) loginWrap.style.display = 'flex';
+    if (dashboard) dashboard.style.display = 'none';
+    if (fsAdminLiveTrafficInterval) clearInterval(fsAdminLiveTrafficInterval);
+  };
+
+  const adminLoginForm = document.getElementById('fsAdminLoginForm');
+  if (adminLoginForm) {
+    adminLoginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = (document.getElementById('fsAdminEmail').value || '').trim();
+      const pass = (document.getElementById('fsAdminPass').value || '').trim();
+
+      if (email.toLowerCase() === 'contact@falloustore.com' && pass === 'FallouAdmin2026!') {
+        sessionStorage.setItem('fs_admin_logged', 'true');
+        const loginWrap = document.getElementById('fsAdminLoginWrap');
+        const dashboard = document.getElementById('fsAdminDashboard');
+        if (loginWrap) loginWrap.style.display = 'none';
+        if (dashboard) dashboard.style.display = 'block';
+        loadFsAdminData();
+        startFsAdminLiveTraffic();
+      } else {
+        alert("Identifiants incorrects. Identifiant : contact@falloustore.com | Mot de passe : FallouAdmin2026!");
+      }
+    });
+  }
+
+  window.switchFsAdminTab = (tabId) => {
+    document.querySelectorAll('.fs-admin-tab-pane').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.admin-nav-tab').forEach(b => b.classList.remove('active'));
+
+    const pane = document.getElementById(tabId);
+    if (pane) pane.style.display = 'block';
+
+    const btn = document.querySelector(`.admin-nav-tab[data-tab="${tabId}"]`);
+    if (btn) btn.classList.add('active');
+  };
+
+  const startFsAdminLiveTraffic = () => {
+    if (fsAdminLiveTrafficInterval) clearInterval(fsAdminLiveTrafficInterval);
+    fsAdminLiveTrafficInterval = setInterval(() => {
+      const badge = document.getElementById('fsAdminLiveCount');
+      const trafficLive = document.getElementById('fsTrafficLive');
+      if (badge) {
+        let val = parseInt(badge.textContent) || 18;
+        const delta = Math.floor(Math.random() * 3) - 1;
+        val = Math.max(12, Math.min(28, val + delta));
+        badge.textContent = val;
+        if (trafficLive) trafficLive.textContent = val;
+      }
+    }, 6000);
+  };
+
+  const loadFsAdminData = async () => {
+    if (!window.fallouDB) return;
+    const analytics = await window.fallouDB.getAnalytics();
+    const productsList = await window.fallouDB.getProducts();
+    const ordersList = await window.fallouDB.getOrders();
+    const abandonedList = await window.fallouDB.getAbandonedCarts();
+
+    fsAdminCachedOrders = ordersList;
+
+    const setTxt = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    };
+
+    setTxt('fsKpiRevenue', formatFCFA(analytics.totalRevenue));
+    setTxt('fsKpiDeliveredCount', `${analytics.completedCount} commandes livrées`);
+    setTxt('fsKpiUpcomingRev', formatFCFA(analytics.pendingRevenue));
+    setTxt('fsKpiUpcomingCount', `${analytics.upcomingCount} commandes à livrer`);
+
+    setTxt('fsKpiVisitsToday', `${analytics.visitsToday} visites aujourd'hui`);
+    setTxt('fsKpiVisitsTotal', `Total : ${new Intl.NumberFormat('fr-FR').format(analytics.visits)} visites`);
+    setTxt('fsKpiConversion', `${analytics.conversionRate}%`);
+    setTxt('fsKpiOrdersTotSub', `${analytics.totalOrders} commandes passées`);
+
+    setTxt('fsKpiStock', `${analytics.activeProducts} / ${analytics.totalProducts}`);
+    setTxt('fsKpiOutStock', `${analytics.outOfStockProducts} en rupture`);
+    setTxt('fsKpiAbandoned', analytics.abandonedCount);
+
+    setTxt('fsAdminLiveCount', analytics.liveVisitors);
+    setTxt('fsTrafficLive', analytics.liveVisitors);
+    setTxt('fsTrafficToday', analytics.visitsToday);
+    setTxt('fsTrafficTotal', new Intl.NumberFormat('fr-FR').format(analytics.visits));
+
+    renderFsUpcomingOrders(analytics.upcomingOrders);
+    renderFsOrdersTable('fsOverviewOrdersTable', ordersList.slice(0, 5));
+    renderFsOrdersTable('fsAllOrdersTable', filterFsOrdersList(ordersList, fsAdminCurrentOrdersFilter));
+    renderFsProductsTable(productsList);
+    renderFsAbandonedTable(abandonedList);
+  };
+
+  const renderFsUpcomingOrders = (upcoming) => {
+    const tbody = document.getElementById('fsUpcomingOrdersTable');
+    if (!tbody) return;
+
+    if (!upcoming || upcoming.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #64748b; padding: 2rem;">Toutes les commandes ont été livrées ! Aucune commande en attente.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = upcoming.map(o => {
+      const itemsText = o.items ? o.items.map(i => `${i.quantity}x ${i.name}`).join(', ') : 'Articles';
+      return `
+        <tr>
+          <td><b style="color: var(--fs-gold);">${o.id}</b></td>
+          <td>
+            <b style="color: #fff;">${o.customerName || 'Client'}</b><br>
+            <a href="https://wa.me/221${(o.customerPhone||'').replace(/\s+/g,'')}?text=${encodeURIComponent('Bonjour ' + (o.customerName||'') + ', concernant votre commande Fallou Store ' + o.id + ' : ')}" target="_blank" style="color: #25d366; font-size: 0.82rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+              💬 ${o.customerPhone || 'WhatsApp'}
+            </a>
+          </td>
+          <td style="max-width: 250px; font-size: 0.84rem; color: #cbd5e1;">${itemsText}</td>
+          <td>
+            <div style="font-weight: 600; color: #fff;">${o.deliveryZone || 'Dakar'}</div>
+            <small style="color: #fbbf24;">⏰ ${o.deliverySlot || "Aujourd'hui"}</small>
+          </td>
+          <td style="font-weight: 800; color: var(--fs-gold-light);">${formatFCFA(o.totalAmount || 0)}</td>
+          <td>
+            <span class="badge-order-status ${getStatusBadgeClass(o.status)}">
+              ${o.status || 'À préparer'}
+            </span>
+          </td>
+          <td>
+            <select class="admin-form-ctrl" style="padding: 0.35rem 0.5rem; font-size: 0.78rem; width: auto;" onchange="changeFsOrderStatus('${o.id}', this.value)">
+              <option value="À préparer" ${o.status === 'À préparer' ? 'selected' : ''}>🟡 À préparer</option>
+              <option value="En cours de livraison" ${o.status === 'En cours de livraison' ? 'selected' : ''}>🚚 En cours</option>
+              <option value="Livrée" ${o.status === 'Livrée' ? 'selected' : ''}>✅ Livrée</option>
+              <option value="Annulée" ${o.status === 'Annulée' ? 'selected' : ''}>❌ Annulée</option>
+            </select>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  };
+
+  const renderFsOrdersTable = (tableId, orders) => {
+    const tbody = document.getElementById(tableId);
+    if (!tbody) return;
+
+    if (!orders || orders.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: #64748b; padding: 2rem;">Aucune commande trouvée.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = orders.map(o => {
+      const itemsText = o.items ? o.items.map(i => `${i.quantity}x ${i.name}`).join(', ') : 'Articles';
+      const formattedDate = new Date(o.date).toLocaleDateString('fr-FR', {
+        day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
+      });
+
+      return `
+        <tr>
+          <td><b style="color: var(--fs-gold);">${o.id}</b></td>
+          <td style="font-size: 0.78rem; color: #94a3b8;">${formattedDate}</td>
+          <td>
+            <b style="color: #fff;">${o.customerName || 'Client'}</b><br>
+            <a href="https://wa.me/221${(o.customerPhone||'').replace(/\s+/g,'')}" target="_blank" style="color: #38bdf8; font-size: 0.8rem;">
+              ${o.customerPhone || 'Numéro'}
+            </a>
+          </td>
+          <td style="max-width: 250px; font-size: 0.82rem;">${itemsText}</td>
+          <td style="font-size: 0.82rem;">${o.deliveryZone || 'Dakar'}</td>
+          <td style="font-weight: 800; color: #fff;">${formatFCFA(o.totalAmount || 0)}</td>
+          <td>
+            <span class="badge-order-status ${getStatusBadgeClass(o.status)}">
+              ${o.status || 'À préparer'}
+            </span>
+          </td>
+          <td>
+            <select class="admin-form-ctrl" style="padding: 0.3rem 0.5rem; font-size: 0.78rem; width: auto;" onchange="changeFsOrderStatus('${o.id}', this.value)">
+              <option value="À préparer" ${o.status === 'À préparer' ? 'selected' : ''}>🟡 À préparer</option>
+              <option value="En cours de livraison" ${o.status === 'En cours de livraison' ? 'selected' : ''}>🚚 En cours</option>
+              <option value="Livrée" ${o.status === 'Livrée' ? 'selected' : ''}>✅ Livrée</option>
+              <option value="Annulée" ${o.status === 'Annulée' ? 'selected' : ''}>❌ Annulée</option>
+            </select>
+          </td>
+          <td>
+            <button onclick="confirmDeleteFsOrder('${o.id}')" style="color: #ef4444; background: rgba(239, 68, 68, 0.1); border: none; padding: 0.35rem 0.65rem; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.78rem;">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  };
+
+  const filterFsOrdersList = (orders, status) => {
+    if (status === 'pending') {
+      return orders.filter(o => o.status !== 'Livrée' && o.status !== 'Annulée');
+    } else if (status === 'done') {
+      return orders.filter(o => o.status === 'Livrée');
+    }
+    return orders;
+  };
+
+  window.filterFsOrders = (status) => {
+    fsAdminCurrentOrdersFilter = status;
+    const filtered = filterFsOrdersList(fsAdminCachedOrders, status);
+    renderFsOrdersTable('fsAllOrdersTable', filtered);
+  };
+
+  window.changeFsOrderStatus = async (orderId, newStatus) => {
+    await window.fallouDB.updateOrderStatus(orderId, newStatus);
+    loadFsAdminData();
+  };
+
+  window.confirmDeleteFsOrder = async (orderId) => {
+    const confirmed = await window.fsConfirm({
+      title: "Supprimer cette commande ?",
+      message: "Cette commande sera définitivement effacée de votre base de données locale et de vos statistiques.",
+      itemName: "Commande Réf: " + orderId,
+      confirmText: "Oui, supprimer la commande",
+      cancelText: "Annuler"
+    });
+
+    if (confirmed) {
+      await window.fallouDB.deleteOrder(orderId);
+      loadFsAdminData();
+    }
+  };
+
+  const renderFsProductsTable = (productsList) => {
+    const tbody = document.getElementById('fsAdminProductsTable');
+    if (!tbody) return;
+
+    tbody.innerHTML = productsList.map(p => `
+      <tr>
+        <td>
+          <img src="${p.image}" alt="" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #1e222d;">
+        </td>
+        <td style="font-weight: 700; color: #fff;">${p.name}</td>
+        <td><span style="text-transform: capitalize; color: #94a3b8;">${p.categoryLabel || p.category}</span></td>
+        <td style="font-weight: 800; color: var(--fs-gold-light);">${formatFCFA(p.price)}</td>
+        <td>
+          <span class="badge-status ${p.inStock ? 'badge-in-stock' : 'badge-out-stock'}">
+            ${p.inStock ? '✓ En Stock' : '✗ Rupture'}
+          </span>
+        </td>
+        <td>
+          <label class="switch" title="Changer l'état du stock">
+            <input type="checkbox" ${p.inStock ? 'checked' : ''} onchange="toggleFsProductStock('${p.id}')">
+            <span class="slider"></span>
+          </label>
+        </td>
+        <td>
+          <button onclick="confirmDeleteFsProduct('${p.id}', '${p.name.replace(/'/g, "\\'")}')" style="color: #ef4444; font-weight: 700; font-size: 0.8rem; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); padding: 0.4rem 0.75rem; border-radius: 6px; cursor: pointer;">
+            Supprimer
+          </button>
+        </td>
+      </tr>
+    `).join('');
+  };
+
+  window.toggleFsProductStock = async (id) => {
+    await window.fallouDB.toggleStock(id);
+    loadFsAdminData();
+    if (window.fsApp && window.fsApp.refreshCatalog) {
+      window.fsApp.refreshCatalog();
+    }
+  };
+
+  window.confirmDeleteFsProduct = async (id, name) => {
+    const confirmed = await window.fsConfirm({
+      title: "Retirer ce produit du catalogue ?",
+      message: "Ce produit ne sera plus disponible sur votre boutique Fallou Store pour les acheteurs.",
+      itemName: name,
+      confirmText: "Oui, retirer le produit",
+      cancelText: "Conserver"
+    });
+
+    if (confirmed) {
+      await window.fallouDB.deleteProduct(id);
+      loadFsAdminData();
+      if (window.fsApp && window.fsApp.refreshCatalog) {
+        window.fsApp.refreshCatalog();
+      }
+    }
+  };
+
+  const renderFsAbandonedTable = (abandoned) => {
+    const tbody = document.getElementById('fsAbandonedTable');
+    if (!tbody) return;
+
+    if (!abandoned || abandoned.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #64748b; padding: 2rem;">Aucun panier abandonné récent.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = abandoned.map(a => {
+      const itemsList = a.items ? a.items.map(i => `${i.quantity || 1}x ${i.name}`).join(', ') : 'Panier';
+      const formattedDate = new Date(a.date).toLocaleDateString('fr-FR', {
+        day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
+      });
+      const relanceMsg = encodeURIComponent(`Bonjour ${a.customerName || ''}, nous avons remarqué que vous n'avez pas validé votre panier sur Fallou Store. Avez-vous besoin d'aide ou de conseils sur vos articles ?`);
+      const phoneClean = (a.customerPhone || '').replace(/\s+/g, '');
+
+      return `
+        <tr>
+          <td style="font-size: 0.78rem; color: #94a3b8;">${formattedDate}</td>
+          <td style="font-weight: 700; color: #fff;">
+            ${a.customerName} <br>
+            <small style="color: #94a3b8;">${a.customerPhone}</small>
+          </td>
+          <td style="max-width: 320px; font-size: 0.82rem;">${itemsList}</td>
+          <td style="font-weight: 800; color: var(--fs-gold-light);">${formatFCFA(a.estimatedTotal)}</td>
+          <td>
+            ${a.customerPhone && a.customerPhone !== 'Non renseigné' ? `
+              <a href="https://wa.me/221${phoneClean}?text=${relanceMsg}" target="_blank" class="fs-btn-direct-wa" style="display: inline-flex; padding: 0.4rem 0.8rem; font-size: 0.78rem; font-weight: 700;">
+                Relancer WhatsApp
+              </a>
+            ` : `<span style="color: #64748b; font-size: 0.8rem;">Sans numéro</span>`}
+          </td>
+        </tr>
+      `;
+    }).join('');
+  };
+});
+
+</script>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Administration | Fallou Store (FS)</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/jpeg" href="photo_10_2026-09-23_10-36-58.jpg">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap">
+  <style>
+    /* Styles spécifiques Dashboard Admin */
+    body.admin-body {
+      background: #0b0c10;
+      color: #e2e8f0;
+      padding-bottom: 2rem;
+    }
+    .admin-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+    }
+    .admin-top-nav {
+      background: #141721;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: var(--fs-radius-md);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .admin-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .admin-nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: #0b0c10;
+      padding: 4px;
+      border-radius: var(--fs-radius-full);
+      flex-wrap: wrap;
+    }
+    .admin-nav-tab {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #94a3b8;
+      border-radius: var(--fs-radius-full);
+      transition: var(--fs-transition);
+    }
+    .admin-nav-tab.active {
+      background: var(--fs-gold-gradient);
+      color: #0b0c10;
+    }
+    .admin-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .admin-kpi-card {
+      background: #141721;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--fs-radius-md);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .admin-kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--fs-gold-gradient);
+    }
+    .kpi-title {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .kpi-val {
+      font-family: var(--fs-font-display);
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0.4rem 0 0.2rem;
+    }
+    .kpi-sub {
+      font-size: 0.78rem;
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    .admin-table-card {
+      background: #141721;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--fs-radius-md);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .admin-table-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .admin-table-head h3 {
+      font-family: var(--fs-font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .admin-table-wrap {
+      overflow-x: auto;
+    }
+    table.admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+    table.admin-table th {
+      background: #0f121a;
+      color: #94a3b8;
+      padding: 0.85rem 1rem;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    table.admin-table td {
+      padding: 0.95rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+    }
+    table.admin-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .badge-status {
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--fs-radius-full);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+    .badge-in-stock { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .badge-out-stock { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+
+    /* Switch iOS */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #334155; transition: .3s; border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+      background-color: white; transition: .3s; border-radius: 50%;
+    }
+    input:checked + .slider { background-color: #10b981; }
+    input:checked + .slider:before { transform: translateX(20px); }
+
+    /* Login Overlay */
+    .login-overlay {
+      position: fixed; inset: 0; background: #0b0c10;
+      z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .login-card {
+      background: #141721; border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: var(--fs-radius-lg); padding: 2.5rem 2rem; max-width: 420px; width: 100%;
+      text-align: center; box-shadow: var(--fs-shadow-gold);
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- OVERLAY DE CONNEXION SÉCURISÉE -->
+  <div id="adminLoginOverlay" class="login-overlay">
+    <div class="login-card">
+      <img src="photo_10_2026-09-23_10-36-58.jpg" alt="Fallou Store" style="width: 70px; height: 70px; border-radius: 16px; margin: 0 auto 1.25rem; border: 1px solid var(--fs-gold);">
+      <h2 style="font-family: var(--fs-font-display); font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem;">Espace Connexion</h2>
+      <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 1.5rem;">Accès Réservé • Fallou Store</p>
+
+      <form id="adminLoginForm">
+        <div style="margin-bottom: 1rem; text-align: left;">
+          <label style="display: block; font-size: 0.78rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.35rem;">Identifiant / Email</label>
+          <input type="email" id="loginEmail" class="fs-form-control" style="background: #0b0c10; border-color: #334155; color: #fff;" placeholder="nom@exemple.com" required>
+        </div>
+        <div style="margin-bottom: 1.5rem; text-align: left;">
+          <label style="display: block; font-size: 0.78rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.35rem;">Mot de passe</label>
+          <div style="position: relative;">
+            <input type="password" id="loginPassword" class="fs-form-control" style="background: #0b0c10; border-color: #334155; color: #fff; padding-right: 42px;" placeholder="••••••••••••" required>
+            <button type="button" id="togglePasswordBtn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; cursor: pointer; padding: 4px;" title="Afficher/Masquer le mot de passe">
+              <svg id="eyeIcon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="fs-btn-primary" style="width: 100%; justify-content: center;">
+          Se Connecter
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CONTENU DASHBOARD -->
+  <div class="admin-container" id="adminMainContent" style="display: none;">
+    <!-- Top Header -->
+    <header class="admin-top-nav">
+      <div class="admin-logo-wrap">
+        <img src="photo_10_2026-09-23_10-36-58.jpg" alt="FS Logo" style="width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--fs-gold);">
+        <div>
+          <h1 style="font-family: var(--fs-font-display); font-size: 1.2rem; font-weight: 800; color: #fff; line-height: 1.1;">Fallou Store <span style="color: var(--fs-gold);">Admin</span></h1>
+          <span style="font-size: 0.72rem; color: #94a3b8;">Électronique • Parfums • Accessoires • Gadgets</span>
+        </div>
+      </div>
+
+      <nav class="admin-nav-tabs">
+        <button class="admin-nav-tab active" data-tab="tabOverview" onclick="switchAdminTab('tabOverview')">Vue Globale</button>
+        <button class="admin-nav-tab" data-tab="tabOrders" onclick="switchAdminTab('tabOrders')">Commandes & Livraisons à Venir</button>
+        <button class="admin-nav-tab" data-tab="tabTraffic" onclick="switchAdminTab('tabTraffic')">Fréquentation & Trafic</button>
+        <button class="admin-nav-tab" data-tab="tabProducts" onclick="switchAdminTab('tabProducts')">Produits & Stock</button>
+        <button class="admin-nav-tab" data-tab="tabAbandoned" onclick="switchAdminTab('tabAbandoned')">Paniers Abandonnés</button>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <div class="live-visitors-badge" id="liveVisitorsBadge" title="Visiteurs connectés actuellement">
+          <span class="live-pulse-dot"></span>
+          <span><b id="liveVisitorsCount">18</b> en direct</span>
+        </div>
+        <a href="index.html" class="fs-btn-video" style="padding: 0.5rem 0.9rem; font-size: 0.8rem;" target="_blank">
+          Voir la Boutique ↗
+        </a>
+        <button onclick="adminLogout()" style="color: #ef4444; font-size: 0.8rem; font-weight: 700; padding: 0.5rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border: none; cursor: pointer;">
+          Déconnexion
+        </button>
+      </div>
+    </header>
+
+    <!-- SECTION 1 : VUE GLOBALE & STATISTIQUES EN DIRECT -->
+    <div id="tabOverview" class="admin-tab-pane">
+      <div class="admin-kpi-grid">
+        <div class="admin-kpi-card" style="border-top: 3px solid #10b981;">
+          <div class="kpi-title">CA Encaissé (Livrées)</div>
+          <div class="kpi-val" id="kpiRevenue" style="color: #34d399;">0 FCFA</div>
+          <div class="kpi-sub" id="kpiDeliveredCount">0 commandes livrées avec succès</div>
+        </div>
+
+        <div class="admin-kpi-card" style="border-top: 3px solid #f59e0b;">
+          <div class="kpi-title">Commandes à Venir (À Livrer)</div>
+          <div class="kpi-val" id="kpiUpcomingRevenue" style="color: #fbbf24;">0 FCFA</div>
+          <div class="kpi-sub" id="kpiUpcomingCount" style="color: #fbbf24;">0 commandes en attente de livraison</div>
+        </div>
+
+        <div class="admin-kpi-card" style="border-top: 3px solid #38bdf8;">
+          <div class="kpi-title">Fréquentation du Site</div>
+          <div class="kpi-val" id="kpiVisitsToday" style="color: #38bdf8;">0 visites</div>
+          <div class="kpi-sub" id="kpiVisitsTotal">Total : 0 visites enregistrées</div>
+        </div>
+
+        <div class="admin-kpi-card" style="border-top: 3px solid var(--fs-gold);">
+          <div class="kpi-title">Taux de Conversion</div>
+          <div class="kpi-val" id="kpiConversion" style="color: var(--fs-gold-light);">0%</div>
+          <div class="kpi-sub" id="kpiOrdersTotal">Commandes WhatsApp / Visiteurs</div>
+        </div>
+
+        <div class="admin-kpi-card">
+          <div class="kpi-title">Catalogue & Stocks</div>
+          <div class="kpi-val" id="kpiStockStatus">0 / 0</div>
+          <div class="kpi-sub" id="kpiOutOfStockCount">0 en rupture</div>
+        </div>
+
+        <div class="admin-kpi-card">
+          <div class="kpi-title">Paniers Abandonnés</div>
+          <div class="kpi-val" id="kpiAbandonedCount" style="color: #f59e0b;">0</div>
+          <div class="kpi-sub" style="color: #f59e0b;">Clients à relancer WhatsApp</div>
+        </div>
+      </div>
+
+      <!-- Commandes à Venir Prioritaires (Action Rapide) -->
+      <div class="admin-table-card" style="border: 1px solid rgba(245, 158, 11, 0.25);">
+        <div class="admin-table-head">
+          <div>
+            <h3 style="color: #fbbf24; display: flex; align-items: center; gap: 8px;">
+              <span>⚡</span> Commandes à Préparer & Livrer en Priorité
+            </h3>
+            <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 3px;">Ces commandes nécessitent une préparation de colis ou un contact avec le coursier.</p>
+          </div>
+          <button class="fs-btn-primary" style="padding: 0.45rem 1rem; font-size: 0.82rem;" onclick="switchAdminTab('tabOrders')">Gérer Tout le Planning</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Réf</th>
+                <th>Client & Contact</th>
+                <th>Articles</th>
+                <th>Zone / Créneau</th>
+                <th>Montant</th>
+                <th>Statut Actuel</th>
+                <th>Changer Statut</th>
+              </tr>
+            </thead>
+            <tbody id="upcomingOrdersTableBody">
+              <!-- Dynamique JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Dernières Commandes Récentes -->
+      <div class="admin-table-card">
+        <div class="admin-table-head">
+          <h3>Toutes les Commandes Récentes</h3>
+          <button class="fs-btn-primary" style="padding: 0.45rem 1rem; font-size: 0.82rem;" onclick="switchAdminTab('tabOrders')">Voir Historique Complet</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Réf</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Téléphone</th>
+                <th>Zone / Ville</th>
+                <th>Montant</th>
+                <th>Paiement</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody id="overviewOrdersTable">
+              <!-- Dynamique JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 : COMMANDES WHATSAPP & COMMANDES À VENIR -->
+    <div id="tabOrders" class="admin-tab-pane" style="display: none;">
+      <div class="admin-table-card">
+        <div class="admin-table-head">
+          <div>
+            <h3>Gestion Complète des Commandes & Livraisons</h3>
+            <p style="font-size: 0.82rem; color: #94a3b8;">Mettez à jour le statut en temps réel pour synchroniser les livraisons et le chiffre d'affaires.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="fs-btn-video" style="font-size: 0.8rem; padding: 0.45rem 0.85rem;" onclick="filterOrdersByStatus('all')">Toutes</button>
+            <button class="fs-btn-video" style="font-size: 0.8rem; padding: 0.45rem 0.85rem;" onclick="filterOrdersByStatus('pending')">À Livrer</button>
+            <button class="fs-btn-video" style="font-size: 0.8rem; padding: 0.45rem 0.85rem;" onclick="filterOrdersByStatus('done')">Livrées</button>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Réf</th>
+                <th>Date</th>
+                <th>Client & WhatsApp</th>
+                <th>Articles commandés</th>
+                <th>Zone & Créneau</th>
+                <th>Total (FCFA)</th>
+                <th>Statut</th>
+                <th>Mise à Jour Rapide</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="allOrdersTable">
+              <!-- Rempli par JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3 : FRÉQUENTATION & ANALYTICS DU SITE -->
+    <div id="tabTraffic" class="admin-tab-pane" style="display: none;">
+      <div class="admin-kpi-grid">
+        <div class="admin-kpi-card">
+          <div class="kpi-title">Visiteurs en Direct</div>
+          <div class="kpi-val" id="trafficLiveCount" style="color: #10b981;">18</div>
+          <div class="kpi-sub">Navigation active sur Fallou Store</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-title">Visites Aujourd'hui</div>
+          <div class="kpi-val" id="trafficTodayCount" style="color: #38bdf8;">192</div>
+          <div class="kpi-sub">+18% par rapport à la moyenne</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-title">Visites Totales Enregistrées</div>
+          <div class="kpi-val" id="trafficTotalCount">1 480</div>
+          <div class="kpi-sub">Sessions cumulées</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-title">Temps Moyen par Session</div>
+          <div class="kpi-val" style="color: var(--fs-gold-light);">3m 42s</div>
+          <div class="kpi-sub">Fort engagement sur les fiches produits</div>
+        </div>
+      </div>
+
+      <!-- Graphiques et Répartition du Trafic -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        
+        <!-- Appareils des Visiteurs -->
+        <div class="admin-table-card" style="margin-bottom: 0;">
+          <h3 style="margin-bottom: 1rem; font-size: 1.1rem; color: #fff;">📱 Appareils des Visiteurs</h3>
+          <div style="margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
+              <span>Smartphones (iPhone, Android)</span>
+              <b style="color: var(--fs-gold);">84%</b>
+            </div>
+            <div class="fs-stat-bar-track">
+              <div class="fs-stat-bar-fill" style="width: 84%; background: var(--fs-gold-gradient);"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
+              <span>Ordinateurs & Laptops</span>
+              <b style="color: #38bdf8;">16%</b>
+            </div>
+            <div class="fs-stat-bar-track">
+              <div class="fs-stat-bar-fill" style="width: 16%; background: #38bdf8;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Zones Géographiques des Acheteurs -->
+        <div class="admin-table-card" style="margin-bottom: 0;">
+          <h3 style="margin-bottom: 1rem; font-size: 1.1rem; color: #fff;">📍 Provenance des Visiteurs</h3>
+          <div style="margin-bottom: 0.75rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem;">
+              <span>Dakar Ville (Plateau, Almadies, Mermoz, Ouakam)</span>
+              <b>68%</b>
+            </div>
+            <div class="fs-stat-bar-track">
+              <div class="fs-stat-bar-fill" style="width: 68%; background: #10b981;"></div>
+            </div>
+          </div>
+          <div style="margin-bottom: 0.75rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem;">
+              <span>Banlieue (Guédiawaye, Pikine, Rufisque)</span>
+              <b>22%</b>
+            </div>
+            <div class="fs-stat-bar-track">
+              <div class="fs-stat-bar-fill" style="width: 22%; background: #f59e0b;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem;">
+              <span>Régions (Thiès, Mbour, Saint-Louis, Touba)</span>
+              <b>10%</b>
+            </div>
+            <div class="fs-stat-bar-track">
+              <div class="fs-stat-bar-fill" style="width: 10%; background: #ec4899;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tranches Horaires d'Affluence -->
+        <div class="admin-table-card" style="margin-bottom: 0;">
+          <h3 style="margin-bottom: 1rem; font-size: 1.1rem; color: #fff;">⏰ Heures d'Affluence (Pics d'Achats)</h3>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.3rem;">
+                <span>Soirée (18h00 - 23h00) • Pic Majeur</span>
+                <b style="color: #34d399;">42% des visites</b>
+              </div>
+              <div class="fs-stat-bar-track"><div class="fs-stat-bar-fill" style="width: 42%; background: #10b981;"></div></div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.3rem;">
+                <span>Après-Midi (13h00 - 17h00)</span>
+                <b style="color: #38bdf8;">32% des visites</b>
+              </div>
+              <div class="fs-stat-bar-track"><div class="fs-stat-bar-fill" style="width: 32%; background: #38bdf8;"></div></div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.3rem;">
+                <span>Matinée (09h00 - 12h00)</span>
+                <b style="color: #94a3b8;">26% des visites</b>
+              </div>
+              <div class="fs-stat-bar-track"><div class="fs-stat-bar-fill" style="width: 26%; background: #64748b;"></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECTION 4 : GESTION DES PRODUITS & STOCK -->
+    <div id="tabProducts" class="admin-tab-pane" style="display: none;">
+      <div class="admin-table-card">
+        <div class="admin-table-head">
+          <div>
+            <h3>Catalogue des Produits & État des Stocks</h3>
+            <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 3px;">Basculez un produit en rupture d'un simple clic pour désactiver l'achat sur le site public.</p>
+          </div>
+          <button class="fs-btn-primary" onclick="openAddProductModal()">
+            + Ajouter un Nouveau Produit
+          </button>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Visuel</th>
+                <th>Nom du Produit</th>
+                <th>Catégorie</th>
+                <th>Prix (FCFA)</th>
+                <th>État du Stock</th>
+                <th>Action Rapide</th>
+                <th>Supprimer</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductsTable">
+              <!-- Rempli par JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5 : PANIERS ABANDONNÉS & RELANCE -->
+    <div id="tabAbandoned" class="admin-tab-pane" style="display: none;">
+      <div class="admin-table-card">
+        <div class="admin-table-head">
+          <div>
+            <h3>Paniers Abandonnés Détectés</h3>
+            <p style="font-size: 0.8rem; color: #94a3b8;">Relancez ces prospects sur WhatsApp pour convertir leur panier en vente !</p>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Date Détection</th>
+                <th>Contact</th>
+                <th>Articles dans le panier</th>
+                <th>Valeur Estimée</th>
+                <th>Relance WhatsApp</th>
+              </tr>
+            </thead>
+            <tbody id="abandonedTable">
+              <!-- Rempli par JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALE AJOUT DE PRODUIT -->
+  <div id="adminAddModal" class="fs-modal-backdrop">
+    <div class="fs-modal-window" style="background: #141721; color: #fff; max-width: 600px; border: 1px solid rgba(212, 175, 55, 0.3);">
+      <button class="fs-modal-close" onclick="closeAddProductModal()" style="background: #0f121a; color: #fff;">✕</button>
+      <div style="padding: 2rem;">
+        <h3 style="font-family: var(--fs-font-display); font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 1.25rem;">
+          Ajouter un Produit au Catalogue
+        </h3>
+        <form id="adminAddProductForm">
+          <div class="fs-form-group">
+            <label class="fs-form-label" style="color: #cbd5e1;">Nom du Produit *</label>
+            <input type="text" id="newProdName" class="fs-form-control" style="background: #0b0c10; border-color: #334155; color: #fff;" placeholder="ex: Smart Watch Série 12 Ultra" required>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="fs-form-group">
+              <label class="fs-form-label" style="color: #cbd5e1;">Catégorie *</label>
+              <select id="newProdCat" class="fs-form-control" style="background: #0b0c10; border-color: #334155; color: #fff;" required>
+                <option value="electronique">Électronique</option>
+                <option value="parfums">Parfums</option>
+                <option value="accessoires">Accessoires</option>
+                <option value="gadgets">Gadgets</option>
+              </select>
+            </div>
+            <div class="fs-form-group">
+              <label class="fs-form-label" style="color: #cbd5e1;">Prix (FCFA) *</label>
+              <input type="number" id="newProdPrice" class="fs-form-control" style="background: #0b0c10; border-color: #334155; color: #fff;" placeholder="ex: 35000" required>
+            </div>
+          </div>
+          <div class="fs-form-group">
+            <label class="fs-form-label" style="color: #cbd5e1;">URL de la Photo du Produit *</label>
+            <input type="url" id="newProdImage" class="fs-form-control" style="background: #0b0c10; border-color: #334155; color: #fff;" placeholder="https://res.cloudinary.com/... ou nom de fichier local" required>
+          </div>
+          <div class="fs-form-group">
+            <label class="fs-form-label" style="color: #cbd5e1;">Description Courte</label>
+            <textarea id="newProdDesc" class="fs-form-control" style="background: #0b0c10; border-color: #334155; color: #fff; min-height: 80px;" placeholder="Points forts, fonctionnalités, caractéristiques..."></textarea>
+          </div>
+          <button type="submit" class="fs-btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+            Enregistrer et Publier sur le Site
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOÎTE DE DIALOGUE DE CONFIRMATION PERSONNALISÉE (Remplace confirm()) -->
+  <div id="fsConfirmDialog" class="fs-confirm-dialog-backdrop" role="dialog" aria-modal="true">
+    <div class="fs-confirm-dialog-card">
+      <div class="fs-confirm-dialog-icon">
+        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      </div>
+      <h3 class="fs-confirm-dialog-title" id="fsConfirmTitle">Confirmer l'action</h3>
+      <p class="fs-confirm-dialog-desc" id="fsConfirmMsg">Êtes-vous certain de vouloir effectuer cette action ?</p>
+      <div id="fsConfirmItemWrap"></div>
+      <div class="fs-confirm-dialog-actions">
+        <button type="button" class="fs-confirm-btn-cancel" id="fsConfirmCancelBtn">Annuler</button>
+        <button type="button" class="fs-confirm-btn-danger" id="fsConfirmOkBtn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          <span id="fsConfirmOkText">Supprimer</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/products-data.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

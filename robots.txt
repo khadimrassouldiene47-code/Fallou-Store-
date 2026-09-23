@@ -1,0 +1,10 @@
+# robots.txt pour Fallou Store (FS)
+# Domaine : www.falloustore.com
+
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin
+
+# Sitemap
+Sitemap: https://www.falloustore.com/sitemap.xml
