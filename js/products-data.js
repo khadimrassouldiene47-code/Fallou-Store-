@@ -539,8 +539,9 @@ const STORE_CONFIG = {
   logoUrl: "https://res.cloudinary.com/dpw81ymi6/image/upload/v1790161836/photo_10_2026-09-23_10-36-58_ufgwp6.jpg",
   localLogoUrl: "photo_10_2026-09-23_10-36-58.jpg",
   promoVideoUrl: "https://res.cloudinary.com/dpw81ymi6/video/upload/v1790179358/video_2026-09-23_10-36-58_abtuya.mp4",
-  localPromoVideoUrl: "video_2026-09-23_10-36-58.mp4",
-  adminEmail: "contact@falloustore.com",
+  adminEmail: "Falluetsesvideos@gmail.com",
+  contactEmail: "Falluetsesvideos@gmail.com",
+  workingHours: "Lun - Dim : 09h00 - 21h00",
   adminDefaultPasswordHash: "FallouAdmin2026!", // Mot de passe sécurisé pour l'accès local
   whatsappNumbers: [
     { label: "Commercial 1 (Principal)", number: "221778944041", display: "+221 77 894 40 41" },

@@ -2642,9 +2642,9 @@ input:checked + .slider:before { transform: translateX(20px); }
           <h4>Contact & Boutique</h4>
           <ul class="fs-footer-links">
             <li>📍 Dakar, Sénégal</li>
-            <li>✉️ contact@falloustore.com</li>
+            <li>✉️ Falluetsesvideos@gmail.com</li>
             <li>🌐 www.falloustore.com</li>
-            <li>⏰ Lun - Sam : 09h00 - 21h00</li>
+            <li>⏰ Lun - Dim : 09h00 - 21h00</li>
           </ul>
         </div>
       </div>
@@ -2895,7 +2895,7 @@ input:checked + .slider:before { transform: translateX(20px); }
       <form id="fsAdminLoginForm">
         <div style="margin-bottom:1rem;text-align:left;">
           <label style="display:block;font-size:.78rem;font-weight:700;color:#cbd5e1;margin-bottom:.35rem;">Email / Identifiant</label>
-          <input type="email" id="fsAdminEmail" class="admin-form-ctrl" placeholder="contact@falloustore.com" required>
+          <input type="email" id="fsAdminEmail" class="admin-form-ctrl" placeholder="Falluetsesvideos@gmail.com" required>
         </div>
         <div style="margin-bottom:1.5rem;text-align:left;">
           <label style="display:block;font-size:.78rem;font-weight:700;color:#cbd5e1;margin-bottom:.35rem;">Mot de passe</label>
@@ -3668,7 +3668,7 @@ const STORE_CONFIG = {
   localLogoUrl: "photo_10_2026-09-23_10-36-58.jpg",
   promoVideoUrl: "https://res.cloudinary.com/dpw81ymi6/video/upload/v1790179358/video_2026-09-23_10-36-58_abtuya.mp4",
   localPromoVideoUrl: "video_2026-09-23_10-36-58.mp4",
-  adminEmail: "contact@falloustore.com",
+  adminEmail: "Falluetsesvideos@gmail.com",
   adminDefaultPasswordHash: "FallouAdmin2026!", // Mot de passe sécurisé pour l'accès local
   whatsappNumbers: [
     { label: "Commercial 1 (Principal)", number: "221778944041", display: "+221 77 894 40 41" },
@@ -4846,7 +4846,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const email = (document.getElementById('fsAdminEmail').value || '').trim();
       const pass = (document.getElementById('fsAdminPass').value || '').trim();
 
-      if (email.toLowerCase() === 'contact@falloustore.com' && pass === 'FallouAdmin2026!') {
+      const validEmails = ['falluetsesvideos@gmail.com', 'contact@falloustore.com'];
+      if (validEmails.includes(email.toLowerCase()) && pass === 'FallouAdmin2026!') {
         sessionStorage.setItem('fs_admin_logged', 'true');
         const loginWrap = document.getElementById('fsAdminLoginWrap');
         const dashboard = document.getElementById('fsAdminDashboard');
@@ -4855,7 +4856,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         loadFsAdminData();
         startFsAdminLiveTraffic();
       } else {
-        alert("Identifiants incorrects. Identifiant : contact@falloustore.com | Mot de passe : FallouAdmin2026!");
+        alert("Identifiants incorrects. Identifiant : Falluetsesvideos@gmail.com | Mot de passe : FallouAdmin2026!");
       }
     });
   }

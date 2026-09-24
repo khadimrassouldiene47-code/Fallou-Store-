@@ -16,7 +16,7 @@ Comprend le catalogue interactif, les fiches produits détaillées, les variante
 
 ## 🔑 Identifiants d'Accès Administrateur
 - **URL** : `/admin.html` ou `/connexion` ou `/login`
-- **Email** : `contact@falloustore.com`
+- **Email** : `Falluetsesvideos@gmail.com` (ou `contact@falloustore.com`)
 - **Mot de passe** : `FallouAdmin2026!`
 
 ## ⚙️ Configuration Supabase (Base de données)

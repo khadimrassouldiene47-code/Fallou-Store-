@@ -137,11 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = document.getElementById('loginEmail').value.trim();
       const pass = document.getElementById('loginPassword').value.trim();
 
-      if (email.toLowerCase() === 'contact@falloustore.com' && pass === 'FallouAdmin2026!') {
+      const validEmails = ['falluetsesvideos@gmail.com', 'contact@falloustore.com'];
+      if (validEmails.includes(email.toLowerCase()) && pass === 'FallouAdmin2026!') {
         sessionStorage.setItem('fs_admin_logged', 'true');
         checkAuth();
       } else {
-        alert("Identifiants incorrects. Identifiant : contact@falloustore.com | Mot de passe : FallouAdmin2026!");
+        alert("Identifiants incorrects. Identifiant : Falluetsesvideos@gmail.com | Mot de passe : FallouAdmin2026!");
       }
     });
   }
