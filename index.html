@@ -25,10 +25,14 @@
   <link rel="icon" type="image/jpeg" href="photo_10_2026-09-23_10-36-58.jpg">
   <link rel="apple-touch-icon" href="photo_10_2026-09-23_10-36-58.jpg">
 
-  <!-- Polices Google Fonts (Plus Jakarta Sans & Outfit) -->
+  <!-- Performance : Préconnexion CDN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="dns-prefetch" href="https://res.cloudinary.com">
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+
+  <!-- Polices Google Fonts — display=swap pour ne pas bloquer le rendu -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheet Principal -->
   <link rel="stylesheet" href="css/style.css">

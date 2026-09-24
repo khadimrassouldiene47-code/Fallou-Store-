@@ -66,6 +66,9 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-tap-highlight-color: transparent;
+  /* Empêche le scroll horizontal sur TOUS les appareils */
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
@@ -74,7 +77,10 @@ body {
   color: var(--fs-text-main);
   line-height: 1.5;
   overflow-x: hidden;
+  /* Safe area pour iPhone notch + barre d'accueil */
   padding-bottom: calc(var(--fs-mobile-bar-height) + env(safe-area-inset-bottom, 0px));
+  /* Empêche les éléments absolus de créer un scroll horizontal */
+  position: relative;
 }
 
 @media (min-width: 992px) {
@@ -108,7 +114,15 @@ img {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1.25rem;
+  padding: 0 1rem;
+  /* Évite le débordement horizontal */
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
 }
 
 /* ==========================================================================
@@ -1267,19 +1281,19 @@ img {
   bottom: 0;
   left: 0;
   right: 0;
-  height: var(--fs-mobile-bar-height);
   background: rgba(15, 23, 42, 0.97);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-top: 1px solid rgba(212, 175, 55, 0.3);
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* items en haut, padding gère la safe area */
   justify-content: space-around;
   z-index: 999;
-  padding: 0 0.5rem;
-  /* Safe area for phones with home bar */
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-  height: calc(var(--fs-mobile-bar-height) + env(safe-area-inset-bottom, 0px));
+  padding: 0.5rem 0.5rem 0;
+  /* Safe area barre d'accueil iPhone */
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 6px);
+  height: auto;
+  min-height: var(--fs-mobile-bar-height);
 }
 
 @media (min-width: 992px) {
@@ -1511,14 +1525,22 @@ img {
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   z-index: 3000;
   display: flex;
-  align-items: center;
+  align-items: flex-end; /* Sur mobile: modal monte du bas */
   justify-content: center;
-  padding: 1rem;
+  padding: 0;
   opacity: 0;
   visibility: hidden;
   transition: var(--fs-transition);
+}
+
+@media (min-width: 768px) {
+  .fs-modal-backdrop {
+    align-items: center;
+    padding: 1rem;
+  }
 }
 
 .fs-modal-backdrop.active {
@@ -1528,19 +1550,38 @@ img {
 
 .fs-modal-window {
   background: #ffffff;
-  border-radius: var(--fs-radius-lg);
+  border-radius: var(--fs-radius-lg) var(--fs-radius-lg) 0 0; /* Arrondi seulement en haut sur mobile */
   max-width: 850px;
   width: 100%;
-  max-height: 90vh;
+  /* Calcul précis: 100vh - safe area top & bottom */
+  max-height: calc(100dvh - env(safe-area-inset-top, 20px) - env(safe-area-inset-bottom, 0px));
   overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   position: relative;
   box-shadow: var(--fs-shadow-lg);
-  transform: scale(0.95);
+  transform: translateY(30px);
   transition: var(--fs-transition);
+  /* Safe area bottom (barre d'accueil iPhone) */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (min-width: 768px) {
+  .fs-modal-window {
+    border-radius: var(--fs-radius-lg);
+    max-height: 90vh;
+    transform: scale(0.95);
+  }
 }
 
 .fs-modal-backdrop.active .fs-modal-window {
-  transform: scale(1);
+  transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+  .fs-modal-backdrop.active .fs-modal-window {
+    transform: scale(1);
+  }
 }
 
 .fs-modal-close {
@@ -1576,8 +1617,8 @@ img {
 @media (max-width: 768px) {
   .fs-modal-pdp {
     grid-template-columns: 1fr;
-    padding: 1.5rem;
-    gap: 1.25rem;
+    padding: 1rem;
+    gap: 1rem;
   }
 }
 
@@ -2032,4 +2073,123 @@ img {
   border-radius: 4px;
   transition: width 0.6s ease;
 }
+
+/* ==========================================================================
+   19. CORRECTIFS MOBILE CRITIQUES — Scroll horizontal & Safe Area
+   ========================================================================== */
+
+/* Bloquer tout débordement horizontal sans exception */
+section, header, footer, aside, nav, main, article {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Hero — slides ne débordent pas */
+.fs-hero,
+.fs-hero-card,
+.fs-hero-bg-carousel,
+.fs-hero-slide {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+/* Cartes produits — fix pour grid items */
+.fs-card {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Boutons d'action produit collés en bas de la modal — au-dessus de la barre Safari */
+.fs-pdp-actions {
+  position: sticky;
+  bottom: 0;
+  background: #ffffff;
+  padding: 1rem;
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 16px));
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  gap: 0.75rem;
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .fs-pdp-actions {
+    position: static;
+    padding: 1.5rem 0 0;
+    background: transparent;
+    border-top: none;
+  }
+}
+
+/* Scroll horizontal interne sans créer d'overflow global */
+.fs-categories-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.fs-categories-scroll::-webkit-scrollbar { display: none; }
+
+/* ==========================================================================
+   20. OPTIMISATIONS DE PERFORMANCE
+   ========================================================================== */
+
+/* Content-visibility pour les sections hors écran (gain chargement) */
+.fs-catalog-section,
+.fs-trust-section,
+.fs-testimonials-section,
+.fs-faq-section,
+.fs-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* GPU acceleration pour les images */
+.fs-card-img,
+.fs-pdp-main-img,
+.fs-pdp-thumb {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Skeleton loader pour images lazy */
+img[loading="lazy"] {
+  background: linear-gradient(90deg, #f0f4f8 25%, #e2e8f0 50%, #f0f4f8 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+}
+@keyframes skeleton-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* Réduction animations si préférence utilisateur */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* PDP mobile — contenu ne dépasse pas la barre Safari */
+@media (max-width: 767px) {
+  .fs-pdp-details {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+  }
+  .fs-pdp-title {
+    font-size: 1.2rem;
+  }
+  .fs-modal-window {
+    max-height: 95dvh;
+  }
+  /* Taille minimale tactile recommandée */
+  .fs-btn-add-cart,
+  .fs-btn-direct-wa {
+    min-height: 48px;
+    touch-action: manipulation;
+  }
+}
+
 
