@@ -24,13 +24,21 @@
       background: #141721;
       border: 1px solid rgba(212, 175, 55, 0.25);
       border-radius: var(--fs-radius-md);
-      padding: 1rem 1.5rem;
+      padding: 0.85rem 1rem;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.75rem;
-      flex-wrap: wrap;
-      gap: 1rem;
+      flex-direction: column;
+      align-items: stretch;
+      margin-bottom: 1.25rem;
+      gap: 0.85rem;
+    }
+    @media (min-width: 900px) {
+      .admin-top-nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1.75rem;
+      }
     }
     .admin-logo-wrap {
       display: flex;
@@ -39,19 +47,25 @@
     }
     .admin-nav-tabs {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.4rem;
       background: #0b0c10;
       padding: 4px;
       border-radius: var(--fs-radius-full);
-      flex-wrap: wrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap;
     }
+    .admin-nav-tabs::-webkit-scrollbar { display: none; }
     .admin-nav-tab {
-      padding: 0.5rem 1rem;
-      font-size: 0.85rem;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: #94a3b8;
       border-radius: var(--fs-radius-full);
       transition: var(--fs-transition);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .admin-nav-tab.active {
       background: var(--fs-gold-gradient);
@@ -59,9 +73,22 @@
     }
     .admin-kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 2rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .admin-kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .admin-kpi-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.25rem;
+        margin-bottom: 2rem;
+      }
     }
     .admin-kpi-card {
       background: #141721;
@@ -123,12 +150,47 @@
     }
     .admin-table-wrap {
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(212,175,55,0.3) transparent;
     }
     table.admin-table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
       font-size: 0.88rem;
+      min-width: 600px;
+    }
+
+    /* Cards mobile pour commandes */
+    .fs-order-cards-mobile { display: flex; flex-direction: column; gap: 0.85rem; }
+    .fs-order-card-m {
+      background: #1a1f2e; border: 1px solid rgba(212,175,55,0.2);
+      border-radius: 12px; padding: 1rem;
+    }
+    .fs-order-card-m-head {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; margin-bottom: 0.75rem; gap: 0.5rem;
+    }
+    .fs-order-card-m-ref { font-weight: 800; color: var(--fs-gold); font-size: 0.88rem; }
+    .fs-order-card-m-date { font-size: 0.73rem; color: #64748b; }
+    .fs-order-card-m-client { font-weight: 700; color: #fff; font-size: 0.9rem; }
+    .fs-order-card-m-phone { font-size: 0.8rem; color: #25d366; font-weight: 700; margin: 2px 0 0.5rem; }
+    .fs-order-card-m-items { font-size: 0.78rem; color: #94a3b8; margin-bottom: 0.5rem; }
+    .fs-order-card-m-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem;
+      padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .fs-order-card-m-amount { font-weight: 800; color: var(--fs-gold-light); font-size: 0.95rem; }
+
+    @media (max-width: 767px) {
+      .admin-table-wrap.fs-orders-table-wrap { display: none; }
+      .fs-order-cards-mobile { display: flex; }
+    }
+    @media (min-width: 768px) {
+      .admin-table-wrap.fs-orders-table-wrap { display: block; }
+      .fs-order-cards-mobile { display: none; }
     }
     table.admin-table th {
       background: #0f121a;
@@ -304,7 +366,7 @@
           </div>
           <button class="fs-btn-primary" style="padding: 0.45rem 1rem; font-size: 0.82rem;" onclick="switchAdminTab('tabOrders')">Gérer Tout le Planning</button>
         </div>
-        <div class="admin-table-wrap">
+        <div class="admin-table-wrap fs-orders-table-wrap">
           <table class="admin-table">
             <thead>
               <tr>
@@ -322,6 +384,8 @@
             </tbody>
           </table>
         </div>
+        <!-- Version CARDS pour mobile -->
+        <div class="fs-order-cards-mobile" id="upcomingOrdersMobile"></div>
       </div>
 
       <!-- Dernières Commandes Récentes -->
@@ -330,7 +394,7 @@
           <h3>Toutes les Commandes Récentes</h3>
           <button class="fs-btn-primary" style="padding: 0.45rem 1rem; font-size: 0.82rem;" onclick="switchAdminTab('tabOrders')">Voir Historique Complet</button>
         </div>
-        <div class="admin-table-wrap">
+        <div class="admin-table-wrap fs-orders-table-wrap">
           <table class="admin-table">
             <thead>
               <tr>
@@ -349,6 +413,8 @@
             </tbody>
           </table>
         </div>
+        <!-- Version CARDS pour mobile -->
+        <div class="fs-order-cards-mobile" id="overviewOrdersMobile"></div>
       </div>
     </div>
 
@@ -366,7 +432,7 @@
             <button class="fs-btn-video" style="font-size: 0.8rem; padding: 0.45rem 0.85rem;" onclick="filterOrdersByStatus('done')">Livrées</button>
           </div>
         </div>
-        <div class="admin-table-wrap">
+        <div class="admin-table-wrap fs-orders-table-wrap">
           <table class="admin-table">
             <thead>
               <tr>
@@ -386,6 +452,8 @@
             </tbody>
           </table>
         </div>
+        <!-- Version CARDS pour mobile -->
+        <div class="fs-order-cards-mobile" id="allOrdersMobile"></div>
       </div>
     </div>
 

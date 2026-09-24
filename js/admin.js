@@ -237,8 +237,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 6000);
   };
 
+  // Rendu Cards Mobiles
+  const renderOrdersCards = (containerId, orders, isUpcoming = false) => {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (!orders || orders.length === 0) {
+      container.innerHTML = `<div style="text-align: center; color: #64748b; padding: 1.5rem; background: #141721; border-radius: 12px; font-size: 0.82rem;">Aucune commande trouvée.</div>`;
+      return;
+    }
+
+    container.innerHTML = orders.map(o => {
+      const itemsText = o.items ? o.items.map(i => `${i.quantity}x ${i.name}`).join(', ') : 'Articles';
+      const formattedDate = new Date(o.date).toLocaleDateString('fr-FR', {
+        day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
+      });
+      const cleanPhone = (o.customerPhone || '').replace(/\s+/g, '');
+      const waLink = `https://wa.me/221${cleanPhone}?text=${encodeURIComponent('Bonjour ' + (o.customerName || '') + ', concernant votre commande Fallou Store ' + o.id + ' : ')}`;
+
+      return `
+        <div class="fs-order-card-m">
+          <div class="fs-order-card-m-head">
+            <div>
+              <span class="fs-order-card-m-ref">${o.id}</span>
+              <div class="fs-order-card-m-date">📅 ${formattedDate}</div>
+            </div>
+            <span class="badge-order-status ${getStatusBadgeClass(o.status)}">
+              ${o.status || 'À préparer'}
+            </span>
+          </div>
+
+          <div class="fs-order-card-m-client">👤 ${o.customerName || 'Client'}</div>
+          <div style="margin: 4px 0 8px;">
+            <a href="${waLink}" target="_blank" class="fs-order-card-m-phone" style="display: inline-flex; align-items: center; gap: 4px; text-decoration: none;">
+              💬 ${o.customerPhone || 'Contacter WhatsApp'}
+            </a>
+          </div>
+
+          <div class="fs-order-card-m-items">
+            📦 <b style="color: #cbd5e1;">Articles :</b> ${itemsText}
+          </div>
+
+          <div style="font-size: 0.78rem; color: #94a3b8; margin-bottom: 0.5rem;">
+            📍 <b style="color: #cbd5e1;">Zone :</b> ${o.deliveryZone || 'Dakar'}
+            ${o.deliverySlot ? `<span style="color: #fbbf24; margin-left: 6px;">⏰ ${o.deliverySlot}</span>` : ''}
+          </div>
+
+          <div class="fs-order-card-m-footer">
+            <div>
+              <span style="font-size: 0.72rem; color: #64748b; display: block;">Montant</span>
+              <span class="fs-order-card-m-amount">${formatFCFA(o.totalAmount || 0)}</span>
+            </div>
+            <div style="display: flex; gap: 0.4rem; align-items: center;">
+              <select class="fs-form-control" style="padding: 0.35rem 0.5rem; font-size: 0.76rem; background: #0b0c10; color: #fff; border-color: #334155; width: auto;" onchange="changeOrderStatus('${o.id}', this.value)">
+                <option value="À préparer" ${o.status === 'À préparer' ? 'selected' : ''}>🟡 À préparer</option>
+                <option value="En cours de livraison" ${o.status === 'En cours de livraison' ? 'selected' : ''}>🚚 En cours</option>
+                <option value="Livrée" ${o.status === 'Livrée' ? 'selected' : ''}>✅ Livrée</option>
+                <option value="Annulée" ${o.status === 'Annulée' ? 'selected' : ''}>❌ Annulée</option>
+              </select>
+              ${!isUpcoming ? `
+              <button onclick="confirmDeleteOrder('${o.id}')" title="Supprimer" style="color: #ef4444; background: rgba(239, 68, 68, 0.12); border: none; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 700;">
+                🗑️
+              </button>` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  };
+
   // 5. Rendu du Tableau des Commandes à Venir (Prioritaires)
   const renderUpcomingOrdersTable = (upcoming) => {
+    renderOrdersCards('upcomingOrdersMobile', upcoming, true);
     const tbody = document.getElementById('upcomingOrdersTableBody');
     if (!tbody) return;
 
@@ -293,6 +363,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 6. Rendu de la table Commandes Historique
   const renderOrdersTable = (tableId, orders) => {
+    const mobileMap = {
+      'overviewOrdersTable': 'overviewOrdersMobile',
+      'allOrdersTable': 'allOrdersMobile'
+    };
+    if (mobileMap[tableId]) {
+      renderOrdersCards(mobileMap[tableId], orders);
+    }
+
     const tbody = document.getElementById(tableId);
     if (!tbody) return;
 
