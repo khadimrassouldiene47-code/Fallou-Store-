@@ -131,18 +131,90 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('loginEmail').value.trim();
-      const pass = document.getElementById('loginPassword').value.trim();
+  // ── PROTECTION ANTI BRUTE-FORCE ──────────────────────────────────
+  const _rl = {
+    attempts: parseInt(sessionStorage.getItem('_fs_att') || '0'),
+    lockedUntil: parseInt(sessionStorage.getItem('_fs_lock') || '0'),
+    maxAttempts: 5,
+    save() {
+      sessionStorage.setItem('_fs_att',  String(this.attempts));
+      sessionStorage.setItem('_fs_lock', String(this.lockedUntil));
+    },
+    isLocked() { return Date.now() < this.lockedUntil; },
+    lockSeconds() { return Math.ceil((this.lockedUntil - Date.now()) / 1000); },
+    onFail() {
+      this.attempts++;
+      // Délai exponentiel : 0 / 0 / 5s / 30s / 5min / 30min
+      const delays = [0, 0, 5, 30, 300, 1800];
+      const delaySec = delays[Math.min(this.attempts, delays.length - 1)];
+      if (delaySec > 0) this.lockedUntil = Date.now() + delaySec * 1000;
+      this.save();
+    },
+    onSuccess() {
+      this.attempts = 0; this.lockedUntil = 0; this.save();
+    }
+  };
 
-      const validEmails = ['falluetsesvideos@gmail.com', 'contact@falloustore.com'];
-      if (validEmails.includes(email.toLowerCase()) && pass === 'FallouAdmin2026!') {
+  const _showLoginError = (msg) => {
+    let el = document.getElementById('_loginErrMsg');
+    if (!el) {
+      el = document.createElement('p');
+      el.id = '_loginErrMsg';
+      el.style.cssText = 'color:#f87171;font-size:.8rem;margin:.75rem 0 0;font-weight:600;text-align:center;';
+      const btn = document.querySelector('#adminLoginForm button[type="submit"]');
+      if (btn) btn.insertAdjacentElement('afterend', el);
+    }
+    el.textContent = msg;
+    setTimeout(() => { if (el) el.textContent = ''; }, 8000);
+  };
+
+  const _sha256 = async (str) => {
+    if (window.crypto && crypto.subtle) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    return '';
+  };
+
+  const _VALID_PASS_HASH = '8e50d690825214e6b4b034b1c08a0f2be0b3fb9b0c54f4a36d77e45403e1529f';
+  const _VALID_EMAIL_HASHES = [
+    'bce425596bd031dd1ef9c8c5ce505899afa40d1764162238d25d4154551dba5a', // primary
+    '96bb7df0e58457f1529aa74fe2e7a0cd637012e28e7e23e1de45977537a63225'  // fallback contact
+  ];
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Vérification honeypot (bot)
+      const honey = loginForm.querySelector('input[name="website"]');
+      if (honey && honey.value) return; // Bot détecté → ignorer silencieusement
+
+      // Vérification du verrouillage
+      if (_rl.isLocked()) {
+        _showLoginError(`Trop de tentatives. Réessayez dans ${_rl.lockSeconds()}s.`);
+        return;
+      }
+
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const pass  = document.getElementById('loginPassword').value.trim();
+
+      const [emailHash, passHash] = await Promise.all([_sha256(email), _sha256(pass)]);
+
+      const isAuthValid = passHash === _VALID_PASS_HASH && _VALID_EMAIL_HASHES.includes(emailHash);
+
+      if (isAuthValid) {
+        _rl.onSuccess();
         sessionStorage.setItem('fs_admin_logged', 'true');
         checkAuth();
       } else {
-        alert("Identifiants incorrects. Identifiant : Falluetsesvideos@gmail.com | Mot de passe : FallouAdmin2026!");
+        _rl.onFail();
+        const remaining = _rl.maxAttempts - _rl.attempts;
+        if (_rl.isLocked()) {
+          _showLoginError(`Compte temporairement bloqué. Attendez ${_rl.lockSeconds()}s.`);
+        } else {
+          _showLoginError(`Identifiants incorrects.${remaining > 0 ? ` Il vous reste ${remaining} tentative(s).` : ''}`);
+        }
       }
     });
   }

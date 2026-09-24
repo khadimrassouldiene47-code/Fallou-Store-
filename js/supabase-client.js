@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Fallou Store - Client Supabase avec synchronisation temps reel
  * URL: https://domzxqknhburyjmwykkn.supabase.co
  * Ce fichier gere: visites, commandes, paniers abandonnes, produits
@@ -140,8 +140,12 @@ class FallouStoreDB {
     stats.liveVisitors = Math.floor(Math.random() * 11) + 14;
     localStorage.setItem(this.localKeyStats, JSON.stringify(stats));
 
-    // Sync Supabase si online
-    if (this.isOnline) {
+    // Optimisation trafic élevé : 1 enregistrement Supabase par session toutes les 15 min
+    const lastRecKey = "fs_last_visit_rec";
+    const lastRec = parseInt(sessionStorage.getItem(lastRecKey) || "0");
+    const now = Date.now();
+    if (this.isOnline && (now - lastRec > 15 * 60 * 1000)) {
+      sessionStorage.setItem(lastRecKey, String(now));
       try {
         await this._req("POST", "visits", {
           session_id: this.sessionId,

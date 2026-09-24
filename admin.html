@@ -257,15 +257,17 @@
       <h2 style="font-family: var(--fs-font-display); font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem;">Espace Connexion</h2>
       <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 1.5rem;">Accès Réservé • Fallou Store</p>
 
-      <form id="adminLoginForm">
+      <form id="adminLoginForm" autocomplete="off">
+        <!-- Honeypot anti-bot (champ invisible) -->
+        <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off">
         <div style="margin-bottom: 1rem; text-align: left;">
-          <label style="display: block; font-size: 0.78rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.35rem;">Identifiant / Email</label>
-          <input type="email" id="loginEmail" class="fs-form-control" style="background: #0b0c10; border-color: #334155; color: #fff;" placeholder="Falluetsesvideos@gmail.com" required>
+          <label style="display: block; font-size: 0.78rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.35rem;">Identifiant</label>
+          <input type="email" id="loginEmail" class="fs-form-control" style="background: #0b0c10; border-color: #334155; color: #fff;" placeholder="exemple@domaine.com" required autocomplete="off">
         </div>
         <div style="margin-bottom: 1.5rem; text-align: left;">
           <label style="display: block; font-size: 0.78rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.35rem;">Mot de passe</label>
           <div style="position: relative;">
-            <input type="password" id="loginPassword" class="fs-form-control" style="background: #0b0c10; border-color: #334155; color: #fff; padding-right: 42px;" placeholder="••••••••••••" required>
+            <input type="password" id="loginPassword" class="fs-form-control" style="background: #0b0c10; border-color: #334155; color: #fff; padding-right: 42px;" placeholder="••••••••••••" required autocomplete="current-password">
             <button type="button" id="togglePasswordBtn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; cursor: pointer; padding: 4px;" title="Afficher/Masquer le mot de passe">
               <svg id="eyeIcon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>

@@ -541,8 +541,7 @@ const STORE_CONFIG = {
   promoVideoUrl: "https://res.cloudinary.com/dpw81ymi6/video/upload/v1790179358/video_2026-09-23_10-36-58_abtuya.mp4",
   adminEmail: "Falluetsesvideos@gmail.com",
   contactEmail: "Falluetsesvideos@gmail.com",
-  workingHours: "Lun - Dim : 09h00 - 21h00",
-  adminDefaultPasswordHash: "FallouAdmin2026!", // Mot de passe sécurisé pour l'accès local
+  adminDefaultPasswordHash: "8e50d690825214e6b4b034b1c08a0f2be0b3fb9b0c54f4a36d77e45403e1529f",
   whatsappNumbers: [
     { label: "Commercial 1 (Principal)", number: "221778944041", display: "+221 77 894 40 41" },
     { label: "Commercial 2 (Service Client)", number: "221710544141", display: "+221 71 054 41 41" }

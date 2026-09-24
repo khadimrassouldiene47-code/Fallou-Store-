@@ -659,6 +659,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
+  // Raccourci secret administrateur (Ctrl+Shift+A ou 5 clics rapides sur le logo)
+  let _logoClicks = 0;
+  let _logoTimer = null;
+  const brandLogos = document.querySelectorAll('.fs-brand');
+  brandLogos.forEach(logo => {
+    logo.addEventListener('click', (e) => {
+      _logoClicks++;
+      clearTimeout(_logoTimer);
+      if (_logoClicks >= 5) {
+        e.preventDefault();
+        window.location.href = 'admin.html';
+        return;
+      }
+      _logoTimer = setTimeout(() => { _logoClicks = 0; }, 2000);
+    });
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+      e.preventDefault();
+      window.location.href = 'admin.html';
+    }
+  });
+
   // Initialisations au chargement
   renderProducts();
   updateCartUI();

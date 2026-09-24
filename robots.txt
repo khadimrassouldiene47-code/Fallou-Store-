@@ -1,10 +1,20 @@
-# robots.txt pour Fallou Store (FS)
-# Domaine : www.falloustore.com
+# robots.txt — Fallou Store (FS)
+# https://www.falloustore.com
 
 User-agent: *
 Allow: /
-Disallow: /admin.html
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /connexion
+Disallow: /login
+Disallow: /odoo
+Disallow: /odoo-snippet.html
+Disallow: /js/admin.js
+Disallow: /js/supabase-client.js
+
+# Ne pas indexer les fichiers de configuration
+Disallow: /*.json$
+Disallow: /*.sql$
 
 # Sitemap
 Sitemap: https://www.falloustore.com/sitemap.xml
